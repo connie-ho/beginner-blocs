@@ -17,6 +17,11 @@
     "*.js": "eslint --cache --fix",
     "*.{ts,js,json,graphql,gql,yaml,yml,md}": "prettier --write"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/connie-ho/beginner-blocs.git"
