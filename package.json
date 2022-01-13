@@ -14,5 +14,8 @@
   "bugs": {
     "url": "https://github.com/connie-ho/beginner-blocs/issues"
   },
-  "homepage": "https://github.com/connie-ho/beginner-blocs#readme"
+  "homepage": "https://github.com/connie-ho/beginner-blocs#readme",
+  "dependencies": {
+    "dotenv": "^11.0.0"
+  }
 }
