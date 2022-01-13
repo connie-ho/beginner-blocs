@@ -14,9 +14,9 @@ jobs:
         uses: neofinancial/ticket-check-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          ticketLink: 'https://app.shortcut.com/:org/story/%ticketNumber%'
+          ticketLink: 'https://app.shortcut.com/ece651/story/%ticketNumber%'
           ticketPrefix: 'sc-'
           titleRegex: '^(CH|sc)(-?)(?<ticketNumber>\d+)'
           branchRegex: '^(CH|sc)(-?)(?<ticketNumber>\d+)'
           bodyRegex: '(CH|sc)(-?)(?<ticketNumber>\d+)'
-          bodyURLRegex: 'https?:\/\/app\.(clubhouse.io|shortcut.com)(\/:org)\/story\/(?<ticketNumber>\d+)'
+          bodyURLRegex: 'https?:\/\/app\.(clubhouse.io|shortcut.com)(\/ece651)\/story\/(?<ticketNumber>\d+)'
