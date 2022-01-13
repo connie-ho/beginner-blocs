@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An NFT Marketplace designed by beginners for beginners",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no test specified\"",
     "lint": "eslint \"**/*.{ts,js}\" --cache --fix",
     "format": "prettier --write \"**/*.{ts,js,json,graphql,gql,yaml,yml,md}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,graphql,gql,yaml,yml,md}\""
