@@ -9,13 +9,7 @@
     "format:check": "prettier --check \"**/*.{ts,js,json,graphql,gql,yaml,yml,md}\""
   },
   "lint-staged": {
-    "*.{ts,tsx,js}": [
-      "npm run format",
-      "npm run lint",
-      "git add ."
-    ],
-    "*.js": "eslint --cache --fix",
-    "*.{ts,js,json,graphql,gql,yaml,yml,md}": "prettier --write"
+    "*.js": ["eslint", "prettier --write"]
   },
   "husky": {
     "hooks": {
