@@ -1,6 +1,0 @@
-**/build
-**/coverage
-**/node_modules
-
-**/types.d.ts
-**/schema.d.ts
