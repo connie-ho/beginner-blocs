@@ -22,8 +22,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install
-        run: |
-        yarn install:all
+        run: yarn install:all
       - name: Format check
         run: yarn format:check
       - name: Lint
