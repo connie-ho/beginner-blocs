@@ -9,7 +9,10 @@
     "format:check": "prettier --check \"**/*.{ts,js,json,graphql,gql,yaml,yml,md}\""
   },
   "lint-staged": {
-    "*.js": ["eslint --cache --fix", "prettier --write"]
+    "*.js": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
   },
   "husky": {
     "hooks": {
