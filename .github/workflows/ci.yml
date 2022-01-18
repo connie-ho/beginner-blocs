@@ -23,8 +23,7 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: Install
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          yarn --prefer-offline --frozen-lockfile --no-progress --non-interactive
+        yarn
       - name: Format check
         run: yarn format:check
       - name: Lint
