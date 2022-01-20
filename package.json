@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\"",
     "lint": "eslint \"**/*.js\" --cache --fix",
     "format": "prettier --write \"**/*.{js,json,yaml,yml,md}\"",
-    "format:check": "prettier --check \"**/*.{js,json,yaml,yml,md}\""
+    "format:check": "prettier --check \"**/*.{js,json,yaml,yml,md}\"",
     "install:all": "npm install && cd ./frontend && npm install"
   },
   "lint-staged": {
