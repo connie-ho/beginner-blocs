@@ -22,10 +22,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Install
-        run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
-          yarn --prefer-offline --frozen-lockfile --no-progress --non-interactive
-      - name: Format
+        run: yarn install:all
+      - name: Format check
         run: yarn format
       - name: Lint
         run: yarn lint
