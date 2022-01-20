@@ -24,7 +24,7 @@ jobs:
       - name: Install
         run: yarn install:all
       - name: Format check
-        run: yarn format:check
+        run: yarn format
       - name: Lint
         run: yarn lint
       - name: Test Client
