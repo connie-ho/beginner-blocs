@@ -2,10 +2,7 @@ import React, {useEffect, useState} from "react";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
+  Route
 } from "react-router-dom";
 import "./App.css";
 
@@ -64,7 +61,7 @@ function App() {
       </header>
       {account !== "" ?
       <p>Account connected</p> :
-      <button onClick={connectWallet}>Connect Wallet</button>
+      <button onClick={connectWallet}>Login</button>
       }
       <Router>
         <Routes>
