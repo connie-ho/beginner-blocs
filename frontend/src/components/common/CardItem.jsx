@@ -28,7 +28,7 @@ const CardItem = ({ children, onClick, rootClassName, ...props }) => {
 
   return (
     <Card 
-      boxShadow={4}
+      boxshadow={4}
       variant="outlined"
       className={`${classes.root} ${rootClassName}`} 
       onClick={onClick}
