@@ -5,6 +5,7 @@ import { ethers } from 'ethers';
 
 function App() {
   const [account, setAccount] = useState('');
+  let loggedIn = localStorage.getItem('loggedIn') || null;
 
   const checkWalletConnection = async () => {
     const { ethereum } = window;
@@ -15,7 +16,6 @@ function App() {
       console.log('Ethereum object detected', ethereum);
     }
 
-    let loggedIn = localStorage.getItem('loggedIn') || null;
     //check if user has already logged in, then set account state
     if (loggedIn) {
       const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
@@ -68,7 +68,7 @@ function App() {
       <header className="App-header">
         <p>Hello Warld</p>
       </header>
-      {account !== '' ? (
+      {loggedIn ? (
         <button onClick={disconnectWallet}>Logout</button>
       ) : (
         <button onClick={connectWallet}>Login</button>
