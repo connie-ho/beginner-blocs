@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import { ethers } from 'ethers';
 
 function useWalletConnection() {
@@ -10,23 +10,19 @@ function useWalletConnection() {
     if (!ethereum) {
       console.log('Metamask not installed');
       return;
-    } else {
-      console.log('Ethereum object detected', ethereum);
     }
-
     //check if user has already logged in, then set account state
-    if (loggedIn) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-      const accounts = await provider.send('eth_accounts', []);
+    if (!loggedIn) return;
 
-      if (accounts.length !== 0) {
-        const account = accounts[0];
-        setAccount(account);
-        return;
-      } else {
-        console.log('No account found');
-      }
+    //grab provider to get account
+    const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+    const accounts = await provider.send('eth_accounts', []);
+    if (accounts.length !== 0) {
+      const account = accounts[0];
+      setAccount(account);
+      return;
     }
+    
   };
 
   const connectWallet = async () => {
