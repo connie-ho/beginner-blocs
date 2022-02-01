@@ -1,7 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from '@mui/styles';
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
+import {useNavigate} from "react-router-dom";
+import {ethers} from "ethers";
 
 const useStyles = makeStyles((theme)=> ({
   banner: {
@@ -44,27 +46,47 @@ const useStyles = makeStyles((theme)=> ({
 }))
 
 const Profile = (props) => {
+
   const {account} = props
-  const classes = useStyles()
+  const [balance,setBalance] = useState(0)
+  const navigate = useNavigate();
+  const classes = useStyles();
+  
+  const grabAccountInformation = async (account) => {
+    if (account) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+      let wei = await provider.getBalance(`${account}`)
+      const ethBalance = ethers.utils.formatEther(wei)
+      setBalance(ethBalance)
+      return
+     }
+  }
+
+  useEffect(async () => {
+    grabAccountInformation(account);
+    return () => {
+      setBalance(0);
+    }
+  },[account, balance])
+
   return (
     <>
       <Grid container >
         <Grid item xs={1}/>
         <Grid item xs={10} container direction ="column">
           
-          <div class={classes.banner}>
-
+          <div className={classes.banner}>
           <img 
-                class={classes.img}
-                src={require('../assets/default.png')}
-                alt="default"
-                />
+              className={classes.img}
+              src={require('../assets/default.png')}
+              alt="default"
+          />
           </div>
-          <div class={classes.header}>
+          <div className={classes.header}>
             <div>
             </div>
             <h1>{account}</h1>
-            <h1>Credits: 0 Eth</h1>
+            <h1>Credits: {balance} Eth</h1>
             <h1></h1>
           </div>
           <Divider></Divider>

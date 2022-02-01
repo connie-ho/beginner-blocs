@@ -16,6 +16,7 @@ function useWalletConnection() {
 
     //grab provider to get account
     const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+
     const accounts = await provider.send('eth_accounts', []);
     if (accounts.length !== 0) {
       const account = accounts[0];
