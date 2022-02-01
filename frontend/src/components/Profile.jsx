@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { makeStyles } from '@mui/styles';
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import {ethers} from "ethers";
@@ -7,6 +6,7 @@ import TabPanel from "./common/TabPanel";
 import ProfileBanner from "./profile/ProfileBanner";
 import AccountInfo from "./profile/AccountInfo";
 import TabOptions from "./profile/TabOptions";
+import NFTList from "./profile/NFTList";
 
 
 const Profile = (props) => {
@@ -48,7 +48,7 @@ const Profile = (props) => {
             <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
             <Divider/>
             <TabPanel value={tabValue} index={1}>
-                <h1>Hello World</h1>
+              <NFTList></NFTList>
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
             <h2>Hello World2</h2>
