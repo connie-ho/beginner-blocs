@@ -15,25 +15,23 @@ const Profile = (props) => {
   const [balance,setBalance] = useState(0)
   const [tabValue, setTabValue] = useState(1)
 
-  const grabAccountInformation = async (account) => {
-    if (account) {
-      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-      let wei = await provider.getBalance(`${account}`)
-      const ethBalance = ethers.utils.formatEther(wei)
-      setBalance(ethBalance)
-      return
-     }
-  }
+
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   }
 
-  useEffect(async () => {
-    grabAccountInformation(account);
-    return () => {
-      setBalance(0);
+  useEffect(() => {
+    const grabAccountInformation = async (account) => {
+      if (account) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+        let wei = await provider.getBalance(`${account}`)
+        const ethBalance = ethers.utils.formatEther(wei)
+        setBalance(ethBalance)
+        return
+       }
     }
+    grabAccountInformation(account);
   },[account, balance])
 
 

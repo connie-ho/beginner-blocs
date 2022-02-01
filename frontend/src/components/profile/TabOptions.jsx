@@ -12,10 +12,10 @@ const TabOptions = (props) => {
     indicatorColor='secondary'
     variant='fullWidth'
     centered
+    style={{fontSize:'50rem'}}
   >
-    <Tab value={1} label="Owned" />
-    <Tab value={2} label="Created" />
-    <Tab value={3} label="Listed" />
+    <Tab sx={{fontSize:'1.5rem'}} value={1} label="Owned" />
+    <Tab sx={{fontSize:'1.5rem'}} value={3} label="Listed" />
   </Tabs>
   );
 };

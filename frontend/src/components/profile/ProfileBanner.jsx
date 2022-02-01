@@ -5,7 +5,7 @@ const useStyles = makeStyles((theme)=> ({
   banner: {
     backgroundColor:theme.palette.secondary.main,
     opacity:'0.3',
-    height: '35rem',
+    height: '40rem',
     margin: '2rem',
     position:'relative',
     alignItems: 'center',

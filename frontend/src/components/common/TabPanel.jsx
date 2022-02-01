@@ -4,7 +4,7 @@ const TabPanel = ({ children, value, index}) => {
 
   return (
     <div>
-      {value == index ? children : null}
+      {value === index ? children : null}
     </div>
   );
 };
