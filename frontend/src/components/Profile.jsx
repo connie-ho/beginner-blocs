@@ -37,7 +37,7 @@ const Profile = (props) => {
 
   return (
     <>
-      <Grid container >
+      <Grid container style={{minHeight:'100rem'}}>
         <Grid item xs={1}/>
         <Grid item xs={10} container direction ="column">
           <ProfileBanner/>

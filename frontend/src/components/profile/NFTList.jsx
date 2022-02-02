@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme)=> ({
 }))
 
 const NFTList = (props) => {
-  let testArray = []
+  let testArray = [1]
   const classes = useStyles();
   const cardTest = testArray.map((item) => {
     return (
