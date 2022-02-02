@@ -21,6 +21,7 @@ const NFTList = (props) => {
       alignItems='center'
       justifyContent='center'
       container
+      sx={{padding:"2rem"}}
       >
         <CardItem>
           <img
