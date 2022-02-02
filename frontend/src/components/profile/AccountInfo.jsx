@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme)=> ({
     position: 'relative',
     alignItems: 'center',
     marginBottom: '2rem',
-    marginTop:'10rem'
+    marginTop:'5rem'
   },
 }))
 
@@ -72,7 +72,7 @@ const AccountInfo = (props) => {
   return (
     <div className={classes.header} name='account-info'>
       <AccountButton id='account-button' onClick={copyText}>{account}</AccountButton>
-      <h2>Credits: {balance} Eth</h2>
+      <p style={{fontSize:'2rem'}}>Credits: {balance} Eth</p>
       <Snackbar
         style={{backgroundColor:"white"}}
         open={alert}

@@ -7,7 +7,7 @@ import ProfileBanner from "./profile/ProfileBanner";
 import AccountInfo from "./profile/AccountInfo";
 import TabOptions from "./profile/TabOptions";
 import NFTList from "./profile/NFTList";
-
+import ProfileCarousel from "./profile/ProfileCarousel";
 
 const Profile = (props) => {
 

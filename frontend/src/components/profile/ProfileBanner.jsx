@@ -1,11 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+import ProfileCarousel from './ProfileCarousel';
 
 const useStyles = makeStyles((theme)=> ({
   banner: {
-    backgroundColor:theme.palette.secondary.main,
-    opacity:'0.3',
-    height: '40rem',
+    backgroundColor:'rgba(5,24,52,0.3)',
+    height: '60rem',
     margin: '2rem',
     position:'relative',
     alignItems: 'center',
@@ -30,6 +30,7 @@ const ProfileBanner = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.banner} name='banner'>
+      <ProfileCarousel/>
     <img 
         className={classes.img}
         src={require('../../assets/default.png')}
