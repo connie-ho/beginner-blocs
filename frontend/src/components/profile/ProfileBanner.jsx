@@ -4,8 +4,8 @@ import ProfileCarousel from './ProfileCarousel';
 
 const useStyles = makeStyles((theme)=> ({
   banner: {
-    backgroundColor:'rgba(5,24,52,0.3)',
-    height: '60rem',
+    backgroundColor:'rgba(5,24,52,0.1)',
+    height: '45rem',
     margin: '2rem',
     position:'relative',
     alignItems: 'center',

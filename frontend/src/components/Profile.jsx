@@ -7,7 +7,7 @@ import ProfileBanner from "./profile/ProfileBanner";
 import AccountInfo from "./profile/AccountInfo";
 import TabOptions from "./profile/TabOptions";
 import NFTList from "./profile/NFTList";
-import ProfileCarousel from "./profile/ProfileCarousel";
+import NoItems from "./profile/NoItems";
 
 const Profile = (props) => {
 
@@ -49,10 +49,10 @@ const Profile = (props) => {
               <NFTList></NFTList>
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
-            <h2>Hello World2</h2>
+              <NoItems type='created'/>
             </TabPanel>
             <TabPanel value={tabValue} index={3}>
-            <h2>Hello World3</h2>
+              <NoItems type='listed'/>
             </TabPanel>
           </div>
         </Grid>

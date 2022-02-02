@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from "@mui/material/Grid";
 import CardItem from '../common/CardItem';
 import { makeStyles } from '@mui/styles';
-
+import NoItems from './NoItems';
 const useStyles = makeStyles((theme)=> ({
   img: {
     width: theme.typography.pxToRem(350),
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme)=> ({
 }))
 
 const NFTList = (props) => {
-  let testArray = [1,2,3,4,5,6,7,8,9,10]
+  let testArray = []
   const classes = useStyles();
   const cardTest = testArray.map((item) => {
     return (
@@ -34,6 +34,12 @@ const NFTList = (props) => {
       </Grid>
     )
   })
+
+  if (cardTest.length === 0) {
+    return (
+      <NoItems type="owned"/>    
+      )
+  }
 
   return (
     <Grid item xs={12} container spacing={2} justifyContent="flex-start" alignItems="center" style={{paddingTop:"3rem"}} >

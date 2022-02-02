@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme)=> ({
     width: theme.typography.pxToRem(350),
     marginBottom: theme.spacing(2),
     borderRadius: theme.typography.pxToRem(4),
-  },
-  carousel: {
-    width:'100%'
   }
 }))
 
@@ -36,7 +33,7 @@ const responsive = {
   }
 };
 
-const ProfileCarousel = (props) => {
+const ProfileCarousel = ({props, children}) => {
 
   let testArray = [1,2,3,4,5,6]
   const classes = useStyles();
@@ -68,7 +65,7 @@ const ProfileCarousel = (props) => {
   itemClass='item'
   keyBoardControl
   minimumTouchDrag={80}
-  renderButtonGroupOutside={false}
+  renderButtonGroupOutside={true}
   renderDotsOutside
   responsive={responsive}>
     {cardTest}
