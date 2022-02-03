@@ -1,10 +1,10 @@
-import {useState, useEffect} from "react";
+import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 
 function useWalletConnection() {
   const [account, setAccount] = useState(null);
-  let loggedIn = localStorage.getItem("loggedIn") || null;
-  
+  let loggedIn = localStorage.getItem('loggedIn') || null;
+
   const checkWalletConnection = async () => {
     const { ethereum } = window;
     if (!ethereum) {
@@ -22,7 +22,6 @@ function useWalletConnection() {
       setAccount(account);
       return;
     }
-    
   };
 
   const connectWallet = async () => {
@@ -32,18 +31,18 @@ function useWalletConnection() {
         alert('Metamask not installed, please install metamask!');
         return;
       }
-      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+      const provider = new ethers.providers.Web3Provider(ethereum, 'any');
+      console.log(provider);
       await provider.send('wallet_requestPermissions', [
         {
           eth_accounts: {},
         },
       ]);
-      
+
       const accounts = await provider.send('eth_requestAccounts');
 
       localStorage.setItem('loggedIn', 'true');
       setAccount(accounts[0]);
-
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +62,7 @@ function useWalletConnection() {
     account,
     connectWallet,
     disconnectWallet,
-  }
+  };
 }
 
 export default useWalletConnection;

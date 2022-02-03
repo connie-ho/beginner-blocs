@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import env from 'react-dotenv';
 
 import { ethers } from 'ethers';
 import axios from 'axios';
@@ -10,7 +11,7 @@ import Market from '../artifacts/contracts/Market.sol/NFTMarket.json';
 
 const useGetNFTs = () => {
   const loadNFTs = async () => {
-    // const provider = new ethers.providers.getDefaultProvider('https://ropsten.infura.io/v3/0f9683418f3d46a6b4904bee7eea9f7c')
+    // const provider = new ethers.providers.getDefaultProvider(env.PROJECT_URL)
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer);
