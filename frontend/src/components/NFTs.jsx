@@ -12,40 +12,24 @@ import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
 import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
 
 import CardItem from './common/CardItem';
+import { useGetNFTs } from '../hooks/use-get-nfts';
 
 
 const NFTs = () => {
     const [nfts, setNfts] = useState([])
-    const [loading, setLoading] = useState('not-loaded')
+    const [loading, setLoading] = useState(false)
+
+    const {loadNFTs} = useGetNFTs()
 
     useEffect(() => {
-      loadNFTs()
-    }, [])
+      const fetchItems = async () => {
+        const items = await loadNFTs()
+        setNfts(items)
+        setLoading(false) 
+      }
 
-    async function loadNFTs() {    
-      const provider = new ethers.providers.JsonRpcProvider('https://ropsten.infura.io/v3/0f9683418f3d46a6b4904bee7eea9f7c')
-      const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
-      const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider)
-      const data = await marketContract.fetchMarketItems()
-      
-      const items = await Promise.all(data.map(async i => {
-        const tokenUri = await tokenContract.tokenURI(i.tokenId)
-        const meta = await axios.get(tokenUri)
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
-        let item = {
-          price,
-          itemId: i.itemId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.data.image,
-          name: meta.data.name,
-          description: meta.data.description,
-        }
-        return item
-      }))
-      setNfts(items)
-      setLoading(false) 
-    }
+      fetchItems()
+    }, [loadNFTs])
 
     if(loading){
         return (
@@ -55,7 +39,7 @@ const NFTs = () => {
       )
     }
 
-    const NftCards = nfts.map(nft => (
+    const NftCards = nfts?.map(nft => (
         <CardItem>
             <img
             src={nft.image}
