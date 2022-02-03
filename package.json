@@ -11,12 +11,11 @@
     "test:frontend": "cd ./frontend && npm run test"
   },
   "lint-staged": {
-    "*.{js}": [
+    "*.js": [
       "npm run format",
       "npm run lint",
       "git add ."
     ],
-    "*.js": "eslint --cache --fix",
     "*.{js,json,yaml,yml,md}": "prettier --write"
   },
   "husky": {
