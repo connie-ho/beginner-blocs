@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 import { AppBar, Toolbar } from '@mui/material';
-
+import NavButton from './common/NavButton';
 import logo from '../assets/logo.jpg';
 
 const useStyles = makeStyles(theme => ({
@@ -34,9 +34,9 @@ const useStyles = makeStyles(theme => ({
   })
 );
 
-const Nav = () => {
+const Nav = (props) => {
   const classes = useStyles();
-
+  const {connect, disconnect, loggedIn} = props
   return (
     <AppBar position="static">
       <Toolbar className={classes.root}>
@@ -50,9 +50,15 @@ const Nav = () => {
             <h2 className={classes.link}>Beginner Blocs</h2>
           </NavLink>
         </div>
-        <NavLink className={classes.link} to="/login">
+        {loggedIn ?
+        <NavButton onClick={disconnect}>
+          Logout
+        </NavButton> :
+        <NavButton onClick={connect}>
           Login
-        </NavLink>
+        </NavButton> 
+        }
+
       </Toolbar>
     </AppBar>
   );

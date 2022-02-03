@@ -7,12 +7,17 @@ import {
 
 import Nav from './components/Nav'
 import Home from './components/Home'
+import useWalletConnection from "./hooks/useWalletConnection";
 
 function App() {
 
+  const {account, connectWallet, disconnectWallet} = useWalletConnection();
+
   return (
     <Router>
-      <Nav />
+      <Nav connect={connectWallet}
+           disconnect={disconnectWallet}
+           loggedIn={account} />
       <Routes>
         <Route path="/FAQ" />
         <Route path="getting-started" />

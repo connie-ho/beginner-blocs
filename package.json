@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "An NFT Marketplace designed by beginners for beginners",
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "test": "npx hardhat test",
     "lint": "eslint \"**/*.js\" --cache --fix",
     "format": "prettier --write \"**/*.{js,json,yaml,yml,md}\"",
     "format:check": "prettier --check \"**/*.{js,json,yaml,yml,md}\"",
-    "install:all": "npm install && cd ./frontend && npm install"
+    "install:all": "npm install && cd ./frontend && npm install",
+    "test:frontend": "cd ./frontend && npm run test"
   },
   "lint-staged": {
     "*.{js}": [
@@ -36,6 +37,7 @@
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.4",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@openzeppelin/contracts": "^4.4.2",
     "dotenv": "^11.0.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.3",
