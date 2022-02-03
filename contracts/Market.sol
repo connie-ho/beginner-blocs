@@ -69,15 +69,15 @@ contract NFTMarket is ReentrancyGuard {
       false
     );
 
-    idToCartItem[itemId] =  MarketItem(
-      itemId,
-      nftContract,
-      tokenId,
-      payable(msg.sender),
-      payable(address(0)),
-      price,
-      false
-    );
+    // idToCartItem[itemId] =  MarketItem(
+    //   itemId,
+    //   nftContract,
+    //   tokenId,
+    //   payable(msg.sender),
+    //   payable(address(0)),
+    //   price,
+    //   false
+    // );
 
     IERC721(nftContract).transferFrom(msg.sender, address(this), tokenId);
 
@@ -111,37 +111,37 @@ contract NFTMarket is ReentrancyGuard {
   }
 
 
-  /* Puts the marketplace item into a shopping cart */
-  function addShoppingCart(unit itemId) public payable nonReentrant {
-    uint price = idToCartItem[itemId].price;
-    uint tokenId = idToCartItem[itemId].tokenId;
-//    require(msg.value == price, "Please submit the asking price in order to complete the purchase");
+//   /* Puts the marketplace item into a shopping cart */
+//   function addShoppingCart(uint itemId) public payable nonReentrant {
+//     uint price = idToCartItem[itemId].price;
+//     uint tokenId = idToCartItem[itemId].tokenId;
+// //    require(msg.value == price, "Please submit the asking price in order to complete the purchase");
 
-    idToCartItem[itemId].seller.transfer(msg.value);
-    IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
-    idToCartItem[itemId].owner = payable(msg.sender);
-    idToCartItem[itemId].sold = false;
-    _itemsInCart.increment();
-//    payable(owner).transfer(listingPrice);
-  }
+//     idToCartItem[itemId].seller.transfer(msg.value);
+//     IERC721(nftContract).transferFrom(address(this), msg.sender, tokenId);
+//     idToCartItem[itemId].owner = payable(msg.sender);
+//     idToCartItem[itemId].sold = false;
+//     _itemsInCart.increment();
+// //    payable(owner).transfer(listingPrice);
+//   }
 
   /* Returns all items in shopping cart */
-  function fetchCartItems() public view returns (MarketItem[] memory) {
-    uint itemCount = _itemIds.current();
-    uint unsoldItemCount = _itemIds.current() - _itemsInCart.current();
-    uint currentIndex = 0;
+  // function fetchCartItems() public view returns (MarketItem[] memory) {
+  //   uint itemCount = _itemIds.current();
+  //   uint unsoldItemCount = _itemIds.current() - _itemsInCart.current();
+  //   uint currentIndex = 0;
 
-    MarketItem[] memory items = new MarketItem[](unsoldItemCount);
-    for (uint i = 0; i < itemCount; i++) {
-      if (idToCartItem[i + 1].owner == address(0)) {
-        uint currentId = i + 1;
-        MarketItem storage currentItem = idToCartItem[currentId];
-        items[currentIndex] = currentItem;
-        currentIndex += 1;
-      }
-    }
-    return items;
-  }
+  //   MarketItem[] memory items = new MarketItem[](unsoldItemCount);
+  //   for (uint i = 0; i < itemCount; i++) {
+  //     if (idToCartItem[i + 1].owner == address(0)) {
+  //       uint currentId = i + 1;
+  //       MarketItem storage currentItem = idToCartItem[currentId];
+  //       items[currentIndex] = currentItem;
+  //       currentIndex += 1;
+  //     }
+  //   }
+  //   return items;
+  // }
 
 
   /* Returns all unsold market items */
