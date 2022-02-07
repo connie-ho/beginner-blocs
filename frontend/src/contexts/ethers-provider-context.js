@@ -14,7 +14,6 @@ const EthersContextProvider = ({ children }) => {
   const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider);
 
   const value = {
-    provider,
     tokenContract,
     marketContract,
   };
