@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import env from 'react-dotenv';
-
 import { ethers } from 'ethers';
 import axios from 'axios';
 
-import { nftaddress, nftmarketaddress } from '../config';
-
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
-import Market from '../artifacts/contracts/Market.sol/NFTMarket.json';
-
 const useGetNFTs = () => {
-  const loadNFTs = async () => {
-    // const provider = new ethers.providers.getDefaultProvider(env.PROJECT_URL)
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer);
-    const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
+  const loadNFTs = async ({ tokenContract, marketContract }) => {
     const data = await marketContract.fetchMarketItems();
 
     const items = await Promise.all(

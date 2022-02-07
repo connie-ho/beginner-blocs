@@ -1,35 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Grid } from '@mui/material'
 
-import { ethers } from 'ethers'
-import axios from 'axios'
-
-import {
-    nftaddress, nftmarketaddress
-} from '../config'
-
-import NFT from '../artifacts/contracts/NFT.sol/NFT.json'
-import Market from '../artifacts/contracts/Market.sol/NFTMarket.json'
+import { useGetNFTs } from '../hooks/use-get-nfts';
+import { EthersContext } from '../contexts/ethers-provider-context';
 
 import CardItem from './common/CardItem';
-import { useGetNFTs } from '../hooks/use-get-nfts';
-
 
 const NFTs = () => {
     const [nfts, setNfts] = useState([])
     const [loading, setLoading] = useState(false)
+    const { tokenContract, marketContract } = useContext(EthersContext)
 
-    const {loadNFTs} = useGetNFTs()
+    const { loadNFTs } = useGetNFTs()
 
     useEffect(() => {
       const fetchItems = async () => {
-        const items = await loadNFTs()
+        const items = await loadNFTs({ tokenContract, marketContract })
         setNfts(items)
+        console.log(items)
         setLoading(false) 
       }
 
       fetchItems()
-    }, [loadNFTs])
+    }, [loadNFTs, tokenContract, marketContract])
 
     if(loading){
         return (
