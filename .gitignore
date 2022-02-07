@@ -3,5 +3,3 @@
 .env
 .eslintcache
 /cache
-
-**/artifacts
