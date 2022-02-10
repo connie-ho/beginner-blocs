@@ -8,21 +8,27 @@ import CardItem from './common/CardItem';
 
 const NFTs = () => {
     const [nfts, setNfts] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const { tokenContract, marketContract } = useContext(EthersContext)
 
     const { loadNFTs } = useGetNFTs()
 
     useEffect(() => {
       const fetchItems = async () => {
-        const items = await loadNFTs({ tokenContract, marketContract })
-        setNfts(items)
-        console.log(items)
-        setLoading(false) 
+        try {
+          const items = await loadNFTs({ tokenContract, marketContract })
+          setNfts(items)
+          console.log(items)
+        } catch(err) {
+          console.log(err.message)
+        } finally {
+          setLoading(false) 
+        }
       }
 
       fetchItems()
-    }, [loadNFTs, tokenContract, marketContract])
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     if(loading){
         return (

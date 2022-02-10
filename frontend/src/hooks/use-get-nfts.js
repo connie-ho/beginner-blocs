@@ -1,8 +1,10 @@
+import { useCallback } from 'react';
+
 import { ethers } from 'ethers';
 import axios from 'axios';
 
 const useGetNFTs = () => {
-  const loadNFTs = async ({ tokenContract, marketContract }) => {
+  const loadNFTs = useCallback(async ({ tokenContract, marketContract }) => {
     const data = await marketContract.fetchMarketItems();
 
     const items = await Promise.all(
@@ -24,7 +26,7 @@ const useGetNFTs = () => {
     );
 
     return items;
-  };
+  }, []);
 
   return { loadNFTs };
 };
