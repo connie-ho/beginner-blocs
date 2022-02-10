@@ -14,12 +14,7 @@ const EthersContextProvider = ({ children }) => {
   const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
   const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider);
 
-  const value = {
-    tokenContract,
-    marketContract,
-  };
-
-  return <EthersContext.Provider value={value}>{children}</EthersContext.Provider>;
+  return <EthersContext.Provider value={{ tokenContract, marketContract }}>{children}</EthersContext.Provider>;
 };
 
 export default EthersContextProvider;
