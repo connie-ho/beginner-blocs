@@ -39,4 +39,12 @@ describe("NFTMarket", function() {
     }))
     console.log('items: ', items)
   })
+  
+  expect(items).to.deep.equal([{
+    price: 1,
+    //... other fields
+  }, {
+    price: 2,
+    //... other fields in the item object to assert
+  }])
 })
