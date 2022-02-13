@@ -1,7 +1,6 @@
 import Carousel from 'react-multi-carousel';
 import React from 'react';
 import 'react-multi-carousel/lib/styles.css';
-import CardItem from '../common/CardItem';
 import { makeStyles } from '@mui/styles';
 import './carousel.css';
 

@@ -3,6 +3,8 @@ import Grid from "@mui/material/Grid";
 import CardItem from '../common/CardItem';
 import { makeStyles } from '@mui/styles';
 import NoItems from './NoItems';
+
+
 const useStyles = makeStyles((theme)=> ({
   img: {
     width: theme.typography.pxToRem(350),
@@ -12,7 +14,8 @@ const useStyles = makeStyles((theme)=> ({
 }))
 
 const NFTList = (props) => {
-  let testArray = [1]
+
+  let testArray = [1,2,3,4]
   const classes = useStyles();
   const cardTest = testArray.map((item) => {
     return (
