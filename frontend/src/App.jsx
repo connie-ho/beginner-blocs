@@ -7,7 +7,7 @@ import {
 
 import Nav from './components/Nav'
 import Home from './components/Home'
-import useWalletConnection from "./hooks/useWalletConnection";
+import useWalletConnection from "./hooks/use-wallet-connection";
 import Profile from './components/Profile'
 
 function App() {
