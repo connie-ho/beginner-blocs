@@ -1,15 +1,19 @@
-import { render} from '@testing-library/react';
 import ReactDOM from 'react-dom';
-import App from '../App';
-import { theme } from '../theme/theme';
 import { ThemeProvider } from '@mui/material';
+
+import App from '../App';
+
+import EthersContextProvider from '../contexts/ethers-provider-context';
+import { theme } from '../theme/theme';
 
 describe('Application', () => {
   it('renders main page appropriately', async () => {
     const div = document.createElement('div');
     ReactDOM.render(
       <ThemeProvider theme={theme}>
+        <EthersContextProvider>
           <App />
+        </EthersContextProvider>
       </ThemeProvider>,
       div
   );

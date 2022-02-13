@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "An NFT Marketplace designed by beginners for beginners",
   "scripts": {
+    "prepare": "husky install",
     "test": "npx hardhat test",
     "lint": "eslint \"**/*.js\" --cache --fix",
     "format": "prettier --write \"**/*.{js,json,yaml,yml,md}\"",
@@ -11,12 +12,11 @@
     "test:frontend": "cd ./frontend && npm run test"
   },
   "lint-staged": {
-    "*.{js}": [
+    "*.js": [
       "npm run format",
       "npm run lint",
       "git add ."
     ],
-    "*.js": "eslint --cache --fix",
     "*.{js,json,yaml,yml,md}": "prettier --write"
   },
   "husky": {

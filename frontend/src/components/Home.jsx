@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 import { Button } from "@mui/material";
 
 import CardItem from "./common/CardItem";
+import NFTs from './NFTs';
 import home from '../assets/home.jpeg'
 
 const useStyles = makeStyles((theme)=> ({
@@ -50,6 +51,8 @@ const Home = () => {
         </div>
       </section>
       <section>
+        <NFTs />
+
         <CardItem>
           <img
             className={classes.img}
