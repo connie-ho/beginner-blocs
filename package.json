@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/connie-ho/beginner-blocs#readme",
   "dependencies": {
+    "@alch/alchemy-web3": "^1.2.3",
     "@nomiclabs/hardhat-ethers": "^2.0.4",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.4.2",
