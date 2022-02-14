@@ -1,0 +1,205 @@
+(base) yulinwan@Yulins-Air blockchain1112 % java -cp ".:gson-2.8.2.jar" Blockchain.java 2
+
+Running now
+
+Clark Elliott's Block Coordination Framework. Use Control-C to stop the process.
+
+Using processID 2
+
+Starting Key Server input thread using 4712
+Starting the Blockchain server input thread using 4932
+Starting the Unverified Block Server input thread using 4822
+process2 has sent Start Signal to other processes
+Got key: Process1
+Got key: Process0
+Got key: Process2
+Sending UVBs to process 0...
+Sending UVBs to process 1...
+Sending UVBs to process 2...
+Sending UVBs to process 0...
+Sending UVBs to process 1...
+Sending UVBs to process 2...
+Sending UVBs to process 0...
+Sending UVBs to process 1...
+Sending UVBs to process 2...
+Received UVB:  2022-02-01.03:22:42.1 (BlockID:7bacdb99-6689-411d-a9e3-b9451663cd2c from P1)
+Received UVB:  2022-02-01.03:22:42.2 (BlockID:c080f8e5-3822-44b6-abe1-6bdf1b00251a from P2)
+Received UVB:  2022-02-01.03:22:43.1 (BlockID:d6387592-754d-4a8e-804e-9ba6838751ba from P1)
+Sending UVBs to process 0...
+Received UVB:  2022-02-01.03:22:44.2 (BlockID:70e2c65d-bc99-42bc-b032-086c735cf2c0 from P2)
+Received UVB:  2022-02-01.03:22:42.0 (BlockID:0ba64fbe-47d5-4e25-8cbf-562d1fe19d63 from P0)
+Received UVB:  2022-02-01.03:22:44.1 (BlockID:de44d554-b69d-48df-a3a1-88b022cc4cac from P1)
+Received UVB:  2022-02-01.03:22:45.2 (BlockID:ab11c202-f551-4840-ad39-05e5b379e9e6 from P2)
+Sending UVBs to process 1...
+Sending UVBs to process 2...
+Received UVB:  2022-02-01.03:22:46.2 (BlockID:7c8ecb57-abf8-4e69-b2cb-9778c22d4621 from P2)
+Received UVB:  2022-02-01.03:22:46.1 (BlockID:813749da-bcc7-4291-813c-bf77014025ab from P1)
+Received UVB:  2022-02-01.03:22:44.0 (BlockID:678dd02f-be81-4756-ba24-3864fef27096 from P0)
+Received UVB:  2022-02-01.03:22:45.0 (BlockID:31518ab9-ae2a-4f0a-9a73-80a75c84cc7c from P0)
+Received UVB:  2022-02-01.03:22:46.0 (BlockID:87eaf364-5d9e-4637-b9c1-d7a4cf2833f2 from P0)
+Hash is: 1E3A44F31BEC85B7999C9CC53FCA4C478CCE5F4B217AD54FAF2FE63B136F1698
+First 16 bits in Hex and Decimal: 1E3A and 7738
+7738 is less than 20,000 so puzzle solved!
+The seed (puzzle answer) was: SP0FVPHB
+
+
+[(Block#2 from P0) verified by P2
+
+Hash is: 10095DF2D7186AB3670B6FDA947B92314C1E9EC88D6DBB7A4679E6E2845AD203
+First 16 bits in Hex and Decimal: 1009 and 4105
+Received UVB:  2022-02-01.03:22:42.0 (BlockID:0ba64fbe-47d5-4e25-8cbf-562d1fe19d63 from P0)
+Hash is: 550498F872F7CA3D367FF3CC87D54CCC719894F3EB56D7814970DA315B2656B3
+First 16 bits in Hex and Decimal: 5504 and 21764
+21764 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: D72E9836BBC6751946B215F8AC5584AE47500180F86D4D60E81BF78756B11EB1
+First 16 bits in Hex and Decimal: D72E and 55086
+55086 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 9D6BA0F140B3E8198CDBC497A50178C39BE9B568DEDEF654FFC9F64CFF815B90
+First 16 bits in Hex and Decimal: 9D6B and 40299
+40299 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 4F3B2EFB071EE8C45DF7964FC22B739213D1AB9E3B8DA836A400E330F29E3F39
+First 16 bits in Hex and Decimal: 4F3B and 20283
+20283 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 9D2DB8110AF4DC99B7C1EF855F3C03204BD9D123DA7A68FEC8D677A319D3F184
+First 16 bits in Hex and Decimal: 9D2D and 40237
+40237 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 8231E25300DED459CD4A07857F774282224F97192AF7F6695570EE0CDE950ABF
+First 16 bits in Hex and Decimal: 8231 and 33329
+33329 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 8A785E08D483EE575FC9B830DCFA1A72F68536ED652B8B2D77C25CD78D2CBF9C
+First 16 bits in Hex and Decimal: 8A78 and 35448
+35448 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 29B72F7D99E93DA5D2A607E55503D68E00FEAAF1C6DB9E128E57D2C79684C3AE
+First 16 bits in Hex and Decimal: 29B7 and 10679
+10679 is less than 20,000 so puzzle solved!
+The seed (puzzle answer) was: QZ2P22Y0
+
+
+[(Block#6 from P0) verified by P2
+
+Hash is: E933EA572660ABD5215F19019846E9921F362EF17687E4ADC30565477B78E475
+First 16 bits in Hex and Decimal: E933 and 59699
+59699 is not less than 20,000 so we did not solve the puzzle
+
+Received UVB:  2022-02-01.03:22:44.0 (BlockID:678dd02f-be81-4756-ba24-3864fef27096 from P0)
+Hash is: 3D52DBB63F4498585C2C5A1BEE6A1A8ED0D34FCA277118B178F2935BBE571635
+First 16 bits in Hex and Decimal: 3D52 and 15698
+15698 is less than 20,000 so puzzle solved!
+The seed (puzzle answer) was: 8CZAZPZF
+
+
+[(Block#7 from P1) verified by P2
+
+Hash is: 8AA21E1381939ABD8F290C06D8E32C8EAAFA52751BFE35CF02D5133EACDF430D
+First 16 bits in Hex and Decimal: 8AA2 and 35490
+35490 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: CC0B954033A0928DD9EAA0A25DBB1760EF06AD7E33C3E8F7FEE6D3FC82DC522C
+First 16 bits in Hex and Decimal: CC0B and 52235
+52235 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 515916BA529D50B8CACEFCA70F07C9748CBEB549A522D2F68025F3C2C8EDD265
+First 16 bits in Hex and Decimal: 5159 and 20825
+20825 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: E1818AF8FD9BB04743AF59E4ED2E81B5712E7F85E45619DD805D257EE4478DF3
+First 16 bits in Hex and Decimal: E181 and 57729
+57729 is not less than 20,000 so we did not solve the puzzle
+
+Received UVB:  2022-02-01.03:22:44.2 (BlockID:70e2c65d-bc99-42bc-b032-086c735cf2c0 from P2)
+Hash is: B2F6FEF7F5B6BFD35EC8562CA4C3CC1EA3A057E6EDF472AC8B43F023A68CA198
+First 16 bits in Hex and Decimal: B2F6 and 45814
+45814 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 5BB5FB7D12A1A99DB6AC098FE914AF399CBEFA626C3BF974D26815491FBC8E75
+First 16 bits in Hex and Decimal: 5BB5 and 23477
+23477 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: FE4A57414A921B2C8E8C833E48E37A1FC6994C544D82814D3FE7E6D6EC44146A
+First 16 bits in Hex and Decimal: FE4A and 65098
+65098 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 37E40BE91D22A34D4FE51194DC9AB75848735605C6662788C0326C5E83B18B12
+First 16 bits in Hex and Decimal: 37E4 and 14308
+14308 is less than 20,000 so puzzle solved!
+The seed (puzzle answer) was: 6H1K95TF
+
+
+[(Block#9 from P0) verified by P2
+
+Hash is: 10B6EBFA7F368B7FB4D49D3A93C0FBF1BA8AD5274B433930159A6E07A62F67EC
+First 16 bits in Hex and Decimal: 10B6 and 4278
+Received UVB:  2022-02-01.03:22:45.0 (BlockID:31518ab9-ae2a-4f0a-9a73-80a75c84cc7c from P0)
+Hash is: 8E3192073262F763B43B8AC66805BE5214F719164280D9A9BAF5BE98046D47E6
+First 16 bits in Hex and Decimal: 8E31 and 36401
+36401 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: B21A04B55788FA7B2A6CE5EF257C400C37BAB358E3F490A80999F43E8B97BB14
+First 16 bits in Hex and Decimal: B21A and 45594
+45594 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 491FC9C5BC9D75EF19762D48DA2157544DC61132166583D5A804084D02D837C0
+First 16 bits in Hex and Decimal: 491F and 18719
+18719 is less than 20,000 so puzzle solved!
+The seed (puzzle answer) was: TGNJVYKW
+
+
+[(Block#12 from P1) verified by P2
+
+Hash is: C114D53A80BA54F752D72766D6CB740F9E2362C80302EA7C8BD27F4B0E7BD94A
+First 16 bits in Hex and Decimal: C114 and 49428
+49428 is not less than 20,000 so we did not solve the puzzle
+
+Hash is: 30226EBF3C3E7DC9C91BD764CECB7B9F335076EB8CEC591EFF2A9A382BB3130C
+First 16 bits in Hex and Decimal: 3022 and 12322
+12322 is less than 20,000 so puzzle solved!
+The seed (puzzle answer) was: SJHJETYG
+
+
+[(Block#13 from P2) verified by P2
+
+Hash is: F2213E82677B3CB918F51D5CCA6ADE3A15551B04A1ED9ACEBC8BFE5DC58A6085
+First 16 bits in Hex and Decimal: F221 and 61985
+61985 is not less than 20,000 so we did not solve the puzzle
+
+====================================================================================
+BlockchainLedger.json is completed.
+Please try the following console commands:
+    - C (Credit used for checking which process has verified each block.)
+    - V (Verify the block record as well as display any possible errors.)
+    - L (List information on each block record on a single line.)
+====================================================================================
+
+Input a command here:
+C
+Verification Credit: P0=7, P1=0, P2=5
+
+Input a command here:
+V
+Block 1-13 have been verified.
+
+Input a command here:
+L
+13. 2022-02-01.03:22:46.2 Joe DiMaggio 1914.11.25 111-22-3333 SoreKnees RestFromSports Aspirin
+12. 2022-02-01.03:22:46.1 Bruce Lee 1940.11.27 456-789-123 SoreStomach LessCombat Vicodine
+11. 2022-02-01.03:22:46.0 Wayne Blaine 1942.07.07 123-45-6777 Measles WaitToGetBetter CodLiverOil
+10. 2022-02-01.03:22:45.2 John Kennedy 1917.05.29 333-45-6999 AddisonsDisease DrugTherapy Steroids
+9. 2022-02-01.03:22:45.0 Julie Wilson 1996.03.07 123-45-6999 Insomnia Exercise HotPeppers
+8. 2022-02-01.03:22:44.2 Abraham Lincoln 1809.02.12 444-45-6888 GreviousWound Surgery Whiskey
+7. 2022-02-01.03:22:44.1 Sally McCutty 1970.01.01 123-456-999 Migraine IcePack Almotriptan
+6. 2022-02-01.03:22:44.0 Joe Blow 1996.03.07 123-45-6888 Smallpox BedRest Whiskey
+5. 2022-02-01.03:22:43.1 Wei Xu 1996.03.22 123-456-333 Shingles WaitForRelief Zovirax
+4. 2022-02-01.03:22:42.2 Helen Keller 1880.06.27 666-45-6789 Arthritis WarmCloths Aspirin
+3. 2022-02-01.03:22:42.1 Rita Vita 1992.01.31 999-456-789 ObessivePersonality TryToRelax Ibuprofen
+2. 2022-02-01.03:22:42.0 John Smith 1996.03.07 123-45-6789 Chickenpox BedRest aspirin
+1. 2022-02-01.03:22:42.0 Kevin Li 1950.07.13 123-45-1661 Nearsighted ReduceComputerUsage Glasses
+
+Input a command here:
+

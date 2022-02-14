@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BlockJ/BlockJ.iml" filepath="$PROJECT_DIR$/BlockJ/BlockJ.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blockchain131.iml" filepath="$PROJECT_DIR$/blockchain131.iml" />
+    </modules>
+  </component>
+</project>

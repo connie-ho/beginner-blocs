@@ -1,0 +1,11 @@
+{
+  "BlockID": "2fefd640-ab31-4503-b361-7fd29acba4f1",
+  "VerificationProcessID": "Process2",
+  "uuid": "2fefd640-ab31-4503-b361-7fd29acba4f1",
+  "Fname": "Joseph",
+  "Lname": "Chang",
+  "SSNum": "123-45-6789",
+  "Rx": "Hot Chili Peppers",
+  "RandomSeed": "e8510f",
+  "WinningHash": "6361577b14638ba0310902ffd9328b3933507d6282fc07ddd2ca0331a7377ad8"
+}
