@@ -15,7 +15,8 @@ function useWalletConnection() {
     if (!loggedIn) return;
 
     //grab provider to get account
-    const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+    //const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+    const provider = new ethers.getDefaultProvider('ropsten'); //saw this implementation here:  https://docs.ethers.io/v4/api-providers.html -> not sure but this seems like the recommended way to do it.
     const accounts = await provider.send('eth_accounts', []);
     if (accounts.length !== 0) {
       const account = accounts[0];
@@ -31,7 +32,8 @@ function useWalletConnection() {
         alert('Metamask not installed, please install metamask!');
         return;
       }
-      const provider = new ethers.providers.Web3Provider(ethereum, 'any');
+      //const provider = new ethers.providers.Web3Provider(ethereum, 'any');
+      const provider = new ethers.getDefaultProvider('ropsten'); //saw this implementation here:  https://docs.ethers.io/v4/api-providers.html -> not sure but this seems like the recommended way to do it.
       console.log(provider);
       await provider.send('wallet_requestPermissions', [
         {
