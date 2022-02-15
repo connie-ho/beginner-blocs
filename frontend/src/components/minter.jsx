@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
     mintNFT,
-} from "../hooks/interact.js";
+} from "../hooks/use-interact.js";
 
 import {
   connectWallet,
