@@ -1,4 +1,4 @@
-import { pinJSONToIPFS } from "../../../scripts/pinata.js";
+import { pinJSONToIPFS } from "./use-pinata.js";
 require("dotenv").config();
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
 const contractABI = require("../contract-abi.json"); // find where abi is generated and replace.
