@@ -21,6 +21,7 @@ const Minter = (props) => {
   
   const {account, checkWalletConnection, connectWallet, disconnectWallet, addWalletListener} = useWalletConnection();
   const {accountAddress, mintNFT, loadContract, onMintPressed, connectWalletPressed} = useInteract(); //calling it account address cause walletAddress is already declared above
+  
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const { address, status } = await checkWalletConnection();
@@ -32,39 +33,6 @@ const Minter = (props) => {
     addWalletListener();
   }, [walletAddress]);
 
-  // function addWalletListener() {
-  //   if (window.ethereum) {
-  //     window.ethereum.on("accountsChanged", (accounts) => {
-  //       if (accounts.length > 0) {
-  //         setWallet(accounts[0]);
-  //         //setStatus("👆🏽 Write a message in the text-field above.");
-  //       } else {
-  //         setWallet("");
-  //         //setStatus("🦊 Connect to Metamask using the top right button.");
-  //       }
-  //     });
-  //   } else {
-
-  //     console.log("Install metamask or a wallet provider!");
-      
-  //   }
-  // }
-
-  // const connectWalletPressed = async () => {
-  //   const walletResponse = await connectWallet();
-  //   //setStatus(walletResponse.status);
-  //   setWallet(walletResponse.address);
-  // };
-
-  // const onMintPressed = async () => {
-  //   const { success, status } = await mintNFT(url, name, description);
-  //   //setStatus(status);
-  //   if (success) {
-  //     setName("");
-  //     setDescription("");
-  //     setURL("");
-  //   }
-  // };
 
   return (
     <div className="Minter">
