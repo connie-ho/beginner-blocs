@@ -48,6 +48,9 @@ function useWalletConnection() {
     } catch (error) {
       console.log(error);
     }
+    return{ 
+      account,
+    };
   };
 
   const disconnectWallet = async () => {
@@ -56,15 +59,45 @@ function useWalletConnection() {
     return;
   };
 
+  const addWalletListener = async() => {                // can this be async?? need to check
+  if (window.ethereum) {
+    window.ethereum.on("accountsChanged", (accounts) => {
+      if (accounts.length > 0) {
+        setAccount(accounts[0]);
+        //setStatus("👆🏽 Write a message in the text-field above.");
+      } else {
+        setAccount("");
+        //setStatus("🦊 Connect to Metamask using the top right button.");
+      }
+    });
+  } else {
+      console.log("Insxtall metamask or a wallet provider!");
+    }
+  }
+
+
   useEffect(() => {
+    //check wallet connection
     checkWalletConnection();
+    
+    //setting account
+    setAccount(account);
+
+    //walletlistener for changes
+    
+    addWalletListener();
+
   }, [account]);
+
 
   return {
     account,
+    checkWalletConnection,
     connectWallet,
     disconnectWallet,
+    addWalletListener,
   };
+  
 }
 
 export default useWalletConnection;

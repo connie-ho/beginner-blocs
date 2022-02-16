@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import {
-    mintNFT,
-} from "../hooks/use-interact.js";
+// import {
+//     mintNFT,
+// } from "../hooks/use-interact.js";
 
-import {
-  connectWallet,
-  checkWalletConnection,
-} from '../hooks/use-wallet-connection.js';
+// import {
+//   connectWallet,
+//   checkWalletConnection,
+// } from '../hooks/use-wallet-connection.js';
+import {useInteract} from '../hooks/use-interact';
+import {useWalletConnection} from '../hooks/use-wallet-connection';
 
 const Minter = (props) => {
 
@@ -17,59 +19,52 @@ const Minter = (props) => {
   const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
   
-
+  const {account, checkWalletConnection, connectWallet, disconnectWallet, addWalletListener} = useWalletConnection();
+  const {accountAddress, mintNFT, loadContract, onMintPressed, connectWalletPressed} = useInteract(); //calling it account address cause walletAddress is already declared above
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const { address, status } = await checkWalletConnection();
 
+    //sets wallet address
     setWallet(address);
-   // setStatus(status);
-
+  
+    //Checks if the user's account changes
     addWalletListener();
-  }, []);
+  }, [walletAddress]);
 
-  function addWalletListener() {
-    if (window.ethereum) {
-      window.ethereum.on("accountsChanged", (accounts) => {
-        if (accounts.length > 0) {
-          setWallet(accounts[0]);
-          //setStatus("👆🏽 Write a message in the text-field above.");
-        } else {
-          setWallet("");
-          //setStatus("🦊 Connect to Metamask using the top right button.");
-        }
-      });
-    } else {
+  // function addWalletListener() {
+  //   if (window.ethereum) {
+  //     window.ethereum.on("accountsChanged", (accounts) => {
+  //       if (accounts.length > 0) {
+  //         setWallet(accounts[0]);
+  //         //setStatus("👆🏽 Write a message in the text-field above.");
+  //       } else {
+  //         setWallet("");
+  //         //setStatus("🦊 Connect to Metamask using the top right button.");
+  //       }
+  //     });
+  //   } else {
 
-      console.log("Install metamask or a wallet provider!");
-      // setStatus(
-      //   <p>
-      //     {" "}
-      //     🦊{" "}
-      //     <a target="_blank" href={`https://metamask.io/download.html`}>
-      //       You must install Metamask, a virtual Ethereum wallet, in your
-      //       browser.
-      //     </a>
-      //   </p>
-      // );
-    }
-  }
+  //     console.log("Install metamask or a wallet provider!");
+      
+  //   }
+  // }
 
-  const connectWalletPressed = async () => {
-    const walletResponse = await connectWallet();
-    //setStatus(walletResponse.status);
-    setWallet(walletResponse.address);
-  };
+  // const connectWalletPressed = async () => {
+  //   const walletResponse = await connectWallet();
+  //   //setStatus(walletResponse.status);
+  //   setWallet(walletResponse.address);
+  // };
 
-  const onMintPressed = async () => {
-    const { success, status } = await mintNFT(url, name, description);
-    //setStatus(status);
-    if (success) {
-      setName("");
-      setDescription("");
-      setURL("");
-    }
-  };
+  // const onMintPressed = async () => {
+  //   const { success, status } = await mintNFT(url, name, description);
+  //   //setStatus(status);
+  //   if (success) {
+  //     setName("");
+  //     setDescription("");
+  //     setURL("");
+  //   }
+  // };
 
   return (
     <div className="Minter">
