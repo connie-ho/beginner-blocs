@@ -87,7 +87,7 @@ function useWalletConnection() {
     
     addWalletListener();
 
-  }, [account]);
+  }, [account, checkWalletConnection]);
 
 
   return {
