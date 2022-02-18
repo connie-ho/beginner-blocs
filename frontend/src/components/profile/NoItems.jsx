@@ -1,35 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Grid, Typography, Button } from '@mui/material';
-const useStyles = makeStyles((theme)=> ({
-  root: {
-    fontSize: '5rem'
-  }
-}))
+import useMessages from '../../hooks/use-messages'
 
 const NoItems = (props) => {
-  const classes = useStyles();
   const {type} = props
   
-  const switchMessage = type => {
-    let messages = {
-      message: "Try browsing the marketplace to find something for you!",
-      type: "Marketplace"
-    }
-    if (type == 'created') {
-      messages.message = "Come back soon, or try creating an NFT below!";
-      messages.type = "Create NFT";
-      return messages
-    }
-    else if (type == "listed") {
-      messages.message = "Come back soon, or try listing an NFT below!";
-      messages.type = "List NFT";
-      return messages
-    }
-    else {
-      return messages
-    }
-  }
+  const {switchMessage} = useMessages();
 
   let messages = switchMessage(type);
 

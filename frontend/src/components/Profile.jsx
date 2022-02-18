@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useCallback} from "react";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import {ethers} from "ethers";
@@ -16,17 +16,17 @@ const Profile = (props) => {
   const [tabValue, setTabValue] = useState(1)
 
 
-
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
-  }
+  }, [])
 
   useEffect(() => {
     const grabAccountInformation = async (account) => {
       if (account) {
         const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
         let wei = await provider.getBalance(`${account}`)
-        const ethBalance = ethers.utils.formatEther(wei)
+        let eth = ethers.utils.formatEther(wei)
+        let ethBalance = parseFloat(eth).toFixed(3)
         setBalance(ethBalance)
         return
        }
