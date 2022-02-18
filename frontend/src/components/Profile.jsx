@@ -17,7 +17,7 @@ const Profile = (props) => {
 
 
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = useCallback(function ..., [dependencies])
     setTabValue(newValue);
   }
 
