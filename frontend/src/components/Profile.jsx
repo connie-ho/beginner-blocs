@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useContext} from "react";
+import React, {useEffect, useState, useCallback, useContext, useReducer} from "react";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import {ethers} from "ethers";
@@ -9,17 +9,33 @@ import TabOptions from "./profile/TabOptions";
 import NFTList from "./profile/NFTList";
 import NoItems from "./profile/NoItems";
 import { EthersContext } from '../contexts/ethers-provider-context';
+import { useGetNFTs } from '../hooks/use-get-nfts';
 
 const Profile = (props) => {
 
+  const initialNFTs ={
+    created:[],
+    owned:[],
+    listed:[]
+  }
   const {account} = props
+  const [loading, setLoading] = useState(true)
   const [balance,setBalance] = useState(0)
   const [tabValue, setTabValue] = useState(1)
+  const [NFTs, setNFTs] = useReducer((state, updates) => ({
+      ...state,
+      ...updates
+    }),
+    initialNFTs)
+
   const { tokenContract, marketContract } = useContext(EthersContext)
 
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
+
   }, [])
+
+  const { loadCreatedNFTs, loadOwnedNFTs } = useGetNFTs()
 
   useEffect(() => {
     const grabAccountInformation = async (account) => {
@@ -35,8 +51,26 @@ const Profile = (props) => {
     grabAccountInformation(account);
   },[account, balance])
 
+  
 
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const createdItems = await loadCreatedNFTs({tokenContract, marketContract})
+        const ownedItems = await loadOwnedNFTs({tokenContract, marketContract})
+        
+        setNFTs({created: createdItems,
+                 owned: ownedItems})
+      }
+      catch(err) {
+        console.log(err.message)
+      }
+    }
 
+    fetchItems()
+  },[])
+
+  
 
   return (
     <>
@@ -49,13 +83,13 @@ const Profile = (props) => {
             <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
             <Divider/>
             <TabPanel value={tabValue} index={1}>
-              <NFTList></NFTList>
+              <NFTList items={NFTs.owned} type='owned'/>
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
-              <NoItems type='created'/>
+              <NFTList items={NFTs.created} type='created'/>
             </TabPanel>
             <TabPanel value={tabValue} index={3}>
-              <NoItems type='listed'/>
+              <NFTList items={NFTs.listed} type='listed'/>
             </TabPanel>
           </div>
         </Grid>

@@ -14,10 +14,10 @@ const useStyles = makeStyles((theme)=> ({
 }))
 
 const NFTList = (props) => {
-
-  let testArray = [1,2,3,4]
+  
+  let {items,type} = props
   const classes = useStyles();
-  const cardTest = testArray.map((item) => {
+  const cardTest = items.map((item) => {
     return (
       <Grid item
       xs={3}
@@ -28,11 +28,11 @@ const NFTList = (props) => {
       >
         <CardItem>
           <img
-            src={'https://statics.pampling.com/imagenes/disenos/diseno_85351.jpg'}
+            src={item.image}
             alt="nft"
             className={classes.img}
             />
-          <h2>Example NFT</h2>
+          <h2>{item.name}</h2>
         </CardItem>
       </Grid>
     )
@@ -40,7 +40,7 @@ const NFTList = (props) => {
 
   if (cardTest.length === 0) {
     return (
-      <NoItems type="owned"/>    
+      <NoItems type={type}/>    
       )
   }
 

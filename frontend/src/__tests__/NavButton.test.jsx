@@ -4,7 +4,6 @@ import NavButton from "../components/common/NavButton"
 
 afterEach(cleanup);
 
-
 it("renders without crashing", () => {
   render(<NavButton/>);
 });
