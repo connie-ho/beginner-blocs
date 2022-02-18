@@ -16,8 +16,6 @@ const Profile = (props) => {
   const [balance,setBalance] = useState(0)
   const [tabValue, setTabValue] = useState(1)
   const { tokenContract, marketContract } = useContext(EthersContext)
-  
-
 
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
