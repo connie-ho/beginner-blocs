@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from "react";
+import React, {useEffect, useState, useCallback, useContext} from "react";
 import Grid from "@mui/material/Grid";
 import Divider from "@mui/material/Divider";
 import {ethers} from "ethers";
@@ -8,12 +8,15 @@ import AccountInfo from "./profile/AccountInfo";
 import TabOptions from "./profile/TabOptions";
 import NFTList from "./profile/NFTList";
 import NoItems from "./profile/NoItems";
+import { EthersContext } from '../contexts/ethers-provider-context';
 
 const Profile = (props) => {
 
   const {account} = props
   const [balance,setBalance] = useState(0)
   const [tabValue, setTabValue] = useState(1)
+  const { tokenContract, marketContract } = useContext(EthersContext)
+  
 
 
   const handleTabChange = useCallback((event, newValue) => {
@@ -33,6 +36,8 @@ const Profile = (props) => {
     }
     grabAccountInformation(account);
   },[account, balance])
+
+
 
 
   return (
