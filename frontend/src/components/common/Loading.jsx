@@ -1,10 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
-import ProfileCarousel from './ProfileCarousel';
-
 const useStyles = makeStyles((theme)=> ({
-  banner: {
-    backgroundColor:'rgba(5,24,52,0.1)',
+  loader: {
     height: '45rem',
     margin: '2rem',
     position:'relative',
@@ -13,6 +10,7 @@ const useStyles = makeStyles((theme)=> ({
     borderRadius:'5rem',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignItems:'center'
   },
   img: {
     width: theme.typography.pxToRem(250),
@@ -26,21 +24,18 @@ const useStyles = makeStyles((theme)=> ({
   }
 }))
 
-const ProfileBanner = (props) => {
-  const {nfts} = props
+const Loading = () => {
   const classes = useStyles();
-  console.log(nfts)
   return (
-    <div className={classes.banner} name='banner'>
-      <ProfileCarousel nfts={nfts}/>
-    <img 
-        className={classes.img}
-        src={require('../../assets/default.png')}
-        alt="default"
-        name='avatar'
-    />
+    <div className={classes.loader}>
+      <img 
+          className={classes.img}
+          src={require('../../assets/spinner.gif')}
+          alt="default"
+          name='avatar'
+      />
     </div>
-  );
-};
+  )
+}
 
-export default ProfileBanner;
+export default Loading

@@ -3,6 +3,7 @@ import React from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import { makeStyles } from '@mui/styles';
 import './carousel.css';
+import NFTs from '../NFTs';
 
 const useStyles = makeStyles((theme)=> ({
   img: {
@@ -32,9 +33,9 @@ const responsive = {
   }
 };
 
-const ProfileCarousel = ({props, children}) => {
-
-  let testArray = [1,3,4]
+const ProfileCarousel = (props) => {
+  let nfts = props.nfts
+  let testArray = [1,2,3,4]
   const classes = useStyles();
 
   const cardTest = testArray.map((item) => {
@@ -46,6 +47,10 @@ const ProfileCarousel = ({props, children}) => {
             />
     )
   })
+
+  if (nfts.length == 0) {
+    return <></>
+  }
 
   return(
   <Carousel

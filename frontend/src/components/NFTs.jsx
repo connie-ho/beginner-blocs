@@ -18,7 +18,6 @@ const NFTs = () => {
         try {
           const items = await loadNFTs({ tokenContract, marketContract })
           setNfts(items)
-          console.log(items)
         } catch(err) {
           console.log(err.message)
         } finally {

@@ -50,7 +50,7 @@ const useGetNFTs = () => {
     return items;
   }, []);
 
-  const loadOwnedNFTs = useCallback(async (tokenContract, owner) => {
+  const loadOwnedNFTs = useCallback(async (owner) => {
     const ownerAddr = `${owner}`;
 
     const apiKey = `${process.env.REACT_APP_ALCHEMY_KEY}`;
@@ -60,23 +60,25 @@ const useGetNFTs = () => {
     let resp = await axios.get(url);
     let ownedNFTs = resp.data.ownedNfts;
 
-    const items = ownedNFTs.map(async (NFT) => {
-      let emptyMeta = {
-        name: null,
-        description: null,
-        image: null,
-      };
-      let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
-      let item = {
-        address: NFT.contract.address,
-        tokenId: NFT.id.tokenId,
-        owner: owner,
-        image: meta.image,
-        name: meta.name,
-        description: meta.description,
-      };
-      return item;
-    });
+    const items = await Promise.all(
+      ownedNFTs.map(async (NFT) => {
+        let emptyMeta = {
+          name: null,
+          description: null,
+          image: null,
+        };
+        let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
+        let item = {
+          address: NFT.contract.address,
+          tokenId: NFT.id.tokenId,
+          owner: owner,
+          image: meta.image,
+          name: meta.name,
+          description: meta.description,
+        };
+        return item;
+      })
+    );
     return items;
   }, []);
 
