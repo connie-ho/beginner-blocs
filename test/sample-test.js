@@ -1,4 +1,4 @@
-/* test/sample-test.js */
+/* eslint-disable */
 describe('NFTMarket', function () {
   it('Should create and execute market sales', async function () {
     /* deploy the marketplace */
