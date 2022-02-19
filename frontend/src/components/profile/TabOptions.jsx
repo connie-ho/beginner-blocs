@@ -15,7 +15,7 @@ const TabOptions = (props) => {
     style={{fontSize:'50rem'}}
   >
     <Tab sx={{fontSize:'1.5rem'}} value={1} label="Owned" />
-    <Tab sx={{fontSize:'1.5rem'}} value={2} label="Created" />
+    {/* <Tab sx={{fontSize:'1.5rem'}} value={2} label="Created" /> */}
     <Tab sx={{fontSize:'1.5rem'}} value={3} label="Listed" />
   </Tabs>
   );

@@ -7,19 +7,16 @@ import ProfileBanner from "./profile/ProfileBanner";
 import AccountInfo from "./profile/AccountInfo";
 import TabOptions from "./profile/TabOptions";
 import NFTList from "./profile/NFTList";
-import NoItems from "./profile/NoItems";
 import { EthersContext } from '../contexts/ethers-provider-context';
 import { useGetNFTs } from '../hooks/use-get-nfts';
 
 const Profile = (props) => {
 
   const initialNFTs ={
-    created:[],
     owned:[],
     listed:[]
   }
   const {account} = props
-  const [loading, setLoading] = useState(true)
   const [balance,setBalance] = useState(0)
   const [tabValue, setTabValue] = useState(1)
   const [NFTs, setNFTs] = useReducer((state, updates) => ({
@@ -35,7 +32,7 @@ const Profile = (props) => {
 
   }, [])
 
-  const { loadCreatedNFTs, loadOwnedNFTs } = useGetNFTs()
+  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs()
 
   useEffect(() => {
     const grabAccountInformation = async (account) => {
@@ -56,10 +53,10 @@ const Profile = (props) => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const createdItems = await loadCreatedNFTs({tokenContract, marketContract})
-        const ownedItems = await loadOwnedNFTs({tokenContract, marketContract})
+        const listedItems = await loadListedNFTs({tokenContract, marketContract})
+        const ownedItems = await loadOwnedNFTs(tokenContract, account)
         
-        setNFTs({created: createdItems,
+        setNFTs({listed: listedItems,
                  owned: ownedItems})
       }
       catch(err) {
@@ -68,7 +65,7 @@ const Profile = (props) => {
     }
 
     fetchItems()
-  },[])
+  },[account])
 
   
 
@@ -85,9 +82,9 @@ const Profile = (props) => {
             <TabPanel value={tabValue} index={1}>
               <NFTList items={NFTs.owned} type='owned'/>
             </TabPanel>
-            <TabPanel value={tabValue} index={2}>
+            {/* <TabPanel value={tabValue} index={2}>
               <NFTList items={NFTs.created} type='created'/>
-            </TabPanel>
+            </TabPanel> */}
             <TabPanel value={tabValue} index={3}>
               <NFTList items={NFTs.listed} type='listed'/>
             </TabPanel>
