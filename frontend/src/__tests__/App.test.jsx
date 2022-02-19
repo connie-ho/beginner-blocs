@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material';
 import App from '../App';
 
 import EthersContextProvider from '../contexts/ethers-provider-context';
+import UserContextProvider from '../contexts/user-context';
 import { theme } from '../theme/theme';
 
 describe('Application', () => {
@@ -12,13 +13,13 @@ describe('Application', () => {
     ReactDOM.render(
       <ThemeProvider theme={theme}>
         <EthersContextProvider>
-          <App />
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
         </EthersContextProvider>
       </ThemeProvider>,
       div
-  );
-  ReactDOM.unmountComponentAtNode(div);
+    );
+    ReactDOM.unmountComponentAtNode(div);
   });
 });
-
-
