@@ -20,23 +20,25 @@ describe('NFTMarket', function () {
 
     const auctionPrice = ethers.utils.parseUnits('1', 'ether');
 
-    /* create three tokens */
-    await nft.createToken('https://www.mytokenlocation.com');
-    await nft.createToken('https://www.mytokenlocation2.com');
-    await nft.createToken('https://www.mytokenlocation3.com');
+    const [_, secondAddress] = await ethers.getSigners();
 
-    /* put both tokens for sale */
+    /* create a couple of tokens */
+    await nft.createToken('this is my token');
+    await nft.createToken('this is another token of mine');
+    await nft.connect(secondAddress).createToken('https://www.mytokenlocation.com');
+    await nft.connect(secondAddress).createToken('https://www.mytokenlocation2.com');
+    await nft.connect(secondAddress).createToken('https://www.mytokenlocation3.com');
+
+    /* put all some tokens for sale */
     await market.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice });
     await market.createMarketItem(nftContractAddress, 2, auctionPrice, { value: listingPrice });
-    await market.createMarketItem(nftContractAddress, 3, auctionPrice, { value: listingPrice });
+    await market.connect(secondAddress).createMarketItem(nftContractAddress, 3, auctionPrice, { value: listingPrice });
+    await market.connect(secondAddress).createMarketItem(nftContractAddress, 4, auctionPrice, { value: listingPrice });
+    await market.connect(secondAddress).createMarketItem(nftContractAddress, 5, auctionPrice, { value: listingPrice });
 
-    const [_, buyerAddress] = await ethers.getSigners();
-
-    /* execute sale of token to self */
-    await market.createMarketSale(nftContractAddress, 1, { value: auctionPrice });
-
-    /* execute sale of token to another user */
-    await market.connect(buyerAddress).createMarketSale(nftContractAddress, 2, { value: auctionPrice });
+    /* execute some sales */
+    await market.connect(secondAddress).createMarketSale(nftContractAddress, 1, { value: auctionPrice });
+    await market.createMarketSale(nftContractAddress, 3, { value: auctionPrice });
 
     /* query for and return the my purchased items */
     items = await market.fetchMyNFTs();
@@ -55,7 +57,7 @@ describe('NFTMarket', function () {
     );
 
     expect(myPurchases.length).to.equal(1);
-    expect(myPurchases[0].tokenId).to.equal('1');
+    expect(myPurchases[0].tokenId).to.equal('3');
 
     /* query for and return the my created items */
     items = await market.fetchItemsCreated();
@@ -73,7 +75,9 @@ describe('NFTMarket', function () {
       })
     );
 
-    expect(itemsCreated.length).to.equal(3);
+    expect(itemsCreated.length).to.equal(2);
+    expect(itemsCreated[0].tokenId).to.equal('1');
+    expect(itemsCreated[1].tokenId).to.equal('2');
 
     // /* query for and return the unsold items */
     items = await market.fetchMarketItems();
@@ -91,7 +95,9 @@ describe('NFTMarket', function () {
       })
     );
 
-    expect(unSoldItems.length).to.equal(1);
-    expect(unSoldItems[0].tokenId).to.equal('3');
+    expect(unSoldItems.length).to.equal(3);
+    expect(unSoldItems[0].tokenId).to.equal('2');
+    expect(unSoldItems[1].tokenId).to.equal('4');
+    expect(unSoldItems[2].tokenId).to.equal('5');
   });
 });

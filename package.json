@@ -9,7 +9,10 @@
     "format": "prettier --write \"**/*.{js,json,yaml,yml,md}\"",
     "format:check": "prettier --check \"**/*.{js,json,yaml,yml,md}\"",
     "install:all": "npm install && cd ./frontend && npm install",
-    "test:frontend": "cd ./frontend && npm run test"
+    "test:frontend": "cd ./frontend && npm run test",
+    "compile": "npx hardhat compile",
+    "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
+    "deploy:ropsten": "npx hardhat run scripts/deploy.js --network ropsten"
   },
   "lint-staged": {
     "*.js": [
