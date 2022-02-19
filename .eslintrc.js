@@ -7,6 +7,6 @@ module.exports = {
     },
   },
   rules: {
-    semi: 'error',
+    semi: 'warn',
   },
 };
