@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, waitFor } from '@testing-library/react';
 import NavButton from '../components/common/NavButton';
 
 afterEach(cleanup);
@@ -18,7 +18,7 @@ it('renders a logout button', () => {
   expect(screen.getByText('Logout')).toBeInTheDocument();
 });
 
-it('renders a clickable button', () => {
+it('renders a clickable button', async () => {
   const handleClick = jest.fn();
   render(<NavButton onClick={handleClick}>Clickable</NavButton>);
 
@@ -26,5 +26,7 @@ it('renders a clickable button', () => {
 
   fireEvent.click(button);
 
-  expect(handleClick).toHaveBeenCalledTimes(1);
+  await waitFor(() => {
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
 });
