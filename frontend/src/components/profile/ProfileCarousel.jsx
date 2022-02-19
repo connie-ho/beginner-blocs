@@ -3,8 +3,6 @@ import React from 'react';
 import 'react-multi-carousel/lib/styles.css';
 import { makeStyles } from '@mui/styles';
 import './carousel.css';
-import NFTs from '../NFTs';
-import { Description } from '@ethersproject/properties';
 
 const useStyles = makeStyles((theme)=> ({
   img: {

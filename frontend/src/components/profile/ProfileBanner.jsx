@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme)=> ({
 const ProfileBanner = (props) => {
   const {nfts} = props
   const classes = useStyles();
-  console.log(nfts)
+
   return (
     <div className={classes.banner} name='banner'>
       <ProfileCarousel nfts={nfts}/>

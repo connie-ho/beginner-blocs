@@ -57,7 +57,7 @@ function useWalletConnection() {
 
   useEffect(() => {
     checkWalletConnection();
-  }, [account]);
+  }, [account, checkWalletConnection]);
 
   return {
     account,

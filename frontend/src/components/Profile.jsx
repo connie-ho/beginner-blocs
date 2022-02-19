@@ -66,9 +66,7 @@ const Profile = (props) => {
         console.log(error.message)
       }
       finally {
-        setTimeout(() => 
         setLoading(false)
-        ,[400])
       }
     }
 
