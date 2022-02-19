@@ -17,7 +17,7 @@
       "npm run lint",
       "git add ."
     ],
-    "*.{js,json,yaml,yml,md}": "prettier --write"
+    "*.{js,yaml,yml,md}": "prettier --write"
   },
   "husky": {
     "hooks": {
@@ -39,12 +39,12 @@
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.4.2",
     "dotenv": "^11.0.0",
-    "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.3",
     "hardhat": "^2.8.2"
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "ethereum-waffle": "^3.4.0",
     "eslint": "^8.6.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.1.7",
