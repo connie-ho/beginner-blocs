@@ -5,19 +5,20 @@ import { useGetNFTs } from '../hooks/use-get-nfts';
 import { EthersContext } from '../contexts/ethers-provider-context';
 
 import CardItem from './common/CardItem';
+import Loading from './common/Loading';
 
 const NFTs = () => {
-  const [nfts, setNfts] = useState([]);
+  const [marketNfts, setMarketNfts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { tokenContract, marketContract } = useContext(EthersContext);
 
   const { loadNFTs } = useGetNFTs();
 
   useEffect(() => {
-    const fetchItems = async () => {
+    const fetchMarketItems = async (tokenContract, marketContract) => {
       try {
         const items = await loadNFTs({ tokenContract, marketContract });
-        setNfts(items);
+        setMarketNfts(items);
       } catch (err) {
         console.log(err.message);
       } finally {
@@ -25,14 +26,14 @@ const NFTs = () => {
       }
     };
 
-    fetchItems();
+    fetchMarketItems(tokenContract, marketContract);
   }, [loadNFTs, marketContract, tokenContract]);
 
   if (loading) {
-    return <div>Loading</div>;
+    return <Loading />;
   }
 
-  const NftCards = nfts?.map((nft) => (
+  const NftCards = marketNfts?.map((nft) => (
     <CardItem>
       <img src={nft.image} alt={nft.name} />
       <h2>{nft.name}</h2>

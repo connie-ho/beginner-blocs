@@ -49,7 +49,7 @@ const Profile = () => {
       }
     };
 
-    const fetchItems = async (account, tokenContract, marketContract) => {
+    const fetchNFTs = async (account, tokenContract, marketContract) => {
       const listedItems = await loadListedNFTs({ tokenContract, marketContract });
       const ownedItems = await loadOwnedNFTs(account);
 
@@ -59,13 +59,11 @@ const Profile = () => {
     const getProfileDetails = async (account) => {
       try {
         grabAccountBalanceInformation(account);
-        fetchItems(account, tokenContract, marketContract);
+        fetchNFTs(account, tokenContract, marketContract);
       } catch (error) {
         console.log(error.message);
       } finally {
-        setTimeout(() => {
-          setLoading(false);
-        }, [400]);
+        setLoading(false);
       }
     };
 

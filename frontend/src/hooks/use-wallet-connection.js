@@ -15,7 +15,6 @@ function useWalletConnection() {
         return;
       }
       const provider = new ethers.providers.Web3Provider(ethereum, 'any');
-      console.log(provider);
       await provider.send('wallet_requestPermissions', [
         {
           eth_accounts: {},
