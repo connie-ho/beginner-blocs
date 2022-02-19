@@ -29,7 +29,7 @@ describe('NFTMarket', function () {
     await nft.connect(secondAddress).createToken('https://www.mytokenlocation2.com');
     await nft.connect(secondAddress).createToken('https://www.mytokenlocation3.com');
 
-    /* put all some tokens for sale */
+    /* put tokens for sale */
     await market.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice });
     await market.createMarketItem(nftContractAddress, 2, auctionPrice, { value: listingPrice });
     await market.connect(secondAddress).createMarketItem(nftContractAddress, 3, auctionPrice, { value: listingPrice });
