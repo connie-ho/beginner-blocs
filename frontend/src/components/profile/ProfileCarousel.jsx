@@ -4,6 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { makeStyles } from '@mui/styles';
 import './carousel.css';
 import NFTs from '../NFTs';
+import { Description } from '@ethersproject/properties';
 
 const useStyles = makeStyles((theme)=> ({
   img: {
@@ -35,13 +36,17 @@ const responsive = {
 
 const ProfileCarousel = (props) => {
   let nfts = props.nfts
-  let testArray = [1,2,3,4]
+
+  const carouselNFTs = nfts.filter(nft => {
+    return nft.name !== 'N/A' && nft.description !='N/A'
+  })
+  
   const classes = useStyles();
 
-  const cardTest = testArray.map((item) => {
+  const carouselItems = carouselNFTs.map((item) => {
     return (
           <img
-            src={'https://statics.pampling.com/imagenes/disenos/diseno_85351.jpg'}
+            src={`${item.image}`}
             alt="nft"
             className={classes.img}
             />
@@ -71,7 +76,7 @@ const ProfileCarousel = (props) => {
   minimumTouchDrag={80}
   renderButtonGroupOutside={true}
   responsive={responsive}>
-    {cardTest}
+    {carouselItems}
 </Carousel>
   )
 }
