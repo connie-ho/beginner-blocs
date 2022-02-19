@@ -53,7 +53,7 @@ contract NFTMarket is ReentrancyGuard {
         uint256 price
     ) public payable nonReentrant {
         require(price > 0, "Price must be at least 1 wei");
-        require(msg.value == listingPrice, "The listingPrice must be the same as the market place listing price");
+        require(msg.value == listingPrice, "The listing price must be the same as the market place listing price");
 
         _itemIds.increment();
         uint256 itemId = _itemIds.current();
