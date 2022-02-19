@@ -63,11 +63,12 @@ const useGetNFTs = () => {
     const items = await Promise.all(
       ownedNFTs.map(async (NFT) => {
         let emptyMeta = {
-          name: null,
-          description: null,
-          image: null,
+          name: 'N/A',
+          description: 'N/A',
+          image: require('../assets/not_found.png'),
         };
         let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
+
         let item = {
           address: NFT.contract.address,
           tokenId: NFT.id.tokenId,
