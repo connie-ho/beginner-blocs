@@ -36,9 +36,9 @@ const Profile = (props) => {
 
   const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs()
 
-  useEffect(async () => {
+  useEffect(() => {
 
-    const grabAccountInformation = async (account) => {
+    const grabAccountInformation = async(account) => {
       if (account) {
         const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
         let wei = await provider.getBalance(`${account}`)
@@ -49,7 +49,7 @@ const Profile = (props) => {
        }
     }
 
-    const fetchItems = async (account, tokenContract,     marketContract) => {
+    const fetchItems = async (account, tokenContract,  marketContract) => {
         const listedItems = await loadListedNFTs({tokenContract, marketContract})
         const ownedItems = await loadOwnedNFTs(account)
         
@@ -57,20 +57,24 @@ const Profile = (props) => {
                  owned: ownedItems})
     }
 
-    try {
-      await grabAccountInformation(account);
-      await fetchItems(account,tokenContract,marketContract)
-    }
-    catch(error) {
-      console.log(error.message)
-    }
-    finally {
-      setTimeout(() => 
-      setLoading(false)
-      ,[400])
+    const getProfileDetails = async () => {
+      try {
+        await grabAccountInformation(account);
+        await fetchItems(account,tokenContract,marketContract)
+      }
+      catch(error) {
+        console.log(error.message)
+      }
+      finally {
+        setTimeout(() => 
+        setLoading(false)
+        ,[400])
+      }
     }
 
-  },[account, balance])
+    getProfileDetails()
+
+  },[account, balance, loadListedNFTs, loadOwnedNFTs, marketContract, tokenContract])
 
 
   if(loading) {
