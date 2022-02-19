@@ -8,7 +8,7 @@ import UserContextProvider from '../contexts/user-context';
 import { theme } from '../theme/theme';
 
 describe('Application', () => {
-  it('renders main page appropriately', async () => {
+  it('renders main page appropriately', () => {
     const div = document.createElement('div');
     ReactDOM.render(
       <ThemeProvider theme={theme}>
