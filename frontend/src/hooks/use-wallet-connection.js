@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { ethers } from 'ethers';
 
+import { UserContext } from '../contexts/user-context';
+
 function useWalletConnection() {
-  const [account, setAccount] = useState(null);
+  const { account, setAccount } = useContext(UserContext);
   let loggedIn = localStorage.getItem('loggedIn') || null;
 
   const connectWallet = async () => {
@@ -36,7 +38,7 @@ function useWalletConnection() {
   };
 
   useEffect(() => {
-    const checkWalletConnection = async () => {
+    const checkWalletConnection = async (setAccount) => {
       const { ethereum } = window;
       if (!ethereum) {
         console.log('Metamask not installed');
@@ -56,11 +58,10 @@ function useWalletConnection() {
       }
     };
 
-    checkWalletConnection();
-  }, [account, loggedIn]);
+    checkWalletConnection(setAccount);
+  }, [loggedIn]);
 
   return {
-    account,
     connectWallet,
     disconnectWallet,
   };

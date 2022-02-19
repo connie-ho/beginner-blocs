@@ -42,7 +42,7 @@ const ProfileCarousel = (props) => {
   const classes = useStyles();
 
   const carouselItems = carouselNFTs.map((item) => {
-    return <img src={`${item.image}`} alt="nft" className={classes.img} />;
+    return <img key={item.address} src={`${item.image}`} alt="nft" className={classes.img} />;
   });
 
   if (nfts.length === 0) {

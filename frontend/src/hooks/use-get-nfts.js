@@ -55,34 +55,31 @@ const useGetNFTs = () => {
     const apiKey = `${process.env.REACT_APP_ALCHEMY_KEY}`;
     const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTs/`;
     const url = `${baseURL}?owner=${ownerAddr}&withMetadata=true`;
-    try {
-      let resp = await axios.get(url);
-      let ownedNFTs = resp.data.ownedNfts;
 
-      const items = await Promise.all(
-        ownedNFTs.map(async (NFT) => {
-          let emptyMeta = {
-            name: 'N/A',
-            description: 'N/A',
-            image: require('../assets/not_found.png'),
-          };
-          let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
+    let resp = await axios.get(url);
+    let ownedNFTs = resp.data.ownedNfts;
 
-          let item = {
-            address: NFT.contract.address,
-            tokenId: NFT.id.tokenId,
-            owner: owner,
-            image: meta.image,
-            name: meta.name,
-            description: meta.description,
-          };
-          return item;
-        })
-      );
-      return items;
-    } catch (err) {
-      console.log(err.msg);
-    }
+    const items = await Promise.all(
+      ownedNFTs.map(async (NFT) => {
+        let emptyMeta = {
+          name: 'N/A',
+          description: 'N/A',
+          image: require('../assets/not_found.png'),
+        };
+        let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
+
+        let item = {
+          address: NFT.contract.address,
+          tokenId: NFT.id.tokenId,
+          owner: owner,
+          image: meta.image,
+          name: meta.name,
+          description: meta.description,
+        };
+        return item;
+      })
+    );
+    return items;
   }, []);
 
   return { loadNFTs, loadListedNFTs, loadOwnedNFTs };
