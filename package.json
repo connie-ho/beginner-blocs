@@ -12,12 +12,12 @@
     "test:frontend": "cd ./frontend && npm run test"
   },
   "lint-staged": {
-    "*.js": [
+    "*.{js, jsx}": [
       "npm run format",
       "npm run lint",
       "git add ."
     ],
-    "*.{js,json,yaml,yml,md}": "prettier --write"
+    "*.{js,jsx,json,yaml,yml,md}": "prettier --write"
   },
   "husky": {
     "hooks": {
