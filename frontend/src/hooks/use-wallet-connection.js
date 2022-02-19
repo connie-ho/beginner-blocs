@@ -5,26 +5,6 @@ function useWalletConnection() {
   const [account, setAccount] = useState(null);
   let loggedIn = localStorage.getItem('loggedIn') || null;
 
-  const checkWalletConnection = async () => {
-    const { ethereum } = window;
-    if (!ethereum) {
-      console.log('Metamask not installed');
-      return;
-    }
-    //check if user has already logged in, then set account state
-    if (!loggedIn) return;
-
-    //grab provider to get account
-    const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-
-    const accounts = await provider.send('eth_accounts', []);
-    if (accounts.length !== 0) {
-      const account = accounts[0];
-      setAccount(account);
-      return;
-    }
-  };
-
   const connectWallet = async () => {
     try {
       const { ethereum } = window;
@@ -56,8 +36,28 @@ function useWalletConnection() {
   };
 
   useEffect(() => {
+    const checkWalletConnection = async () => {
+      const { ethereum } = window;
+      if (!ethereum) {
+        console.log('Metamask not installed');
+        return;
+      }
+      //check if user has already logged in, then set account state
+      if (!loggedIn) return;
+
+      //grab provider to get account
+      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
+
+      const accounts = await provider.send('eth_accounts', []);
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        setAccount(account);
+        return;
+      }
+    };
+
     checkWalletConnection();
-  }, [account, checkWalletConnection]);
+  }, [account, loggedIn]);
 
   return {
     account,

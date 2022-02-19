@@ -2,7 +2,6 @@ import { useCallback } from 'react';
 
 import { ethers } from 'ethers';
 import axios from 'axios';
-import { id } from 'ethers/lib/utils';
 
 const useGetNFTs = () => {
   const loadNFTs = useCallback(async ({ tokenContract, marketContract }) => {
