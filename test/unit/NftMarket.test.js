@@ -54,9 +54,12 @@ describe('NFTMarket', function () {
       await expect(nftMarket.createMarketItem(nftContractAddress, 0, auctionPrice, { value: 0 })).to.be.reverted;
     });
 
-    it('should not create an item for sale the owner is buying the item themselves', async () => {
+    it('should not create the market place item if the lister and the owner are different people', async () => {
       const auctionPrice = ethers.utils.parseUnits('1', 'ether');
-      await expect(nftMarket.createMarketItem(nftContractAddress, 0, auctionPrice, { value: 0 })).to.be.reverted;
+      const [_, secondAddress] = await ethers.getSigners();
+      await expect(
+        nftMarket.connect(secondAddress).createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice })
+      ).to.be.reverted;
     });
   });
 
@@ -82,6 +85,10 @@ describe('NFTMarket', function () {
 
     it('should not create the sale of a marketplace item if the price is not the same as the asking price', async () => {
       await expect(nftMarket.connect(buyerAddress).createMarketSale(nftContractAddress, 1)).to.be.reverted;
+    });
+
+    it('should not create the sale of a marketplace item if the buyer and the seller are the same person', async () => {
+      await expect(nftMarket.createMarketSale(nftContractAddress, 1)).to.be.reverted;
     });
   });
 });
