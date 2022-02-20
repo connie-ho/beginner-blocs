@@ -1,8 +1,10 @@
 const { expect } = require('chai');
+const { ethers } = require('hardhat');
 
 describe('NFTMarket', function () {
   let nftMarket = null;
   let nft = null;
+  let nftContractAddress = '';
 
   beforeEach(async () => {
     const Market = await ethers.getContractFactory('NFTMarket');
@@ -28,11 +30,10 @@ describe('NFTMarket', function () {
 
   describe('createMarketItem', () => {
     let listingPrice = null;
-    let token = null;
 
     beforeEach(async () => {
       listingPrice = await nftMarket.getListingPrice();
-      token = await nft.createToken('https://www.mytokenlocation.com');
+      await nft.createToken('https://www.mytokenlocation.com');
     });
 
     it('should create an item for sale', async () => {
@@ -65,14 +66,14 @@ describe('NFTMarket', function () {
 
   describe('createMarketSale', () => {
     let listingPrice = '';
-    let token = '';
     let auctionPrice = '';
     let buyerAddress = '';
+    let _firstAddress = '';
 
     beforeEach(async () => {
       listingPrice = await nftMarket.getListingPrice();
-      [_, buyerAddress] = await ethers.getSigners();
-      token = await nft.createToken('https://www.mytokenlocation.com');
+      [_firstAddress, buyerAddress] = await ethers.getSigners();
+      await nft.createToken('https://www.mytokenlocation.com');
       auctionPrice = ethers.utils.parseUnits('2', 'ether');
       await nftMarket.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice });
     });

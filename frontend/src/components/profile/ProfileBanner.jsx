@@ -2,6 +2,8 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import ProfileCarousel from './ProfileCarousel';
 
+import img from '../../assets/default.png';
+
 const useStyles = makeStyles((theme)=> ({
   banner: {
     backgroundColor:'rgba(5,24,52,0.1)',
@@ -35,7 +37,7 @@ const ProfileBanner = (props) => {
       <ProfileCarousel nfts={nfts}/>
     <img 
         className={classes.img}
-        src={require('../../assets/default.png')}
+        src={img}
         alt="default"
         name='avatar'
     />

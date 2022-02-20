@@ -16,12 +16,12 @@
     "deploy:ropsten": "npx hardhat run scripts/deploy.js --network ropsten"
   },
   "lint-staged": {
-    "*.{js, jsx}": [
+    "*.{js, jsx, json}": [
       "npm run format",
       "npm run lint",
       "git add ."
     ],
-    "*.{js,yaml,yml,md}": "prettier --write"
+    "*.{js,json,yaml,yml,md}": "prettier --write"
   },
   "husky": {
     "hooks": {
