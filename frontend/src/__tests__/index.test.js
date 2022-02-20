@@ -8,8 +8,6 @@ import EthersContextProvider from '../contexts/ethers-provider-context';
 import UserContextProvider from '../contexts/user-context';
 import { theme } from '../theme/theme';
 
-import Index from '../index.jsx'
-
 jest.mock('react-dom', () => ({ render: jest.fn() }));
 
 describe('Application root', () => {
@@ -17,7 +15,7 @@ describe('Application root', () => {
     const div = document.createElement('div');
     div.id = 'root';
     document.body.appendChild(div);
-    <Index/>
+    require('../index.js');
     expect(ReactDOM.render).toHaveBeenCalledWith(
       <React.StrictMode>
         <ThemeProvider theme={theme}>
