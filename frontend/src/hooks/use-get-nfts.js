@@ -1,10 +1,13 @@
-import { useCallback } from 'react';
-
+import { useCallback, useContext } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 
+import { EthersContext } from '../contexts/ethers-provider-context';
+
 const useGetNFTs = () => {
-  const loadNFTs = useCallback(async ({ tokenContract, marketContract }) => {
+  const { tokenContract, marketContract } = useContext(EthersContext);
+
+  const loadNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
     const items = await Promise.all(
@@ -25,9 +28,9 @@ const useGetNFTs = () => {
       })
     );
     return items;
-  }, []);
+  }, [tokenContract, marketContract]);
 
-  const loadListedNFTs = useCallback(async ({ tokenContract, marketContract }) => {
+  const loadListedNFTs = useCallback(async () => {
     const data = await marketContract.fetchMyListedNFTs();
     const items = await Promise.all(
       data.map(async (i) => {
@@ -47,7 +50,7 @@ const useGetNFTs = () => {
       })
     );
     return items;
-  }, []);
+  }, [tokenContract, marketContract]);
 
   const loadOwnedNFTs = useCallback(async (owner) => {
     const ownerAddr = `${owner}`;
