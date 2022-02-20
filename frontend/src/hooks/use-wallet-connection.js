@@ -1,30 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { ethers } from 'ethers';
+import { UserContext } from '../contexts/user-context';
 
 function useWalletConnection() {
-  const [account, setAccount] = useState(null);
+  const { setAccount } = useContext(UserContext);
   let loggedIn = localStorage.getItem('loggedIn') || null;
-
-  const checkWalletConnection = async () => {
-    const { ethereum } = window;
-    if (!ethereum) {
-      console.log('Metamask not installed');
-      return;
-    }
-    //check if user has already logged in, then set account state
-    if (!loggedIn) return;
-
-    //grab provider to get account
-    //const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-    const provider = new ethers.getDefaultProvider('ropsten'); //saw this implementation here:  https://docs.ethers.io/v4/api-providers.html -> not sure but this seems like the recommended way to do it.
-    const accounts = await provider.send('eth_accounts', []);
-    if (accounts.length !== 0) {
-      const account = accounts[0];
-      setAccount(account);
-      return;
-    }
-  };
 
   const connectWallet = async () => {
     try {
@@ -35,7 +16,6 @@ function useWalletConnection() {
       }
       //const provider = new ethers.providers.Web3Provider(ethereum, 'any');
       const provider = new ethers.getDefaultProvider('ropsten'); //saw this implementation here:  https://docs.ethers.io/v4/api-providers.html -> not sure but this seems like the recommended way to do it.
-      console.log(provider);
       await provider.send('wallet_requestPermissions', [
         {
           eth_accounts: {},
@@ -49,9 +29,6 @@ function useWalletConnection() {
     } catch (error) {
       console.log(error);
     }
-    return{ 
-      account,
-    };
   };
 
   const disconnectWallet = async () => {
@@ -60,45 +37,56 @@ function useWalletConnection() {
     return;
   };
 
-  const addWalletListener = async() => {                // can this be async?? need to check
-  if (window.ethereum) {
-    window.ethereum.on("accountsChanged", (accounts) => {
-      if (accounts.length > 0) {
-        setAccount(accounts[0]);
-        //setStatus("👆🏽 Write a message in the text-field above.");
-      } else {
-        setAccount("");
-        //setStatus("🦊 Connect to Metamask using the top right button.");
-      }
-    });
-  } else {
-      console.log("Insxtall metamask or a wallet provider!");
+  const addWalletListener = () => {
+    // can this be async?? need to check
+    if (window.ethereum) {
+      window.ethereum.on('accountsChanged', (accounts) => {
+        if (accounts.length > 0) {
+          setAccount(accounts[0]);
+          //setStatus("👆🏽 Write a message in the text-field above.");
+        } else {
+          setAccount('');
+          //setStatus("🦊 Connect to Metamask using the top right button.");
+        }
+      });
+    } else {
+      console.log('Insxtall metamask or a wallet provider!');
     }
-  }
-
+  };
 
   useEffect(() => {
+    const checkWalletConnection = async (setAccount) => {
+      const { ethereum } = window;
+      if (!ethereum) {
+        console.log('Metamask not installed');
+        return;
+      }
+      //check if user has already logged in, then set account state
+      if (!loggedIn) return;
+
+      //grab provider to get account
+      const provider = new ethers.getDefaultProvider('ropsten');
+      const accounts = await provider.send('eth_accounts', []);
+      if (accounts.length !== 0) {
+        const account = accounts[0];
+        setAccount(account);
+        return;
+      }
+    };
+
     //check wallet connection
-    checkWalletConnection();
-    
-    //setting account
-    setAccount(account);
+    checkWalletConnection(setAccount);
 
     //walletlistener for changes
-    
+
     addWalletListener();
-
-  }, [account, checkWalletConnection]);
-
+  }, []);
 
   return {
-    account,
-    checkWalletConnection,
     connectWallet,
     disconnectWallet,
     addWalletListener,
   };
-  
 }
 
 export default useWalletConnection;

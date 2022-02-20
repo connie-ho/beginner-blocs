@@ -18,8 +18,8 @@ async function main() {
   console.log('nft deployed to:', nft.address);
 
   let config = `
-  export const nftmarketaddress = "${nftMarket.address}";
-  export const nftaddress = "${nft.address}";
+  export const nftMarketAddress = "${nftMarket.address}";
+  export const nftAddress = "${nft.address}";
   `;
 
   let data = JSON.stringify(config);
