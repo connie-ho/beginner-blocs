@@ -119,7 +119,7 @@ contract NFTMarket is ReentrancyGuard {
         return items;
     }
 
-    /* Returns onlyl items that a user has purchased */
+    /* Returns only items that a user owns tenatively if we cant get alchemy to work */
     function fetchMyNFTs() public view returns (MarketItem[] memory) {
         uint totalItemCount = _itemIds.current();
         uint itemCount = 0;
@@ -143,8 +143,8 @@ contract NFTMarket is ReentrancyGuard {
         return items;
     }
 
-    /* Returns only items a user has created */
-    function fetchItemsCreated() public view returns (MarketItem[] memory) {
+    /* Returns only items a user has listed */
+    function fetchMyListedNFTs() public view returns (MarketItem[] memory) {
         uint totalItemCount = _itemIds.current();
         uint itemCount = 0;
         uint currentIndex = 0;

@@ -60,7 +60,7 @@ describe('NFTMarket', function () {
     expect(myPurchases[0].tokenId).to.equal('3');
 
     /* query for and return the my created items */
-    items = await market.fetchItemsCreated();
+    items = await market.fetchMyListedNFTs();
     const itemsCreated = await Promise.all(
       items.map(async (i) => {
         const tokenUri = await nft.tokenURI(i.tokenId);
