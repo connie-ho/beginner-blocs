@@ -1,12 +1,12 @@
 import { pinJSONToIPFS } from "./use-pinata.js";
 import { useState, useEffect } from 'react';
-import {useWalletConnection} from "./use-wallet-connection";
-import {contractAddress} from '../config';
-import {contractABI} from '../contract-abi.json'; //confirm where abi is placed
+import useWalletConnection from "./use-wallet-connection";
+import {nftAddress} from '../config';
+// import 'frontend/src/artifacts/contracts/NFT.sol/NFT.json' as contractABI; //confirm where abi is placed
 
 require("dotenv").config();
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
-//const contractABI = require("../contract-abi.json"); // find where abi is generated and replace.
+const contractABI = require("../artifacts/contracts/NFT.sol/NFT.json"); 
 //const contractAddress = "0x4C4a07F737Bf57F6632B6CAB089B78f62385aCaE"; // need to change it to our contract address
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3");
 const web3 = createAlchemyWeb3(alchemyKey);
@@ -42,11 +42,6 @@ function useInteract(){
   };
 
   
-  async function loadContract() {
-  return new web3.eth.Contract(contractABI, contractAddress);
-  };
-
-  
   const mintNFT = async (url, name, description) => {
   if (url.trim() === "" || name.trim() === "" || description.trim() === "") {
     return {
@@ -70,10 +65,11 @@ function useInteract(){
   }
   const tokenURI = pinataResponse.pinataUrl;
 
-  window.contract = await new web3.eth.Contract(contractABI, contractAddress);
+
+  window.contract = await new web3.eth.Contract(contractABI, nftAddress);
 
   const transactionParameters = {
-    to: contractAddress, // Required except during contract publications.
+    to: nftAddress, // Required except during contract publications.
     from: window.ethereum.selectedAddress, // must match user's active address.
     data: window.contract.methods
       .mintNFT(window.ethereum.selectedAddress, tokenURI)
@@ -103,7 +99,6 @@ function useInteract(){
   return {
     walletAddress,
     mintNFT,
-    loadContract,
     onMintPressed,
     connectWalletPressed,
   };

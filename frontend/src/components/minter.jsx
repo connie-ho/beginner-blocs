@@ -7,8 +7,8 @@ import { useEffect, useState } from "react";
 //   connectWallet,
 //   checkWalletConnection,
 // } from '../hooks/use-wallet-connection.js';
-import {useInteract} from '../hooks/use-interact';
-import {useWalletConnection} from '../hooks/use-wallet-connection';
+import useInteract from '../hooks/use-interact';
+import useWalletConnection from '../hooks/use-wallet-connection';
 
 const Minter = (props) => {
 
@@ -20,7 +20,7 @@ const Minter = (props) => {
   const [url, setURL] = useState("");
   
   const {account, checkWalletConnection, connectWallet, disconnectWallet, addWalletListener} = useWalletConnection();
-  const {accountAddress, mintNFT, loadContract, onMintPressed, connectWalletPressed} = useInteract(); //calling it account address cause walletAddress is already declared above
+  const {accountAddress, mintNFT, onMintPressed, connectWalletPressed} = useInteract(); //calling it account address cause walletAddress is already declared above
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
