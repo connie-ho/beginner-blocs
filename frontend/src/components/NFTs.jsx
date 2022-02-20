@@ -10,14 +10,13 @@ import Loading from './common/Loading';
 const NFTs = () => {
   const [marketNfts, setMarketNfts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { tokenContract, marketContract } = useContext(EthersContext);
 
   const { loadNFTs } = useGetNFTs();
 
   useEffect(() => {
-    const fetchMarketItems = async (tokenContract, marketContract) => {
+    const fetchMarketItems = async () => {
       try {
-        const items = await loadNFTs({ tokenContract, marketContract });
+        const items = await loadNFTs();
         setMarketNfts(items);
       } catch (err) {
         console.log(err.message);
@@ -26,8 +25,8 @@ const NFTs = () => {
       }
     };
 
-    fetchMarketItems(tokenContract, marketContract);
-  }, [loadNFTs, marketContract, tokenContract]);
+    fetchMarketItems();
+  }, [loadNFTs]);
 
   if (loading) {
     return <Loading />;

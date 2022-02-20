@@ -29,8 +29,6 @@ const Profile = () => {
     initialNFTs
   );
 
-  const { tokenContract, marketContract } = useContext(EthersContext);
-
   const handleTabChange = useCallback((event, newValue) => {
     setTabValue(newValue);
   }, []);
@@ -49,8 +47,8 @@ const Profile = () => {
       }
     };
 
-    const fetchNFTs = async (account, tokenContract, marketContract) => {
-      const listedItems = await loadListedNFTs({ tokenContract, marketContract });
+    const fetchNFTs = async (account) => {
+      const listedItems = await loadListedNFTs();
       const ownedItems = await loadOwnedNFTs(account);
 
       setNFTs({ listed: listedItems, owned: ownedItems });
@@ -59,7 +57,7 @@ const Profile = () => {
     const getProfileDetails = async (account) => {
       try {
         grabAccountBalanceInformation(account);
-        fetchNFTs(account, tokenContract, marketContract);
+        fetchNFTs(account);
       } catch (error) {
         console.log(error.message);
       } finally {
@@ -70,7 +68,7 @@ const Profile = () => {
     };
 
     getProfileDetails(account);
-  }, [account, balance, loadListedNFTs, loadOwnedNFTs, marketContract, tokenContract]);
+  }, [account, balance, loadListedNFTs, loadOwnedNFTs]);
 
   if (loading) {
     return <Loading />;
