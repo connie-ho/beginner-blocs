@@ -63,7 +63,9 @@ const Profile = () => {
       } catch (error) {
         console.log(error.message);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        },500)
       }
     };
 
