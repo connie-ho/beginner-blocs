@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 
 import { useGetNFTs } from '../hooks/use-get-nfts';
