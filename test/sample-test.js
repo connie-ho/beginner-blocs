@@ -49,7 +49,7 @@ describe('NFTMarket', function () {
     //      return item
 
     /* query for and return the my created items */
-    items = await market.fetchItemsCreated();
+    items = await market.fetchMyNFTs();
     items = await Promise.all(
       items.map(async (i) => {
         const tokenUri = await nft.tokenURI(i.tokenId);

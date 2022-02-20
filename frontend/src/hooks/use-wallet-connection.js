@@ -22,7 +22,7 @@ function useWalletConnection() {
 
       const accounts = await provider.send('eth_requestAccounts');
 
-      localStorage.setItem('loggedIn', true);
+      localStorage.setItem('loggedIn', 'true');
       setAccount(accounts[0]);
     } catch (error) {
       console.log(error);
