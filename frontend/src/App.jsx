@@ -7,6 +7,7 @@ import {
 
 import Nav from './components/Nav'
 import Home from './components/Home'
+import FAQ from './components/faq'
 import useWalletConnection from "./hooks/use-wallet-connection";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
            disconnect={disconnectWallet}
            loggedIn={account} />
       <Routes>
-        <Route path="/FAQ" />
+        <Route path="/faq" element={<FAQ/>} />
         <Route path="getting-started" />
         <Route path="/profile"/>
         <Route path="/" element={<Home/>}/>
