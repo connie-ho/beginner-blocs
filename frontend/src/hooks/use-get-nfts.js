@@ -3,6 +3,8 @@ import { useCallback } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 
+import img from '../assets/not_found.png';
+
 const useGetNFTs = () => {
   const loadNFTs = useCallback(async ({ tokenContract, marketContract }) => {
     const data = await marketContract.fetchMarketItems();
@@ -64,7 +66,7 @@ const useGetNFTs = () => {
         let emptyMeta = {
           name: 'N/A',
           description: 'N/A',
-          image: require('../assets/not_found.png'),
+          image: img,
         };
         let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
 

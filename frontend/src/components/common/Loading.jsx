@@ -1,5 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@mui/styles';
+
+import img from '../../assets/spinner.gif';
+
 const useStyles = makeStyles((theme) => ({
   loader: {
     height: '45rem',
@@ -27,7 +30,7 @@ const Loading = () => {
   const classes = useStyles();
   return (
     <div className={classes.loader}>
-      <img className={classes.img} src={require('../../assets/spinner.gif')} alt="default" name="avatar" />
+      <img className={classes.img} src={img} alt="default" name="avatar" />
     </div>
   );
 };

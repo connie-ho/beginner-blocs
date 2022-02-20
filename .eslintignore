@@ -1,6 +1,2 @@
-**/build
-**/coverage
 **/node_modules
-**/test
-**/types.d.ts
-**/schema.d.ts
+**/artifacts

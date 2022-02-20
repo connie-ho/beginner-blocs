@@ -15,7 +15,7 @@ describe('Application root', () => {
     const div = document.createElement('div');
     div.id = 'root';
     document.body.appendChild(div);
-    require('../index.jsx');
+    require('../index.js');
     expect(ReactDOM.render).toHaveBeenCalledWith(
       <React.StrictMode>
         <ThemeProvider theme={theme}>

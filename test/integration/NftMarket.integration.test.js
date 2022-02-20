@@ -1,6 +1,6 @@
 const { expect } = require('chai');
+const { ethers } = require('hardhat');
 
-/* test/sample-test.js */
 describe('NFTMarket', function () {
   it('Should create and execute market sales', async function () {
     /* deploy the marketplace */
@@ -20,7 +20,7 @@ describe('NFTMarket', function () {
 
     const auctionPrice = ethers.utils.parseUnits('1', 'ether');
 
-    const [_, secondAddress] = await ethers.getSigners();
+    const [_myAddress, secondAddress] = await ethers.getSigners();
 
     /* create a couple of tokens */
     await nft.createToken('this is my token');
@@ -41,9 +41,9 @@ describe('NFTMarket', function () {
     await market.createMarketSale(nftContractAddress, 3, { value: auctionPrice });
 
     /* query for and return the my purchased items */
-    items = await market.fetchMyNFTs();
+    const purchasedItems = await market.fetchMyNFTs();
     const myPurchases = await Promise.all(
-      items.map(async (i) => {
+      purchasedItems.map(async (i) => {
         const tokenUri = await nft.tokenURI(i.tokenId);
         let item = {
           price: i.price.toString(),
@@ -60,9 +60,9 @@ describe('NFTMarket', function () {
     expect(myPurchases[0].tokenId).to.equal('3');
 
     /* query for and return the my created items */
-    items = await market.fetchMyListedNFTs();
-    const itemsCreated = await Promise.all(
-      items.map(async (i) => {
+    const listedItems = await market.fetchMyListedNFTs();
+    const listedNfts = await Promise.all(
+      listedItems.map(async (i) => {
         const tokenUri = await nft.tokenURI(i.tokenId);
         let item = {
           price: i.price.toString(),
@@ -75,14 +75,14 @@ describe('NFTMarket', function () {
       })
     );
 
-    expect(itemsCreated.length).to.equal(2);
-    expect(itemsCreated[0].tokenId).to.equal('1');
-    expect(itemsCreated[1].tokenId).to.equal('2');
+    expect(listedNfts.length).to.equal(2);
+    expect(listedNfts[0].tokenId).to.equal('1');
+    expect(listedNfts[1].tokenId).to.equal('2');
 
     // /* query for and return the unsold items */
-    items = await market.fetchMarketItems();
+    const marketItems = await market.fetchMarketItems();
     const unSoldItems = await Promise.all(
-      items.map(async (i) => {
+      marketItems.map(async (i) => {
         const tokenUri = await nft.tokenURI(i.tokenId);
         let item = {
           price: i.price.toString(),
