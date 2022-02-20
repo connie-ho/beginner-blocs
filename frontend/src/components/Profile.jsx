@@ -8,7 +8,6 @@ import AccountInfo from './profile/AccountInfo';
 import TabOptions from './profile/TabOptions';
 import NFTList from './profile/NFTList';
 import Loading from './common/Loading';
-import { EthersContext } from '../contexts/ethers-provider-context';
 import { UserContext } from '../contexts/user-context';
 import { useGetNFTs } from '../hooks/use-get-nfts';
 

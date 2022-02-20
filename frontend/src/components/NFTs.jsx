@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Grid } from '@mui/material';
 
 import { useGetNFTs } from '../hooks/use-get-nfts';
-import { EthersContext } from '../contexts/ethers-provider-context';
 
 import CardItem from './common/CardItem';
 import Loading from './common/Loading';
