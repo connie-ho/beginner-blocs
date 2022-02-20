@@ -9,7 +9,11 @@
     "format": "prettier --write \"**/*.{js,json,yaml,yml,md}\"",
     "format:check": "prettier --check \"**/*.{js,json,yaml,yml,md}\"",
     "install:all": "npm install && cd ./frontend && npm install",
-    "test:frontend": "cd ./frontend && npm run test"
+    "test:frontend": "cd ./frontend && npm run test",
+    "start": "npx hardhat node",
+    "compile": "npx hardhat compile",
+    "deploy:local": "npx hardhat run scripts/deploy.js --network localhost",
+    "deploy:ropsten": "npx hardhat run scripts/deploy.js --network ropsten"
   },
   "lint-staged": {
     "*.js": [
@@ -17,7 +21,7 @@
       "npm run lint",
       "git add ."
     ],
-    "*.{js,json,yaml,yml,md}": "prettier --write"
+    "*.{js,yaml,yml,md}": "prettier --write"
   },
   "husky": {
     "hooks": {
@@ -39,12 +43,12 @@
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.4.2",
     "dotenv": "^11.0.0",
-    "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.3",
     "hardhat": "^2.8.2"
   },
   "devDependencies": {
     "chai": "^4.3.4",
+    "ethereum-waffle": "^3.4.0",
     "eslint": "^8.6.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.1.7",
