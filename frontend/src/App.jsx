@@ -8,7 +8,7 @@ import {
 import Nav from './components/Nav'
 import Home from './components/Home'
 import useWalletConnection from "./hooks/use-wallet-connection";
-import Minter from "./components/minter";
+import Minter from "./components/Minter";
 
 function App() {
 
