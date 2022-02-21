@@ -1,15 +1,17 @@
 import React, { useEffect, useState, useCallback, useContext, useReducer } from 'react';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
 import { ethers } from 'ethers';
+import { Grid, Divider } from '@mui/material';
+
+import { UserContext } from '../contexts/user-context';
+import { EthersContext } from '../contexts/ethers-provider-context';
+import { useGetNFTs } from '../hooks/use-get-nfts';
+
 import TabPanel from './common/TabPanel';
 import ProfileBanner from './profile/ProfileBanner';
 import AccountInfo from './profile/AccountInfo';
 import TabOptions from './profile/TabOptions';
 import NFTList from './profile/NFTList';
 import Loading from './common/Loading';
-import { UserContext } from '../contexts/user-context';
-import { useGetNFTs } from '../hooks/use-get-nfts';
 
 const Profile = () => {
   const initialNFTs = {
@@ -17,6 +19,8 @@ const Profile = () => {
     listed: [],
   };
   const { account } = useContext(UserContext);
+  const { tokenContract, marketContract } = useContext(EthersContext);
+
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
   const [tabValue, setTabValue] = useState(1);
@@ -32,7 +36,7 @@ const Profile = () => {
     setTabValue(newValue);
   }, []);
 
-  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs();
+  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({tokenContract, marketContract});
 
   useEffect(() => {
     const grabAccountBalanceInformation = async (account) => {

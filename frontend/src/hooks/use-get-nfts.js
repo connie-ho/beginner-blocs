@@ -1,13 +1,10 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 
 import img from '../assets/not_found.png';
-import { EthersContext } from '../contexts/ethers-provider-context';
 
-const useGetNFTs = () => {
-  const { tokenContract, marketContract } = useContext(EthersContext);
-
+const useGetNFTs = ({ tokenContract, marketContract }) => {
   const loadNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
