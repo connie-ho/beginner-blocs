@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react';
 
-import { renderWithProviders } from '../../../lib/renderwithProviders';
+import { renderWithProviders } from '../../../lib/test-utils';
 import { createTestNft } from '../../../lib/test/helper/nft';
 import * as useGetNFTs from '../../../hooks/use-get-nfts';
 
 import MarketNFTList from '../MarketNFTList';
 
 describe('MarketNftList', () => {
-    const renderMarketNFTList = (props) => {
+    const renderMarketNFTList = async (props) => {
         const view = renderWithProviders(<MarketNFTList {...props} />)
 
         return {

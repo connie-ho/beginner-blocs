@@ -7,7 +7,7 @@ import { EthersContext } from '../../contexts/ethers-provider-context';
 import CardItem from '../common/CardItem';
 import Loading from '../common/Loading';
 
-const MarketNftList = () => {
+const MarketNFTList = () => {
   const { tokenContract, marketContract } = useContext(EthersContext);
 
   const [marketNFTs, setMarketNFTs] = useState([]);
@@ -45,4 +45,4 @@ const MarketNftList = () => {
   return <Grid data-testid='grid'>{NftCards}</Grid>;
 };
 
-export default MarketNftList;
+export default MarketNFTList;
