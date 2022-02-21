@@ -1,24 +1,8 @@
-import React from 'react';
-import { ThemeProvider } from '@mui/material';
 import { render } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 
-import { theme } from '../theme/theme';
-import EthersContextProvider from '../contexts/ethers-provider-context';
-import UserContextProvider from '../contexts/user-context';
+import Providers from "../Providers";
 
-
-const Providers = ({children}) => (
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <EthersContextProvider>
-        <UserContextProvider>
-          {children}
-        </UserContextProvider>
-      </EthersContextProvider>
-    </ThemeProvider>
-  </React.StrictMode>
-)
 
 const customRender = (ui, options = {}) => render(ui, { wrapper: Providers, ...options });
 
