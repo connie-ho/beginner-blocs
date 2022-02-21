@@ -7,7 +7,7 @@ import UserContextProvider from './contexts/user-context';
 
 
 const Providers = ({children}) => (
-    <React.StrictMode>
+  <React.StrictMode>
     <ThemeProvider theme={theme}>
       <EthersContextProvider>
         <UserContextProvider>

@@ -1,4 +1,4 @@
-import { useCallback, useContext } from 'react';
+import { useCallback } from 'react';
 import { ethers } from 'ethers';
 import axios from 'axios';
 

@@ -7,31 +7,34 @@ import * as useGetNFTs from '../../../hooks/use-get-nfts';
 import MarketNFTList from '../MarketNFTList';
 
 describe('MarketNftList', () => {
-    const renderComponent = (props) => {
-        const view = () => renderWithProviders(<MarketNFTList {...props} />)
+    const renderMarketNFTList = (props) => {
+        const view = renderWithProviders(<MarketNFTList {...props} />)
 
         return {
             ...view,
-            $findMarketItems: () => screen.findAllByTestId(/^market-item-/),
-            $findGrid: () => screen.queryByTestId('grid')
+            $findMarketItems: async () => screen.findAllByTestId(/^market-item-/),
         }
     } 
 
+    test('it renders', async() => {
+        const { container } = await renderMarketNFTList()
+        expect(container).toBeVisible()
+    })
+
     test('should display a list of market nfts', async() => {
+
         const nft1 = await createTestNft()
         const nft2 = await createTestNft({tokenId: 2})
         const nfts = [nft1, nft2]
-
+    
+        const mockLoadNFTs = jest.fn().mockResolvedValue(nfts)
+    
         jest.spyOn(useGetNFTs, 'useGetNFTs').mockReturnValue({
-            loadNFTs: jest.fn().mockResolvedValue(nfts)
+            loadNFTs: mockLoadNFTs,
         });
+        const { $findMarketItems } = await renderMarketNFTList();
+        const marketItems = await $findMarketItems()
 
-        const { $findGrid } = renderComponent();
-        expect($findGrid()).toBeVisible();
-        // const marketItems = await $findMarketItems()    
-
-        // expect(marketItems).toBeVisible();
-
-
+        expect(marketItems).toHaveLength(2)
     })
 })
