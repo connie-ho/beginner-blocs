@@ -4,7 +4,8 @@ import { makeStyles } from '@mui/styles';
 import { Button } from "@mui/material";
 
 import CardItem from "./common/CardItem";
-import NFTs from './NFTs';
+import MarketNFTList from './market-nfts/MarketNFTList'
+
 import home from '../assets/home.jpeg'
 
 const useStyles = makeStyles((theme)=> ({
@@ -51,7 +52,7 @@ const Home = () => {
         </div>
       </section>
       <section>
-        <NFTs />
+        <MarketNFTList />
 
         <CardItem>
           <img

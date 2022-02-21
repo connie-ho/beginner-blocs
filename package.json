@@ -47,15 +47,17 @@
     "hardhat": "^2.8.2"
   },
   "devDependencies": {
+    "@ethersproject/testcases": "^5.5.0",
     "@nomiclabs/eslint-plugin-hardhat-internal-rules": "^1.0.0",
     "chai": "^4.3.4",
-    "ethereum-waffle": "^3.4.0",
     "eslint": "^8.6.0",
     "eslint-plugin-chai-expect": "^3.0.0",
     "eslint-plugin-react": "^7.28.0",
+    "ethereum-waffle": "^3.4.0",
     "husky": "^7.0.0",
     "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
+    "seedrandom": "^3.0.5",
     "typescript": "^4.5.5"
   }
 }

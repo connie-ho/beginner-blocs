@@ -1,12 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import App from '../App';
-
-import { ThemeProvider } from '@mui/material';
-
-import EthersContextProvider from '../contexts/ethers-provider-context';
-import UserContextProvider from '../contexts/user-context';
-import { theme } from '../theme/theme';
+import Providers from '../Providers';
 
 jest.mock('react-dom', () => ({ render: jest.fn() }));
 
@@ -17,15 +13,9 @@ describe('Application root', () => {
     document.body.appendChild(div);
     require('../index.js');
     expect(ReactDOM.render).toHaveBeenCalledWith(
-      <React.StrictMode>
-        <ThemeProvider theme={theme}>
-          <EthersContextProvider>
-            <UserContextProvider>
-              <App />
-            </UserContextProvider>
-          </EthersContextProvider>
-        </ThemeProvider>
-      </React.StrictMode>,
+      <Providers>
+        <App />
+      </Providers>,
       div
     );
   });

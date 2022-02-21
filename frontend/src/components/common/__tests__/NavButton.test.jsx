@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, cleanup, screen, fireEvent, waitFor } from '@testing-library/react';
-import NavButton from '../components/common/NavButton';
+
+import NavButton from '../NavButton';
 
 afterEach(cleanup);
 
