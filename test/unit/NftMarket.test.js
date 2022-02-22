@@ -113,5 +113,9 @@ describe('NFTMarket', function () {
       expect(marketItem.price).to.equal(auctionPrice);
       expect(marketItem.sold).to.equal(false);
     });
+
+    it('throws error if item with given contract address and tokenId does not exist', async () => {
+      await expect(nftMarket.fetchItemByContractAddAndTokenID(nftContractAddress, 5)).to.be.reverted;
+    });
   });
 });

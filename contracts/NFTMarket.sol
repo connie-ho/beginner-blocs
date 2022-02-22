@@ -126,6 +126,7 @@ contract NFTMarket is ReentrancyGuard {
                 return idToMarketItem[i+1];
             }
         }
+        revert("Not found");
     }
 
     /* Returns only items that a user owns tenatively if we cant get alchemy to work */
