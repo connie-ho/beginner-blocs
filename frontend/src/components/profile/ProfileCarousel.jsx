@@ -45,7 +45,7 @@ const ProfileCarousel = (props) => {
     return <img key={item.address} src={`${item.image}`} alt="nft" className={classes.img} />;
   });
 
-  if (nfts.length === 0) {
+  if (carouselNFTs.length === 0) {
     return <></>;
   }
 

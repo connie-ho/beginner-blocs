@@ -27,12 +27,12 @@ describe('AccountInfo', () => {
     })
 
     test('it displays the correct Eth amount', async() => {
-      const { getByText } = await renderAccountInfo(mockProps)
-      expect(getByText("2.45 Eth", {exact: false})).toBeInTheDocument();
+      await renderAccountInfo(mockProps)
+      expect(screen.getByText("2.45 Eth", {exact: false})).toBeInTheDocument();
     })
 
     test('it displays a button for the wallet address', async() => {
-      const {getByText} = await renderAccountInfo(mockProps)
+      await renderAccountInfo(mockProps)
       const button = screen.getByTestId('acc-button')
       expect(button).not.toBeNull()
     })

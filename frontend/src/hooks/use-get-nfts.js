@@ -67,6 +67,7 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
           description: 'N/A',
           image: img,
         };
+
         let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
 
         let item = {
