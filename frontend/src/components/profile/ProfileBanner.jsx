@@ -7,7 +7,8 @@ import img from '../../assets/default.png';
 const useStyles = makeStyles((theme)=> ({
   banner: {
     backgroundColor:'rgba(5,24,52,0.1)',
-    height: '45rem',
+    height: '25rem',
+    width:'100%',
     margin: '2rem',
     position:'relative',
     alignItems: 'center',
@@ -17,14 +18,14 @@ const useStyles = makeStyles((theme)=> ({
     justifyContent: 'center',
   },
   img: {
-    width: theme.typography.pxToRem(250),
+    width: theme.typography.pxToRem(150),
     marginBottom: theme.spacing(4),
     position: 'absolute',
     bottom: 0,
     borderColor:'white',
     transform:'translate(0rem,7rem)',
     zIndex: 2,
-    borderRadius: theme.typography.pxToRem(300),
+    borderRadius: theme.typography.pxToRem(150),
   }
 }))
 

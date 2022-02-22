@@ -6,7 +6,7 @@ import './carousel.css';
 
 const useStyles = makeStyles((theme) => ({
   img: {
-    width: theme.typography.pxToRem(350),
+    width: theme.typography.pxToRem(250),
     marginBottom: theme.spacing(2),
     borderRadius: theme.typography.pxToRem(4),
   },
