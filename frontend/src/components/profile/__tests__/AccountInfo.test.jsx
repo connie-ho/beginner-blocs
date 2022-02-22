@@ -4,6 +4,7 @@ import { randomHexString } from '@ethersproject/testcases';
 import seedrandom from 'seedrandom';
 import AccountInfo from '../AccountInfo';
 
+
 const seed = new seedrandom(`BEGINNERBLOCS${Math.random()*100}`);
 
 const mockProps = {
