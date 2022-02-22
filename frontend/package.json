@@ -22,6 +22,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test:verbose": "react-scripts test --detectOpenHandles",
     "test": "react-scripts test --silent",
     "eject": "react-scripts eject"
   },

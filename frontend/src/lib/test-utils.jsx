@@ -8,9 +8,5 @@ const customRender = (ui, options = {}) => render(ui, { wrapper: Providers, ...o
 const customRenderHook = (callback) =>
   renderHook(callback, { wrapper: Providers });
 
-// re-export everything
-export * from '@testing-library/react';
-export { default as userEvent } from '@testing-library/user-event';
-
 // override render method
-export { customRender as renderWithProviders, customRenderHook as renderHookWithProviders, Providers as TestProviders };
+export { customRender as renderWithProviders, customRenderHook as renderHookWithProviders };

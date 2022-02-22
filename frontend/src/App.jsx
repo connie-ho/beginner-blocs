@@ -11,7 +11,7 @@ function App() {
       <Nav />
       <Routes>
         <Route path="/FAQ" />
-        <Route path="getting-started" />
+        <Route path="get-started" />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
       </Routes>

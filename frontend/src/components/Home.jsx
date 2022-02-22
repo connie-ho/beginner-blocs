@@ -3,7 +3,6 @@ import React from "react";
 import { makeStyles } from '@mui/styles';
 import { Button } from "@mui/material";
 
-import CardItem from "./common/CardItem";
 import MarketNFTList from './market-nfts/MarketNFTList'
 
 import home from '../assets/home.jpeg'
@@ -46,22 +45,13 @@ const Home = () => {
           <h1 className={classes.header}>
             NFTs made easy.
           </h1>
-          <Button href="/getting-started" color="secondary" className={classes.button} variant="outlined" size="large">
-            Get started
+          <Button role="button" href="/get-started" color="secondary" className={classes.button} variant="outlined" size="large">
+            Get Started
           </Button>
         </div>
       </section>
       <section>
-        <MarketNFTList />
-
-        <CardItem>
-          <img
-            className={classes.img}
-            src={'https://statics.pampling.com/imagenes/disenos/diseno_85351.jpg'}
-            alt="nft"
-            />
-          <h2>Example NFT</h2>
-        </CardItem>
+        <MarketNFTList data-testid="market-list" />
       </section>
     </>
   );
