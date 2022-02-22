@@ -52,7 +52,7 @@ describe('NFTList', () => {
     })
 
     test('should display a message if no items are found', async() => {
-      const { getByText } = await renderNFTList({items:[], type:'owned'});
-      expect(getByText("No Items Found!")).toBeInTheDocument();
+      await renderNFTList({items:[], type:'owned'});
+      expect(screen.getByText("No Items Found!")).toBeInTheDocument();
   })
 })

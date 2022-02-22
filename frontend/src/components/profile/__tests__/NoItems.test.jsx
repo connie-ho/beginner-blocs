@@ -13,32 +13,32 @@ describe('AccountInfo', () => {
     } 
 
     test('it renders', async() => {
-        const { container } = await renderNoItems({type:'owned'})
+        const {container} = await renderNoItems({type:'owned'})
         expect(container).toBeVisible()
     })
 
     test('it displays the correct text for no items found', async() => {
-      const { getByText } = await renderNoItems({type:'owned'})
-      expect(getByText("No Items Found!", {exact: false})).toBeInTheDocument();
+      await renderNoItems({type:'owned'})
+      expect(screen.getByText("No Items Found!", {exact: false})).toBeInTheDocument();
     })
 
 
     test('it displays the correct messages for the owned type', async() => {
-      const { getByText } = await renderNoItems({type:'owned'})
-      expect(getByText("Try browsing the marketplace to find something for you!", {exact: false})).toBeInTheDocument();
-      expect(getByText('Marketplace')).toBeInTheDocument();
+      await renderNoItems({type:'owned'})
+      expect(screen.getByText("Try browsing the marketplace to find something for you!", {exact: false})).toBeInTheDocument();
+      expect(screen.getByText('Marketplace')).toBeInTheDocument();
     })
 
     test('it displays the correct messages for the created type', async() => {
-      const { getByText } = await renderNoItems({type:'created'})
-      expect(getByText("Come back soon, or try creating an NFT below!", {exact: false})).toBeInTheDocument();
-      expect(getByText('Create NFT')).toBeInTheDocument();
+      await renderNoItems({type:'created'})
+      expect(screen.getByText("Come back soon, or try creating an NFT below!", {exact: false})).toBeInTheDocument();
+      expect(screen.getByText('Create NFT')).toBeInTheDocument();
     })
 
     test('it displays the correct messages for the listed type', async() => {
-      const { getByText } = await renderNoItems({type:'listed'})
-      expect(getByText("Come back soon, or try listing an NFT below!", {exact: false})).toBeInTheDocument();
-      expect(getByText('List NFT')).toBeInTheDocument();
+      await renderNoItems({type:'listed'})
+      expect(screen.getByText("Come back soon, or try listing an NFT below!", {exact: false})).toBeInTheDocument();
+      expect(screen.getByText('List NFT')).toBeInTheDocument();
     })
 
 
