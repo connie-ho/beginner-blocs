@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const NFTList = (props) => {
   let { items, type } = props;
+
   const classes = useStyles();
   const NFTs = items.map((item, index) => {
     return (
@@ -25,6 +26,7 @@ const NFTList = (props) => {
         container
         sx={{ padding: '2rem' }}
         key={`${index}-${item.address}`}
+        data-testid={`nft-item-${item.tokenId}`}
       >
         <CardItem>
           <img src={item.image} alt="nft" className={classes.img} />
@@ -35,7 +37,7 @@ const NFTList = (props) => {
   });
 
   if (NFTs.length === 0) {
-    return <NoItems type={type} />;
+    return <NoItems data-testid="not-found" type={type} />;
   }
 
   return (
