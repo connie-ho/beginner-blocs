@@ -119,6 +119,15 @@ contract NFTMarket is ReentrancyGuard {
         return items;
     }
 
+    function fetchItemByContractAddAndTokenID(address contractAddr, uint256 tokenId) public view returns (MarketItem memory) {
+        uint totalItemCount = _itemIds.current();
+        for (uint i = 0; i < totalItemCount; i++) {
+            if (idToMarketItem[i+1].nftContract == contractAddr && idToMarketItem[i+1].tokenId == tokenId) {
+                return idToMarketItem[i+1];
+            }
+        }
+    }
+
     /* Returns only items that a user owns tenatively if we cant get alchemy to work */
     function fetchMyNFTs() public view returns (MarketItem[] memory) {
         uint totalItemCount = _itemIds.current();

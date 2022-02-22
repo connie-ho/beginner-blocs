@@ -92,4 +92,26 @@ describe('NFTMarket', function () {
       await expect(nftMarket.createMarketSale(nftContractAddress, 1)).to.be.reverted;
     });
   });
+
+  describe('fetchItemByContractAddAndTokenID', () => {
+    beforeEach(async () => {
+      listingPrice = await nftMarket.getListingPrice();
+      [_firstAddress, buyerAddress] = await ethers.getSigners();
+      await nft.createToken('https://www.mytokenlocation.com');
+      auctionPrice = ethers.utils.parseUnits('2', 'ether');
+      await nftMarket.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice });
+    });
+    
+    it('Get item by contract address and token id', async () => {
+
+      auctionPrice = ethers.utils.parseUnits('2', 'ether').toString();
+
+      const marketItem = await nftMarket.fetchItemByContractAddAndTokenID(nftContractAddress, 1);
+      
+      expect(marketItem.nftContract).to.equal(nftContractAddress);
+      expect(marketItem.tokenId).to.equal(1);
+      expect(marketItem.price).to.equal(auctionPrice);
+      expect(marketItem.sold).to.equal(false);
+    });
+  });
 });
