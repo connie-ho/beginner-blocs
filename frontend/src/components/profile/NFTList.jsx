@@ -30,7 +30,7 @@ const NFTList = (props) => {
       >
         <CardItem>
           <img src={item.image} alt="nft" className={classes.img} />
-          <h2>{item.name}</h2>
+          <h3>{item.name}</h3>
         </CardItem>
       </Grid>
     );
