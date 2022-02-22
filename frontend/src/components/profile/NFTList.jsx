@@ -6,7 +6,7 @@ import NoItems from './NoItems';
 
 const useStyles = makeStyles((theme) => ({
   img: {
-    width: theme.typography.pxToRem(350),
+    width: theme.typography.pxToRem(300),
     marginBottom: theme.spacing(2),
     borderRadius: theme.typography.pxToRem(4),
   },
@@ -30,7 +30,7 @@ const NFTList = (props) => {
       >
         <CardItem>
           <img src={item.image} alt="nft" className={classes.img} />
-          <h2>{item.name}</h2>
+          <h3>{item.name}</h3>
         </CardItem>
       </Grid>
     );

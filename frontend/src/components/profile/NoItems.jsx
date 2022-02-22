@@ -17,17 +17,17 @@ const NoItems = (props) => {
       spacing={2}
       flexDirection="column"
       alignItems="center"
-      style={{ paddingTop: '10rem', minHeight: '50rem' }}
+      style={{ paddingTop: '5rem', minHeight: '20rem' }}
     >
-      <Typography gutterBottom={true} variant="h2">
+      <Typography gutterBottom={true} variant="h3">
         No Items Found!
       </Typography>
-      <Typography gutterBottom={true} mt={1} mb={2} style={{ fontSize: '2rem', opacity: '0.4' }} variant="body1">
+      <Typography gutterBottom={true} mt={0} mb={2} style={{ fontSize: '1rem', opacity: '0.4' }} variant="body1">
         {messages.message}
       </Typography>
       <Button
         size="large"
-        sx={{ fontSize: '1.5rem', borderRadius: '2rem', marginTop: '1rem' }}
+        sx={{ fontSize: '1rem', borderRadius: '2rem', marginTop: '1rem' }}
         variant="contained"
         color="primary"
         data-testid="noitems-button"
