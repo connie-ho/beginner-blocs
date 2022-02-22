@@ -18,6 +18,9 @@ export const createTestNft = (data) => {
     seller: sellerWallet.address,
     owner: ownerWallet.address,
     tokenUri: `randomuri-${tokenId}.com`,
+    description: 'Test',
+    image: '',
+    name: 'Test NFT',
     ...data,
   };
 };

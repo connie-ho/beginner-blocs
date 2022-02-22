@@ -1,36 +1,9 @@
 import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../../../lib/test-utils';
-import { randomHexString } from '@ethersproject/testcases';
-import seedrandom from 'seedrandom';
-
 import NFTList from '../NFTList';
+import { createTestNft } from '../../../lib/test/helper/nft';
 
-const seed = new seedrandom(`BEGINNERBLOCS${Math.random()*100}`);
-
-const mockProps = {
-  items: [
-    {
-      address:randomHexString(seed, 0, 32),
-      description: "Test",
-      image: "",
-      name: "Test NFT",
-      owner: randomHexString(seed, 0, 32),
-      tokenId: Math.random()*100
-    },
-    {
-      address:randomHexString(seed, 0, 32),
-      description: "Test",
-      image: "",
-      name: "Test NFT",
-      owner: randomHexString(seed, 0, 32),
-      tokenId: Math.random()*100
-    },
-    
-  ],
-  type: 'owned'
-}
-
-describe('NFTList', () => {
+describe('NFTList',() => {
     const renderNFTList = async (props) => {
         const view = renderWithProviders(<NFTList {...props} />)
 
@@ -38,8 +11,15 @@ describe('NFTList', () => {
             ...view,
             $findNFTItems: async () => screen.findAllByTestId(/^nft-item-/),
         }
-    } 
+    }
 
+    const nft1 = createTestNft()
+    const nft2 = createTestNft({tokenId: 2})
+    const nfts = [nft1, nft2]
+    
+    const mockProps = {items: nfts,
+                        type:'owned'}
+  
     test('it renders', async() => {
         const { container } = await renderNFTList(mockProps)
         expect(container).toBeVisible()

@@ -1,41 +1,15 @@
 import ProfileBanner from '../ProfileBanner'
 import { renderWithProviders } from '../../../lib/test-utils'
-import { randomHexString } from '@ethersproject/testcases'
-import seedrandom from 'seedrandom';
-
-const seed = new seedrandom(`BEGINNERBLOCS${Math.random()*100}`);
-
-const mockProps = {
-  nfts: [
-    {
-      address:randomHexString(seed, 0, 32),
-      description: "Test",
-      image: "",
-      name: "Test NFT",
-      owner: randomHexString(seed, 0, 32),
-      tokenId: Math.random()*100
-    },
-    {
-      address:randomHexString(seed, 0, 32),
-      description: "Test",
-      image: "",
-      name: "Test NFT",
-      owner: randomHexString(seed, 0, 32),
-      tokenId: Math.random()*100
-    },
-    {
-      address:randomHexString(seed, 0, 32),
-      description: "N/A",
-      image: "",
-      name: "N/A",
-      owner: randomHexString(seed, 0, 32),
-      tokenId: Math.random()*100
-    }
-    
-  ]
-}
+import { createTestNft } from '../../../lib/test/helper/nft';
 
 describe('ProfileBanner', () => {
+
+  const nft1 = createTestNft()
+  const nft2 = createTestNft({tokenId: 2})
+  const nfts = [nft1, nft2]
+  
+  const mockProps = {nfts: nfts}
+
     const renderProfileBanner = async (props) => {
         const view = renderWithProviders(<ProfileBanner {...props} />)
 
