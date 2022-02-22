@@ -72,7 +72,7 @@ const AccountInfo = (props) => {
   return (
     <div className={classes.header} name='account-info'>
       <AccountButton id='account-button' onClick={copyText}>{account}</AccountButton>
-      <p style={{fontSize:'2rem'}}>Credits: {balance} Eth</p>
+      <p style={{fontSize:'1.5rem'}}>Credits: {balance} Eth</p>
       <Snackbar
         style={{backgroundColor:"white"}}
         open={alert}

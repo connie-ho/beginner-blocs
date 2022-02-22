@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     textAlign: 'center',
     padding: theme.spacing(2, 2, 2),
-    height: theme.typography.pxToRem(450),
-    width: theme.typography.pxToRem(350),
+    height: theme.typography.pxToRem(350),
+    width: theme.typography.pxToRem(300),
     borderRadius: theme.typography.pxToRem(4),
     transition: "transform 0.15s ease-in-out",
     "&:hover": {

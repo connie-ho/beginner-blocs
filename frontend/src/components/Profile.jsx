@@ -79,7 +79,7 @@ const Profile = () => {
 
   return (
     <>
-      <Grid container style={{ minHeight: '100rem' }}>
+      <Grid container style={{ minHeight: '50rem' }}>
         <Grid item xs={1} />
         <Grid item xs={10} container direction="column">
           <ProfileBanner nfts={NFTs.owned} />
