@@ -1,11 +1,15 @@
 import { pinJSONToIPFS } from './use-pinata';
 import { nftaddress } from '../config';
+// import NFT from '../artifacts/contracts/NFT.sol/NFT.json';
+
 require('dotenv').config();
 const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
-const contractABI = require('../artifacts/contracts/NFT.sol/NFT.json');
 const contractAddress = nftaddress;
+const contractABI = require('../artifacts/contracts/NFT.sol/NFT.json');
+
 const { createAlchemyWeb3 } = require('@alch/alchemy-web3');
 const web3 = createAlchemyWeb3(alchemyKey);
+// const contractABI = require("../contract-abi.json");
 
 export const connectWallet = async () => {
   if (window.ethereum) {
@@ -113,7 +117,7 @@ export const mintNFT = async (file, name, description) => {
   console.log('tokenuri is :' + tokenURI);
 
   console.log('this is contract addresss: ', contractAddress);
-  console.log('this is contract addresss: ', contractABI);
+  console.log('this is contract abi: ', contractABI);
 
   window.contract = await new web3.eth.Contract(contractABI.abi, contractAddress);
 
