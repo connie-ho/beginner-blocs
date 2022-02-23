@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import {
   connectWallet,
   getCurrentWalletConnected,
   mintNFT,
-} from "./util/interact.js";
+} from "../hooks/use-interact";
 
 const Minter = (props) => {
   const [walletAddress, setWallet] = useState("");
@@ -12,6 +13,7 @@ const Minter = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
+  const [file, setFile] = useState('');
 
   useEffect(async () => {
     const { address, status } = await getCurrentWalletConnected();
@@ -54,7 +56,8 @@ const Minter = (props) => {
   };
 
   const onMintPressed = async () => {
-    const { success, status } = await mintNFT(url, name, description);
+    console.log(file);
+    const { success, status } = await mintNFT(file, name, description);
     setStatus(status);
     if (success) {
       setName("");
@@ -62,6 +65,24 @@ const Minter = (props) => {
       setURL("");
     }
   };
+
+  const onChange = e =>{
+    var reader = new FileReader();
+    var file = e.target.files[0];
+    reader.onload = function(upload) {
+        setFile({
+            image: upload.target.result
+        });
+    }
+    reader.readAsDataURL(file); 
+    console.log(file);
+  }
+
+  // const onChange = (e) => {
+  // let files = e.target.files;
+  // setFile({ files: files[0] }, () => { console.log(this.state.files) });
+  // console.log("here",files[0]);
+  // }
 
   return (
     <div className="Minter">
@@ -83,11 +104,15 @@ const Minter = (props) => {
       </p>
       <form>
         <h2>🖼 Link to asset: </h2>
-        <input
+          <div className="custom-file mb-4">
+            <input type="file" className="custom-file-input" id="customFile" encType="multipart/form-data" onChange={onChange}/>
+            {/* <label className="custom-file-label" for="customFile">Choose file</label> */}
+          </div>
+        {/* <input
           type="text"
           placeholder="e.g. https://gateway.pinata.cloud/ipfs/<hash>"
           onChange={(event) => setURL(event.target.value)}
-        />
+        /> */}
         <h2>🤔 Name: </h2>
         <input
           type="text"
