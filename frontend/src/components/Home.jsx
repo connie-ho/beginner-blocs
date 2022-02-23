@@ -9,7 +9,6 @@ import home from '../assets/home.jpeg'
 
 const useStyles = makeStyles((theme)=> ({
   container: {
-    width: '100%',
     height: '50vh',
     background: `url(${home}) no-repeat center center fixed`,
     backgroundSize: 'cover',
