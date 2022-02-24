@@ -90,6 +90,7 @@ function Nft(props) {
                 const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId)
                 resp.data.price = marketItem.price
                 resp.data.itemId = marketItem.itemId
+                resp.data.seller = marketItem.seller
             }
             setNftMetadata(resp.data)
             setIsLoading(false)
@@ -134,11 +135,14 @@ function Nft(props) {
     };
 
     const allowBuying = () => {
-        return ownerAddress !== undefined && nftmarketaddress.toLowerCase() === ownerAddress.toLowerCase();
+        if (ownerAddress === undefined || account === undefined || nftMetadata === null) return false;
+        return (nftmarketaddress.toLowerCase() === ownerAddress.toLowerCase() 
+        && account.toLowerCase() !== nftMetadata.seller.toLowerCase());
     };
 
     const allowListing = () => {
-        return ownerAddress !== undefined && ownerAddress.toLowerCase() === account.toLowerCase();
+        if (ownerAddress === undefined || account === undefined) return false;
+        return ownerAddress.toLowerCase() === account.toLowerCase();
     };
 
     const handlePriceChange = (e) => {
