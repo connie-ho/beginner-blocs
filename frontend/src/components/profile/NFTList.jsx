@@ -22,7 +22,7 @@ const NFTList = (props) => {
 
 
   const handleClick = (item) => {
-    navigate(`/nft/?ownerAddress=${item.owner}&contractAddress=${item.address}&tokenId=${item.tokenId}`)
+    navigate(`/nft?ownerAddress=${item.owner}&contractAddress=${item.address}&tokenId=${item.tokenId}`)
   }
 
   const NFTs = items.map((item, index) => {
