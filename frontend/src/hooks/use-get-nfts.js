@@ -48,7 +48,7 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
             'Content-Type': 'application/json',
           },
         });
-        console.log(meta);
+
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
