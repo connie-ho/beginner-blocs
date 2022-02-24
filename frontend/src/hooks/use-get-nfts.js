@@ -12,7 +12,8 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
 
     const items = await Promise.all(
       data.map(async (i) => {
-        const tokenUri = await tokenContract.tokenURI(i.tokenId);
+        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
+        const tokenUri = await minterContract.tokenURI(i.tokenId);
         const meta = await axios.get(tokenUri);
         let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
