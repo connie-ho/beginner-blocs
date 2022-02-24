@@ -8,7 +8,7 @@ jobs:
     timeout-minutes: 20
     env:
       PRIVATE_KEY: ${{secrets.PRIVATE_KEY}}
-      REACT_APP_ALCHEMY_URL: ${{secrets.PRIVATE_KEY}}
+      REACT_APP_ALCHEMY_URL: ${{secrets.ALCHEMY_URL}}
       REACT_APP_PINATA_KEY: ${{secrets.PINATA_KEY}}
       REACT_APP_PINATA_SECRET: ${{secrets.PINATA_SECRET}}
     steps:
