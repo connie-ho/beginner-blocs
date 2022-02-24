@@ -37,7 +37,7 @@ overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 border-radius: 2rem;
-
+margin-top: 16px
 `
 
 const useQuery = () => {
@@ -47,17 +47,17 @@ const useQuery = () => {
 
 function Nft(props) {
     const classes = useStyles()
-    
+
     const query = useQuery();
     const [contractAddress, tokenId, ownerAddress] = [query.get("contractAddress"), query.get("tokenId"), query.get("ownerAddress")];
-    
+
     const { tokenContract, marketContract } = useContext(EthersContext)
     const { account, setAccount } = useContext(UserContext);
-    
+
     const [nftMetadata, setNftMetadata] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [priceValid, setPriceValid] = useState(false);
-    const [sellingPrice, setSellingPrice] = useState(0)
+    const [priceValid, setPriceValid] = useState(true);
+    const [sellingPrice, setSellingPrice] = useState(0.1)
     const [alert, setAlert] = useState(null);
 
     useEffect(() => {
@@ -69,7 +69,7 @@ function Nft(props) {
                 return;
             }
 
-            const apiKey = `${process.env.REACT_APP_ALCHEMY_KEY}`;
+            const apiKey = "-Xk_48swP3XQLraIbOIMuHxBt5bXtuJw";
             const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
             const tokenType = "erc721";
 
@@ -143,7 +143,7 @@ function Nft(props) {
         }
         setAlert(null);
     };
-    
+
     const action = (
         <React.Fragment>
             <IconButton
@@ -159,7 +159,7 @@ function Nft(props) {
 
     if (isLoading) {
         return (
-           <Loading/>
+            <Loading />
         );
     }
 
@@ -178,31 +178,39 @@ function Nft(props) {
                 <Grid item xs={4}>
                     <Box sx={{ p: 10 }}>
                         <Typography variant="h3" component="div">{nftMetadata.title}</Typography>
-                        <Typography variant="body1">{nftMetadata.description}</Typography>
+                        <Typography sx={{ mt: 2 }} variant="body1">{nftMetadata.description}</Typography>
                         <AccountButton>{ownerAddress}</AccountButton>
-                        {allowBuying() ?
-                            <Button onClick={buy} color="secondary" className={classes.button} variant="outlined" size="large">
-                                Buy {nftMetadata.price}
-                            </Button> : ""
-                        }
-                        {allowListing() ?
-                            <>
-                                <TextField
-                                    required
-                                    error={!priceValid}
-                                    id="price"
-                                    label="Price"
-                                    type="number"
-                                    variant="standard"
-                                    helperText={priceValid ? "" : "Enter a valid price"}
-                                    value={sellingPrice}
-                                    onChange={handlePriceChange}
-                                />
-                                <Button onClick={list} color="secondary" sx={{ ml: 2 }} className={classes.button} variant="outlined" size="large" disabled={!priceValid}>
-                                    List
-                                </Button>
-                            </> : ""
-                        }
+                        <Box sx={{ mt: 2 }} >
+                            {allowBuying() ?
+                                <Button onClick={buy} color="secondary" className={classes.button} variant="outlined" size="large">
+                                    Buy {nftMetadata.price}
+                                </Button> : ""
+                            }
+                            {allowListing() ?
+                                <>
+                                    <TextField
+                                        required
+                                        error={!priceValid}
+                                        id="price"
+                                        label="Price"
+                                        type="number"
+                                        variant="standard"
+                                        helperText={priceValid ? "" : "Enter a valid price"}
+                                        value={sellingPrice}
+                                        onChange={handlePriceChange}
+                                        InputProps={{
+                                            startAdornment: (
+                                                // <FontAwesomeIcon icon="fab fa-ethereum" />
+                                                "ETH"
+                                            ),
+                                        }}
+                                    />
+                                    <Button onClick={list} color="secondary" sx={{ ml: 2 }} className={classes.button} variant="outlined" size="large" disabled={!priceValid}>
+                                        List
+                                    </Button>
+                                </> : ""
+                            }
+                        </Box>
                     </Box>
                 </Grid>
             </Grid>
