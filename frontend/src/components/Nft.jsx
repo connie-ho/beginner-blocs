@@ -4,10 +4,13 @@ import { useLocation } from "react-router-dom";
 import { ethers } from 'ethers';
 import axios from "axios"
 
-import { Grid, Button, Box, Typography, Snackbar, IconButton, TextField } from "@mui/material"
+import { Grid, Button, Box, Typography, Snackbar, IconButton, TextField, InputAdornment } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from "@mui/styles";
 import styled from '@emotion/styled';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEthereum } from "@fortawesome/free-brands-svg-icons";
 
 import { EthersContext } from "../contexts/ethers-provider-context"
 import { UserContext } from "../contexts/user-context"
@@ -85,8 +88,8 @@ function Nft(props) {
 
             if (ownerAddress === nftmarketaddress) {
                 const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId)
-                nftMetadata.price = marketItem.price
-                nftMetadata.itemId = marketItem.itemId
+                resp.data.price = marketItem.price
+                resp.data.itemId = marketItem.itemId
             }
             setNftMetadata(resp.data)
             setIsLoading(false)
@@ -97,7 +100,7 @@ function Nft(props) {
 
     const buy = async () => {
         try {
-            const result = await marketContract.createMarketSale(tokenContract, nftMetadata.itemId)
+            const result = await marketContract.createMarketSale(contractAddress, nftMetadata.itemId, { value: nftMetadata.price })
             setAlert("Item purchased successfully")
         }
         catch (err) {
@@ -115,7 +118,7 @@ function Nft(props) {
             let tx = await minterContract.approve(nftmarketaddress, tokenId)
 
             await tx.wait()
-            
+
             listingPrice = listingPrice.toString()
 
             const result = await marketContract.createMarketItem(contractAddress,
@@ -188,8 +191,15 @@ function Nft(props) {
                         <AccountButton>{ownerAddress}</AccountButton>
                         <Box sx={{ mt: 2 }} >
                             {allowBuying() ?
-                                <Button onClick={buy} color="secondary" className={classes.button} variant="outlined" size="large">
-                                    Buy {nftMetadata.price}
+                                <Button
+                                    onClick={buy}
+                                    color="secondary"
+                                    className={classes.button}
+                                    variant="outlined"
+                                    size="large"
+                                    endIcon={<FontAwesomeIcon icon={faEthereum} color={"#146fbe"} size="lg" />}
+                                >
+                                    {`Buy for ${ethers.utils.formatEther(nftMetadata.price)} `}
                                 </Button> : ""
                             }
                             {allowListing() ?
@@ -206,8 +216,7 @@ function Nft(props) {
                                         onChange={handlePriceChange}
                                         InputProps={{
                                             startAdornment: (
-                                                // <FontAwesomeIcon icon="fab fa-ethereum" />
-                                                "ETH"
+                                                <InputAdornment position="start"><FontAwesomeIcon icon={faEthereum} color={"#146fbe"} size="lg" /></InputAdornment>
                                             ),
                                         }}
                                     />
