@@ -2,7 +2,7 @@ import { pinJSONToIPFS } from './use-pinata';
 import { nftaddress } from '../config';
 
 require('dotenv').config();
-const alchemyKey = process.env.REACT_APP_ALCHEMY_KEY;
+const alchemyKey = process.env.REACT_APP_ALCHEMY_URL;
 const contractAddress = nftaddress;
 const contractABI = require('../artifacts/contracts/NFT.sol/NFT.json');
 const { createAlchemyWeb3 } = require('@alch/alchemy-web3');
@@ -97,7 +97,7 @@ export const mintNFT = async (file, name, description) => {
   }
 
   // make metadata
-  const metadata = new Object();
+  const metadata = {};
   metadata.name = name;
   metadata.image = file.image;
   metadata.description = description;

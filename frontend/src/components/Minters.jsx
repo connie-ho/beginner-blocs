@@ -12,7 +12,7 @@ const Minter = (props) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [url, setURL] = useState("");
+  const [_url, setURL] = useState("");
   const [file, setFile] = useState('');
 
   useEffect(async () => {
@@ -56,7 +56,6 @@ const Minter = (props) => {
   };
 
   const onMintPressed = async () => {
-    console.log(file);
     const { success, status } = await mintNFT(file, name, description);
     setStatus(status);
     if (success) {
@@ -75,7 +74,6 @@ const Minter = (props) => {
         });
     }
     reader.readAsDataURL(file); 
-    console.log(file);
   }
 
   // const onChange = (e) => {
