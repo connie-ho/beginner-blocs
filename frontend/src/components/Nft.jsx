@@ -105,12 +105,6 @@ function Nft(props) {
         }
     };
 
-    // frontend --> market --> minter
-
-    // frontend --> minter.approve(tokenId, marketAddress)
-    // approve
-    // frontend --> market.list()
-
     const list = async () => {
         try {
             const price = ethers.utils.parseUnits(sellingPrice, 'ether');
@@ -123,10 +117,7 @@ function Nft(props) {
             let minterContract = new ethers.Contract(contractAddress, ERC721.abi, signer);
             let tx = await minterContract.approve(nftmarketaddress, tokenId)
 
-            console.log("requested approval")
             await tx.wait()
-
-            console.log("Finished waiting")
             
             listingPrice = listingPrice.toString()
             console.log(listingPrice)
