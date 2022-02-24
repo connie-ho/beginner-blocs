@@ -52,6 +52,8 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
         let item = {
           price,
           itemId: i.itemId.toNumber(),
+          tokenId: i.tokenId,
+          address: i.nftContract,
           seller: i.seller,
           owner: i.owner,
           image: meta.data.image,
