@@ -110,11 +110,8 @@ function Nft(props) {
             const price = ethers.utils.parseUnits(sellingPrice, 'ether');
             let listingPrice = await marketContract.getListingPrice()
 
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-
             // allow token from the NFT contract to be listed on the markeplace
-            let minterContract = new ethers.Contract(contractAddress, ERC721.abi, signer);
+            let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
             let tx = await minterContract.approve(nftmarketaddress, tokenId)
 
             await tx.wait()

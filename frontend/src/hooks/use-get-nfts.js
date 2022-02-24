@@ -33,13 +33,11 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
 
   const loadListedNFTs = useCallback(async () => {
     const data = await marketContract.fetchMyListedNFTs();
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
 
     const items = await Promise.all(
       data.map(async (i) => {
         // allow token from the NFT contract to be listed on the markeplace
-        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, signer);
+        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
         const tokenUri = await minterContract.tokenURI(i.tokenId);
         const meta = await axios({
           method: 'get',
