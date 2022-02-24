@@ -30,6 +30,7 @@ const NoItems = (props) => {
         sx={{ fontSize: '1rem', borderRadius: '2rem', marginTop: '1rem' }}
         variant="contained"
         color="primary"
+        data-testid="noitems-button"
       >
         {messages.type}
       </Button>

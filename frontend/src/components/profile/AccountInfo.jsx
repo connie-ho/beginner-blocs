@@ -71,7 +71,7 @@ const AccountInfo = (props) => {
 
   return (
     <div className={classes.header} name='account-info'>
-      <AccountButton id='account-button' onClick={copyText}>{account}</AccountButton>
+      <AccountButton id='account-button' data-testid="acc-button" onClick={copyText}>{account}</AccountButton>
       <p style={{fontSize:'1.5rem'}}>Credits: {balance} Eth</p>
       <Snackbar
         style={{backgroundColor:"white"}}
