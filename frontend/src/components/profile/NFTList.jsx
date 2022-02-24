@@ -1,8 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Grid from '@mui/material/Grid';
-import CardItem from '../common/CardItem';
 import { makeStyles } from '@mui/styles';
+
 import NoItems from './NoItems';
+import CardItem from '../common/CardItem';
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -18,6 +21,13 @@ const NFTList = (props) => {
   let { items, type } = props;
 
   const classes = useStyles();
+  const navigate = useNavigate();
+
+
+  const handleClick = (item) => {
+    navigate(`/nft?ownerAddress=${item.owner}&contractAddress=${item.address}&tokenId=${item.tokenId}`)
+  }
+
   const NFTs = items.map((item, index) => {
     return (
       <Grid
@@ -30,7 +40,9 @@ const NFTList = (props) => {
         key={`${index}-${item.address}`}
         data-testid={`nft-item-${item.tokenId}`}
       >
-        <CardItem>
+        <CardItem
+          onClick={() => handleClick(item)}
+        >
           <img src={item.image} alt="nft" className={classes.img} />
           <h3>{item.name}</h3>
         </CardItem>
