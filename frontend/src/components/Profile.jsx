@@ -59,15 +59,12 @@ const Profile = () => {
 
     const getProfileDetails = async (account) => {
       try {
-        grabAccountBalanceInformation(account);
-        fetchNFTs(account);
+        await grabAccountBalanceInformation(account);
+        await fetchNFTs(account);
+        setLoading(false);
       } catch (error) {
         console.log(error.message);
-      } finally {
-        setTimeout(() => {
-          setLoading(false);
-        },500)
-      }
+      } 
     };
 
     getProfileDetails(account);

@@ -6,9 +6,11 @@ import NoItems from './NoItems';
 
 const useStyles = makeStyles((theme) => ({
   img: {
-    width: theme.typography.pxToRem(300),
+    minWidth: theme.typography.pxToRem(300),
+    minHeight: theme.typography.pxToRem(300),
     marginBottom: theme.spacing(2),
     borderRadius: theme.typography.pxToRem(4),
+    objectFit: 'contain'
   },
 }));
 
