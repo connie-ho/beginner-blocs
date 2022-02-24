@@ -59,7 +59,7 @@ function Nft(props) {
     const [nftMetadata, setNftMetadata] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [priceValid, setPriceValid] = useState(true);
-    const [sellingPrice, setSellingPrice] = useState(0.1)
+    const [sellingPrice, setSellingPrice] = useState("0.1")
     const [alert, setAlert] = useState(null);
 
     useEffect(() => {
