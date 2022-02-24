@@ -117,7 +117,6 @@ function Nft(props) {
             await tx.wait()
             
             listingPrice = listingPrice.toString()
-            console.log(listingPrice)
 
             const result = await marketContract.createMarketItem(contractAddress,
                 tokenId,
@@ -136,8 +135,6 @@ function Nft(props) {
     };
 
     const allowListing = () => {
-        console.log(ownerAddress)
-        console.log(account)
         return ownerAddress !== undefined && ownerAddress.toLowerCase() === account.toLowerCase();
     };
 
