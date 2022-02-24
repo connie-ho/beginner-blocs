@@ -15,6 +15,8 @@ import { UserContext } from "../contexts/user-context"
 import { nftmarketaddress } from '../config';
 import Loading from "./common/Loading";
 
+import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
+
 const useStyles = makeStyles(theme => ({
     img: {
         maxWidth: "100%",
@@ -103,10 +105,29 @@ function Nft(props) {
         }
     };
 
+    // frontend --> market --> minter
+
+    // frontend --> minter.approve(tokenId, marketAddress)
+    // approve
+    // frontend --> market.list()
+
     const list = async () => {
         try {
             const price = ethers.utils.parseUnits(sellingPrice, 'ether');
             let listingPrice = await marketContract.getListingPrice()
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+
+            // allow token from the NFT contract to be listed on the markeplace
+            let minterContract = new ethers.Contract(contractAddress, ERC721.abi, signer);
+            let tx = await minterContract.approve(nftmarketaddress, tokenId)
+
+            console.log("requested approval")
+            await tx.wait()
+
+            console.log("Finished waiting")
+            
             listingPrice = listingPrice.toString()
             console.log(listingPrice)
 

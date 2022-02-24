@@ -95,19 +95,18 @@ describe('NFTMarket', function () {
 
   describe('fetchItemByContractAddAndTokenID', () => {
     beforeEach(async () => {
-      listingPrice = await nftMarket.getListingPrice();
-      [_firstAddress, buyerAddress] = await ethers.getSigners();
+      const listingPrice = await nftMarket.getListingPrice();
+      const [_firstAddress] = await ethers.getSigners();
       await nft.createToken('https://www.mytokenlocation.com');
-      auctionPrice = ethers.utils.parseUnits('2', 'ether');
+      const auctionPrice = ethers.utils.parseUnits('2', 'ether');
       await nftMarket.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice });
     });
-    
-    it('Get item by contract address and token id', async () => {
 
-      auctionPrice = ethers.utils.parseUnits('2', 'ether').toString();
+    it('Get item by contract address and token id', async () => {
+      const auctionPrice = ethers.utils.parseUnits('2', 'ether').toString();
 
       const marketItem = await nftMarket.fetchItemByContractAddAndTokenID(nftContractAddress, 1);
-      
+
       expect(marketItem.nftContract).to.equal(nftContractAddress);
       expect(marketItem.tokenId).to.equal(1);
       expect(marketItem.price).to.equal(auctionPrice);

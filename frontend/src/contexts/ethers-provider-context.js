@@ -8,7 +8,7 @@ import NFTMarket from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 
 export const EthersContext = createContext();
 const EthersContextProvider = ({ children }) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
   // const provider = new ethers.providers.getDefaultProvider(process.env.REACT_APP_PROJECT_URL);
   const signer = provider.getSigner();
   const tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer);

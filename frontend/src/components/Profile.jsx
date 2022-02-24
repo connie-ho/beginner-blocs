@@ -52,7 +52,10 @@ const Profile = () => {
 
     const fetchNFTs = async (account) => {
       const listedItems = await loadListedNFTs();
+      // const listedItems = [];
       const ownedItems = await loadOwnedNFTs(account);
+
+      console.log(ownedItems)
 
       setNFTs({ listed: listedItems, owned: ownedItems });
     };

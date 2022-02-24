@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import img from '../assets/not_found.png';
 
+import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
+
 const useGetNFTs = ({ tokenContract, marketContract }) => {
   const loadNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
@@ -30,11 +32,24 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
 
   const loadListedNFTs = useCallback(async () => {
     const data = await marketContract.fetchMyListedNFTs();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+
     const items = await Promise.all(
       data.map(async (i) => {
-        const tokenUri = await tokenContract.tokenURI(i.tokenId);
-        const meta = await axios.get(tokenUri);
-        let price = ethers.utils.formatUnits(i.price.toStrong(), 'ether');
+        // allow token from the NFT contract to be listed on the markeplace
+        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, signer);
+        const tokenUri = await minterContract.tokenURI(i.tokenId);
+        const meta = await axios({
+          method: 'get',
+          url: tokenUri.startsWith('ipfs') ? `https://ipfs.io/ipfs/${tokenUri.substring(12)}` : tokenUri,
+          withCredentials: false,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log(meta);
+        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
         let item = {
           price,
           itemId: i.itemId.toNumber(),
