@@ -69,7 +69,7 @@ function Nft(props) {
         setIsLoading(true)
         const fetchNFTMeta = async () => {
 
-            if (contractAddress === undefined || tokenId === undefined || ownerAddress === undefined) {
+            if (contractAddress == null || tokenId == null || ownerAddress == null) {
                 // TODO: Redirect to 404
                 return;
             }
@@ -135,13 +135,13 @@ function Nft(props) {
     };
 
     const allowBuying = () => {
-        if (ownerAddress === undefined || account === undefined || nftMetadata === null) return false;
+        if (ownerAddress == null || account == null || nftMetadata == null) return false;
         return (nftmarketaddress.toLowerCase() === ownerAddress.toLowerCase() 
         && account.toLowerCase() !== nftMetadata.seller.toLowerCase());
     };
 
     const allowListing = () => {
-        if (ownerAddress === undefined || account === undefined) return false;
+        if (ownerAddress == null || account == null) return false;
         return ownerAddress.toLowerCase() === account.toLowerCase();
     };
 
