@@ -61,6 +61,7 @@ function Nft(props) {
 
     const [nftMetadata, setNftMetadata] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [loadingMsg, setLoadingMsg] = useState("");
     const [priceValid, setPriceValid] = useState(true);
     const [sellingPrice, setSellingPrice] = useState("0.1")
     const [alert, setAlert] = useState(null);
@@ -101,7 +102,10 @@ function Nft(props) {
 
     const buy = async () => {
         try {
-            const result = await marketContract.createMarketSale(contractAddress, nftMetadata.itemId, { value: nftMetadata.price })
+            const tx = await marketContract.createMarketSale(contractAddress, nftMetadata.itemId, { value: nftMetadata.price })
+            setLoadingMsg("Processing sale...Please wait. This usually takes 30 seconds.");
+            await tx.wait();
+            setLoadingMsg("");
             setAlert("Item purchased successfully")
         }
         catch (err) {
@@ -112,20 +116,28 @@ function Nft(props) {
     const list = async () => {
         try {
             const price = ethers.utils.parseUnits(sellingPrice, 'ether');
+            
             let listingPrice = await marketContract.getListingPrice()
+            listingPrice = listingPrice.toString()
 
             // allow token from the NFT contract to be listed on the markeplace
             let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
             let tx = await minterContract.approve(nftmarketaddress, tokenId)
 
+            setLoadingMsg("Authorizing the listing...Please wait. This usually takes 30 seconds.");
             await tx.wait()
+            setLoadingMsg("");
 
-            listingPrice = listingPrice.toString()
 
-            const result = await marketContract.createMarketItem(contractAddress,
+            tx = await marketContract.createMarketItem(contractAddress,
                 tokenId,
                 price,
                 { value: listingPrice });
+
+            setLoadingMsg("Listing the item...Please wait. This usually takes 30 seconds.");
+            await tx.wait()
+            setLoadingMsg("");
+            
             setAlert("Item put on sale!!")
         }
         catch (err) {
@@ -170,9 +182,9 @@ function Nft(props) {
         </React.Fragment>
     );
 
-    if (isLoading) {
+    if (isLoading || loadingMsg !=="") {
         return (
-            <Loading />
+            <Loading loadingMsg={loadingMsg}/>
         );
     }
 
