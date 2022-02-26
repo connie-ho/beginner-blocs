@@ -15,21 +15,18 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   img: {
-    width: theme.typography.pxToRem(250),
-    marginBottom: theme.spacing(4),
-    position: 'absolute',
-    bottom: 0,
+    width: theme.typography.pxToRem(250),    
     borderColor: 'white',
-    transform: 'translate(0rem,7rem)',
     zIndex: 2,
     borderRadius: theme.typography.pxToRem(300),
   },
 }));
 
-const Loading = () => {
+const Loading = ({loadingMsg}) => {
   const classes = useStyles();
   return (
     <div className={classes.loader}>
+      {loadingMsg}
       <img className={classes.img} src={img} alt="default" name="avatar" />
     </div>
   );
