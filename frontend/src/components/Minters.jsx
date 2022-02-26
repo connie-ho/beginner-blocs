@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import {
-  connectWallet,
   getCurrentWalletConnected,
   mintNFT,
 } from "../hooks/use-interact";
+
+import useWalletConnection from "../hooks/use-wallet-connection";
 
 const Minter = (props) => {
   const [walletAddress, setWallet] = useState("");
@@ -12,8 +13,10 @@ const Minter = (props) => {
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [_url, setURL] = useState("");
+  //const [_url, setURL] = useState("");
   const [file, setFile] = useState('');
+
+  const {connectWallet,disconnectWallet} = useWalletConnection();
 
   useEffect(async () => {
     const { address, status } = await getCurrentWalletConnected();
@@ -61,7 +64,8 @@ const Minter = (props) => {
     if (success) {
       setName("");
       setDescription("");
-      setURL("");
+      setFile("");
+      //setURL("");
     }
   };
 
