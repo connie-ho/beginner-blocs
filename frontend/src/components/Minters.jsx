@@ -143,7 +143,7 @@ const Minter = (props) => {
         <Box
       sx={{
         width: 1800,
-        height: 1800,
+        height: 830,
         align: "center",
         backgroundColor: 'primary.light',
         '&:hover': {
@@ -151,6 +151,7 @@ const Minter = (props) => {
           opacity: [0.9, 0.8, 0.8],
         },
       }}>
+          <br></br>
         <Box sx={{ color: 'text.light' }}>
         <Typography className="MuiTypography-alignJustify" variant ="h3" align ="center">Create Your Own NFT!</Typography>
         </Box>
