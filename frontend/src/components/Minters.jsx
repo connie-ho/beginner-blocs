@@ -2,25 +2,53 @@
 import { useEffect, useState } from "react";
 import useWalletConnection from "../hooks/use-wallet-connection";
 import useInteract from "../hooks/use-interact";
+import { makeStyles } from '@mui/styles';
+import {Input, Typography, Button, Box } from "@mui/material";
+
+
+const useStyles = makeStyles((theme)=> ({
+  container: {
+    height: '90vh',
+    width: '75%',
+    background: `white`,
+    backgroundSize: 'cover',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: theme.spacing(0, 3),
+  },
+  header: {
+    color: theme.palette.text.light,
+    paddingBottom: theme.spacing(1)
+  },
+  text:{
+      color: theme.palette.text.light,
+  }
+}))
+
+
 
 const Minter = (props) => {
   const [walletAddress, setWallet] = useState("");
-  const [status, setStatus] = useState("");
+//   const [status, setStatus] = useState("");
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   //const [_url, setURL] = useState("");
   const [file, setFile] = useState('');
 
-  const {connectWallet,disconnectWallet} = useWalletConnection();
+  const {connectWallet,} = useWalletConnection();
   const {getCurrentWalletConnected, mintNFT} = useInteract();
 
-  
+  //styling class
+  const classes = useStyles();
+
+
   useEffect(async () => {
     const { address, status } = await getCurrentWalletConnected();
 
     setWallet(address);
-    setStatus(status);
+    // setStatus(status);
 
     addWalletListener();
   }, []);
@@ -30,35 +58,35 @@ const Minter = (props) => {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
           setWallet(accounts[0]);
-          setStatus("👆🏽 Write a message in the text-field above.");
+        //   setStatus("");
         } else {
           setWallet("");
-          setStatus("🦊 Connect to Metamask using the top right button.");
+        //   setStatus("🦊 Connect to Metamask using the top right button.");
         }
       });
     } else {
-      setStatus(
-        <p>
-          {" "}
-          🦊{" "}
-          <a target="_blank" href={`https://metamask.io/download.html`} rel="noreferrer">
-            You must install Metamask, a virtual Ethereum wallet, in your
-            browser.
-          </a>
-        </p>
-      );
+    //   setStatus(
+    //     <p>
+    //       {" "}
+    //       {" "}
+    //       <a target="_blank" href={`https://metamask.io/download.html`} rel="noreferrer">
+    //         You must install Metamask, a virtual Ethereum wallet, in your
+    //         browser.
+    //       </a>
+    //     </p>
+    //   );
     }
   }
 
   const connectWalletPressed = async () => {
     const walletResponse = await connectWallet();
-    setStatus(walletResponse.status);
+    // setStatus(walletResponse.status);
     setWallet(walletResponse.address);
   };
 
   const onMintPressed = async () => {
     const { success, status } = await mintNFT(file, name, description);
-    setStatus(status);
+    // setStatus(status);
     if (success) {
       setName("");
       setDescription("");
@@ -86,7 +114,8 @@ const Minter = (props) => {
 
   return (
     <div className="Minter">
-      <button id="walletButton" onClick={connectWalletPressed}>
+        {/* <section className={classes.container}> */}
+      {/* <button id="walletButton" onClick={connectWalletPressed}>
         {walletAddress.length > 0 ? (
           "Connected: " +
           String(walletAddress).substring(0, 6) +
@@ -95,44 +124,81 @@ const Minter = (props) => {
         ) : (
           <span>Connect Wallet</span>
         )}
-      </button>
+      </button> */}
 
-      <br></br>
-      <h1 id="title">🧙‍♂️ Alchemy NFT Minter</h1>
-      <p>
-        Simply add your asset's link, name, and description, then press "Mint."
-      </p>
+      {/* <Button id="walletButton" role="button" color="primary" className={classes.button} variant="outlined" size="medium" onClick={connectWalletPressed}>
+            {walletAddress.length > 0 ? (
+                "Connected: " +
+                String(walletAddress).substring(0, 6) +
+                "..." +
+                String(walletAddress).substring(38)
+                ) : (
+                <span>Connect Wallet</span>
+            )}
+     </Button> */}
+
+      {/* <h1 id="title" align ="center">Create Your Own NFT!</h1>
+       */}
+        {/* <section className={classes.container}> */}
+        <Box
+      sx={{
+        width: 1800,
+        height: 1800,
+        align: "center",
+        backgroundColor: 'primary.light',
+        '&:hover': {
+          backgroundColor: 'primary.main',
+          opacity: [0.9, 0.8, 0.8],
+        },
+      }}>
+        <Box sx={{ color: 'text.light' }}>
+        <Typography className="MuiTypography-alignJustify" variant ="h3" align ="center">Create Your Own NFT!</Typography>
+        </Box>
+      {/* <p>
+        Simply add your asset's Image, name, and description, then press "Mint."
+      </p> */}
+     <Box sx={{ color: 'text.light', margin: 10}}>
+      <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="center" variant ="h4"> Simply add your asset's Image, name, and description, then press "Mint NFT"
+      </Typography>
+      </Box>
+
+      
       <form>
-        <h2>🖼 Link to asset: </h2>
-          <div className="custom-file mb-4">
-            <input type="file" className="custom-file-input" id="customFile" encType="multipart/form-data" onChange={onChange}/>
-            {/* <label className="custom-file-label" for="customFile">Choose file</label> */}
-          </div>
-        {/* <input
-          type="text"
-          placeholder="e.g. https://gateway.pinata.cloud/ipfs/<hash>"
-          onChange={(event) => setURL(event.target.value)}
-        /> */}
-        <h2>🤔 Name: </h2>
-        <input
+        
+        {/* <h2>🖼 Upload Image: </h2> */}
+        <Box sx={{ color: 'text.light', margin: 10, ml: 32}}>
+        <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">🖼 Upload Image:  <input align ="center" type="file" className="custom-file-input" id="customFile" encType="multipart/form-data" onChange={onChange}/> </Typography>
+          {/* <div className="custom-file mb-4"> */}
+           
+          {/* </div> */}
+        </Box>
+        <Box sx={{ color: 'text.light', margin: 10, ml: 32}}>
+        <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4"> Name: <input
           type="text"
           placeholder="e.g. My first NFT!"
           onChange={(event) => setName(event.target.value)}
-        />
-        <h2>✍️ Description: </h2>
-        <input
+        /></Typography>
+        </Box>
+        {/* <Input inputComponent='input' inputProps = {<input type="text", placeholder="e.g. My first NFT!">}/></Input> */}
+        <Box sx={{ color: 'text.light', margin: 10, ml: 32}}>
+         <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">Description of your NFT: <input
           type="text"
           placeholder="e.g. Even cooler than cryptokitties ;)"
           onChange={(event) => setDescription(event.target.value)}
-        />
+        /></Typography>
+        </Box>
       </form>
-      <button id="mintButton" onClick={onMintPressed}>
-        Mint NFT
-      </button>
-      <p id="status" style={{ color: "red" }}>
-        {status}
-      </p>
+      <Box component="span" sx={{ p: 10 ,ml:100}} align ="center">
+        <Button align ="center" role="button" color="secondary" className={classes.button} variant="contained" size="large" onClick={onMintPressed}>
+            Mint NFT
+        </Button>
+        </Box>
+        {/* <Typography className="MuiTypography-paragraph" variant ="subtitle1" align ="center" paragraph = "true">{status}</Typography> */}
+        {/* </section> */}
+
+       </Box>
     </div>
+    
   );
 };
 
