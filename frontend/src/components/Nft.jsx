@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { ethers } from 'ethers';
 import axios from "axios"
 
-import { Grid, Button, Box, Typography, Snackbar, IconButton, TextField, InputAdornment } from "@mui/material"
+import { Grid, Button, Box, Typography, Snackbar, IconButton, TextField, InputAdornment, InputLabel } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from "@mui/styles";
 import styled from '@emotion/styled';
@@ -42,7 +42,7 @@ overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
 border-radius: 2rem;
-margin-top: 16px
+margin-top: 2px
 `
 
 const useQuery = () => {
@@ -192,6 +192,7 @@ function Nft(props) {
                     <Box sx={{ p: 10 }}>
                         <Typography variant="h3" component="div">{nftMetadata.title}</Typography>
                         <Typography sx={{ mt: 2 }} variant="body1">{nftMetadata.description}</Typography>
+                        <InputLabel sx={{ mt: 2 }} color="error">Owned By:</InputLabel>
                         <AccountButton>{ownerAddress}</AccountButton>
                         <Box sx={{ mt: 2 }} >
                             {allowBuying() ?
