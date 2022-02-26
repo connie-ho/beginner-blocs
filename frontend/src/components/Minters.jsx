@@ -1,11 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import {
-  getCurrentWalletConnected,
-  mintNFT,
-} from "../hooks/use-interact";
-
 import useWalletConnection from "../hooks/use-wallet-connection";
+import useInteract from "../hooks/use-interact";
 
 const Minter = (props) => {
   const [walletAddress, setWallet] = useState("");
@@ -17,7 +13,9 @@ const Minter = (props) => {
   const [file, setFile] = useState('');
 
   const {connectWallet,disconnectWallet} = useWalletConnection();
+  const {getCurrentWalletConnected, mintNFT} = useInteract();
 
+  
   useEffect(async () => {
     const { address, status } = await getCurrentWalletConnected();
 
