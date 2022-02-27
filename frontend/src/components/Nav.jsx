@@ -1,11 +1,11 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
-import { AppBar, Toolbar } from '@mui/material';
+import { AppBar, Toolbar, Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typography, } from '@mui/material';
 import NavButton from './common/NavButton';
 import logo from '../assets/logo.jpg';
-
+import img from '../assets/default.png';
 import useWalletConnection from '../hooks/use-wallet-connection';
 import { UserContext } from '../contexts/user-context';
 
@@ -37,12 +37,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const settings = [{name:'Profile', link:'/Profile'},{name:'Logout', link:'/'}]
+
 const Nav = () => {
   const classes = useStyles();
-
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { account } = useContext(UserContext);
   const { connectWallet, disconnectWallet } = useWalletConnection();
+  let navigate = useNavigate(); 
 
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleProfileClick = async (setting) => {
+    if (setting.name === 'Logout') {
+      await disconnectWallet()
+      navigate(setting.link)
+    }
+    else {
+      navigate(setting.link)
+    }
+  }
+  
   return (
     <AppBar position="static">
       <Toolbar className={classes.root}>
@@ -51,9 +72,43 @@ const Nav = () => {
             <img alt="logo" className={classes.logo} src={logo} />
             <h2 className={classes.link}>Beginner Blocs</h2>
           </NavLink>
+          <NavLink className={classes.logoContainer} to ="/FAQ">
+            <h2 className={classes.link}>FAQ</h2>
+          </NavLink>
+          <NavLink className={classes.logoContainer} to ="/create">
+            <h2 className={classes.link}>Create</h2>
+          </NavLink>
         </div>
         {account ? (
-          <NavButton onClick={disconnectWallet}>Logout</NavButton>
+                    <Box sx={{ flexGrow: 0 }}>
+                    <Tooltip title="Open settings">
+                      <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                        <Avatar alt="profile" src={img} />
+                      </IconButton>
+                    </Tooltip>
+                    <Menu
+                      sx={{ mt: '45px' }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      {settings.map((setting) => (
+                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                            <Typography onClick={() => handleProfileClick(setting)} textAlign="center">{setting.name}</Typography>
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </Box>
         ) : (
           <NavButton onClick={connectWallet}>Login</NavButton>
         )}
