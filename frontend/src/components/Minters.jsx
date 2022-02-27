@@ -1,25 +1,55 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import {
-  connectWallet,
-  getCurrentWalletConnected,
-  mintNFT,
-} from "../hooks/use-interact";
+// import useWalletConnection from "../hooks/use-wallet-connection";
+import useInteract from "../hooks/use-interact";
+import { makeStyles } from '@mui/styles';
+import {Link, Grid, Input, Typography, Button, Box } from "@mui/material";
+
+
+const useStyles = makeStyles((theme)=> ({
+  container: {
+    height: '90vh',
+    width: '75%',
+    background: `white`,
+    backgroundSize: 'cover',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: theme.spacing(0, 3),
+  },
+  header: {
+    color: theme.palette.text.light,
+    paddingBottom: theme.spacing(1)
+  },
+  text:{
+      color: theme.palette.text.light,
+  }
+}))
+
+
 
 const Minter = (props) => {
-  const [walletAddress, setWallet] = useState("");
+  const [, setWallet] = useState("");
   const [status, setStatus] = useState("");
 
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [_url, setURL] = useState("");
+  //const [_url, setURL] = useState("");
   const [file, setFile] = useState('');
 
+//   const {connectWallet,} = useWalletConnection();
+  const {getCurrentWalletConnected, mintNFT} = useInteract();
+
+  //styling class
+  const classes = useStyles();
+
+
   useEffect(async () => {
-    const { address, status } = await getCurrentWalletConnected();
+    const { address } = await getCurrentWalletConnected();
 
     setWallet(address);
-    setStatus(status);
+    // setStatus(status);
 
     addWalletListener();
   }, []);
@@ -28,32 +58,32 @@ const Minter = (props) => {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
-          setWallet(accounts[0]);
-          setStatus("👆🏽 Write a message in the text-field above.");
+            setWallet(accounts[0]);
+        //   setStatus("");
         } else {
           setWallet("");
           setStatus("🦊 Connect to Metamask using the top right button.");
         }
       });
     } else {
-      setStatus(
-        <p>
-          {" "}
-          🦊{" "}
-          <a target="_blank" href={`https://metamask.io/download.html`} rel="noreferrer">
-            You must install Metamask, a virtual Ethereum wallet, in your
-            browser.
-          </a>
-        </p>
-      );
+    //   setStatus(
+    //     <p>
+    //       {" "}
+    //       {" "}
+    //       <a target="_blank" href={`https://metamask.io/download.html`} rel="noreferrer">
+    //         You must install Metamask, a virtual Ethereum wallet, in your
+    //         browser.
+    //       </a>
+    //     </p>
+    //   );
     }
   }
 
-  const connectWalletPressed = async () => {
-    const walletResponse = await connectWallet();
-    setStatus(walletResponse.status);
-    setWallet(walletResponse.address);
-  };
+//   const connectWalletPressed = async () => {
+//     const walletResponse = await connectWallet();
+//     // setStatus(walletResponse.status);
+//     setWallet(walletResponse.address);
+//   };
 
   const onMintPressed = async () => {
     const { success, status } = await mintNFT(file, name, description);
@@ -61,7 +91,8 @@ const Minter = (props) => {
     if (success) {
       setName("");
       setDescription("");
-      setURL("");
+      setFile("");
+      //setURL("");
     }
   };
 
@@ -74,6 +105,7 @@ const Minter = (props) => {
         });
     }
     reader.readAsDataURL(file); 
+    console.log(file.name)
   }
 
   // const onChange = (e) => {
@@ -84,53 +116,60 @@ const Minter = (props) => {
 
   return (
     <div className="Minter">
-      <button id="walletButton" onClick={connectWalletPressed}>
-        {walletAddress.length > 0 ? (
-          "Connected: " +
-          String(walletAddress).substring(0, 6) +
-          "..." +
-          String(walletAddress).substring(38)
-        ) : (
-          <span>Connect Wallet</span>
-        )}
-      </button>
 
-      <br></br>
-      <h1 id="title">🧙‍♂️ Alchemy NFT Minter</h1>
-      <p>
-        Simply add your asset's link, name, and description, then press "Mint."
-      </p>
-      <form>
-        <h2>🖼 Link to asset: </h2>
-          <div className="custom-file mb-4">
-            <input type="file" className="custom-file-input" id="customFile" encType="multipart/form-data" onChange={onChange}/>
-            {/* <label className="custom-file-label" for="customFile">Choose file</label> */}
-          </div>
-        {/* <input
-          type="text"
-          placeholder="e.g. https://gateway.pinata.cloud/ipfs/<hash>"
-          onChange={(event) => setURL(event.target.value)}
-        /> */}
-        <h2>🤔 Name: </h2>
-        <input
-          type="text"
-          placeholder="e.g. My first NFT!"
-          onChange={(event) => setName(event.target.value)}
-        />
-        <h2>✍️ Description: </h2>
-        <input
-          type="text"
-          placeholder="e.g. Even cooler than cryptokitties ;)"
-          onChange={(event) => setDescription(event.target.value)}
-        />
-      </form>
-      <button id="mintButton" onClick={onMintPressed}>
-        Mint NFT
-      </button>
-      <p id="status" style={{ color: "red" }}>
-        {status}
-      </p>
+        <Box
+      sx={{
+        width: 1728,
+        height: 830,
+        align: "center",
+        backgroundColor: 'white',
+      }}>
+          <br></br>
+
+    <Grid container spacing={2}>
+        <Grid item xs={12} sx={{ color: 'text.dark' }}>
+          <Typography className="MuiTypography-alignJustify" variant ="h3" align ="center">Create Your Own NFT!</Typography>
+        </Grid>
+        <Grid item xs={12}sx={{ color: 'text.dark'}}>
+            <Typography paragraph = "true" className="MuiTypography-subtitle1" variant ="subtitle1" align ="center" variant ="h4"> Simply upload your Asset's Image, add a Name, and a Description for your Asset<br/>Then press "Mint NFT"
+      </Typography>
+        </Grid>
+        <Grid item xs={2} ></Grid>
+        <Grid item xs={6}>
+            
+            <Grid item xs={12} sx={{  color: 'text.dark', mt: 5}}>
+                <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">🖼 Upload Image:   <Input disableUnderline="true" type="file" sx ={{ml: 5,pb:2, color: "black"}}className="MuiInput-formControl"   onChange={onChange}/></Typography>
+            </Grid>
+             <Grid item xs={12} sx={{  color: 'text.dark', mt: 5}}>
+                <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4"> Name: 
+                  <Input sx ={{ml:5, pl:5,color: "black"}}className="MuiInput-formControl"  placeholder="e.g. My first NFT!"  onChange={(event) => setName(event.target.value)}/>
+                </Typography>
+            </Grid>
+            <Grid item xs={12}><br></br></Grid>
+            <Grid item xs={12} sx={{ color: 'text.dark', mt: 5}}>
+               <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">Description of your NFT: <Input sx ={{ml:2, pl:2 ,color: "black", width: 300}}className="MuiInput-formControl"  placeholder="e.g. Even cooler than cryptokitties" onChange={(event) => setDescription(event.target.value)}/></Typography>
+            </Grid>
+
+
+        </Grid>
+       
+        <Grid item xs={2} style={{padding: "0", margin:"0"}}  sx={{ align:"center" , border:'1px solid grey', borderRadius:"10px", minHeight:"20rem", minWidth:"20rem"}}>
+        <img style={{ border:'1px solid grey', borderRadius:"10px", objectFit:"cover", height:"100%" }} width="100%" src = {file.image} alt="Preview"/>
+        </Grid>
+        </Grid>
+    
+      <Box component="span" sx={{ p: 10 ,ml:95}} align ="center">
+        <Button align ="center" role="button" color="secondary" className={classes.button} variant="contained" size="large" onClick={onMintPressed}>
+            Mint NFT
+        </Button>
+        </Box>
+        <br/><br/><br/>
+       
+        <Typography className="MuiTypography-paragraph" variant ="subtitle1" align ="center" paragraph = "true" color={"black"}> <Link href={status.slice(-98)} rel="noopener noreferrer" target="_blank">{status}</Link> </Typography>
+       
+        </Box>
     </div>
+    
   );
 };
 
