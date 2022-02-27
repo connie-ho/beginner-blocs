@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Nav from './components/Nav';
 import Home from './components/Home';
@@ -8,7 +8,7 @@ import Minter from './components/Minters';
 
 function App() {
   return (
-    <Router>
+    <>
       <Nav />
       <Routes>
         <Route path="/FAQ" />
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Minter />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 
