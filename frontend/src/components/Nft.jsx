@@ -17,6 +17,7 @@ import { UserContext } from "../contexts/user-context"
 
 import { nftmarketaddress } from '../config';
 import Loading from "./common/Loading";
+import Success from "./common/Success"
 
 import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
 
@@ -65,6 +66,7 @@ function Nft(props) {
     const [priceValid, setPriceValid] = useState(true);
     const [sellingPrice, setSellingPrice] = useState("0.1")
     const [alert, setAlert] = useState(null);
+    const [transactionProcessed, setTransactionProcessed] = useState(false);
 
     useEffect(() => {
         setIsLoading(true)
@@ -107,6 +109,7 @@ function Nft(props) {
             await tx.wait();
             setLoadingMsg("");
             setAlert("Item purchased successfully")
+            setTransactionProcessed(true)
         }
         catch (err) {
             setAlert(`Purchase Failed due to ${err.reason}`)
@@ -138,7 +141,8 @@ function Nft(props) {
             await tx.wait()
             setLoadingMsg("");
             
-            setAlert("Item put on sale!!")
+            setAlert("Item put on sale!!");
+            setTransactionProcessed(true);
         }
         catch (err) {
             console.log(err)
@@ -185,6 +189,12 @@ function Nft(props) {
     if (isLoading || loadingMsg !=="") {
         return (
             <Loading loadingMsg={loadingMsg}/>
+        );
+    }
+
+    if (transactionProcessed) {
+        return (
+            <Success successMsg="Transaction Complete."></Success>
         );
     }
 
