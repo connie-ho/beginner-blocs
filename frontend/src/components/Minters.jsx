@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 // import useWalletConnection from "../hooks/use-wallet-connection";
 import useInteract from "../hooks/use-interact";
 import { makeStyles } from '@mui/styles';
-import {Grid, Input, Typography, Button, Box } from "@mui/material";
+import {Link, Grid, Input, Typography, Button, Box } from "@mui/material";
 
 
 const useStyles = makeStyles((theme)=> ({
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme)=> ({
 
 
 const Minter = (props) => {
-  const [walletAddress, setWallet] = useState("");
+  const [, setWallet] = useState("");
   const [status, setStatus] = useState("");
 
   const [name, setName] = useState("");
@@ -45,7 +46,7 @@ const Minter = (props) => {
 
 
   useEffect(async () => {
-    const { address, status } = await getCurrentWalletConnected();
+    const { address } = await getCurrentWalletConnected();
 
     setWallet(address);
     // setStatus(status);
@@ -57,7 +58,7 @@ const Minter = (props) => {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
         if (accounts.length > 0) {
-          setWallet(accounts[0]);
+            setWallet(accounts[0]);
         //   setStatus("");
         } else {
           setWallet("");
@@ -163,8 +164,10 @@ const Minter = (props) => {
         </Button>
         </Box>
         <br/><br/><br/>
-        <Typography className="MuiTypography-paragraph" variant ="subtitle1" align ="center" paragraph = "true" color={"white"}> {status} </Typography>
-       </Box>
+       
+        <Typography className="MuiTypography-paragraph" variant ="subtitle1" align ="center" paragraph = "true" color={"white"}> <Link href={status.slice(-98)} rel="noopener noreferrer" target="_blank">{status}</Link> </Typography>
+       
+        </Box>
     </div>
     
   );
