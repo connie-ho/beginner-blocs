@@ -61,7 +61,7 @@ const Minter = (props) => {
         //   setStatus("");
         } else {
           setWallet("");
-        //   setStatus("🦊 Connect to Metamask using the top right button.");
+          setStatus("🦊 Connect to Metamask using the top right button.");
         }
       });
     } else {
@@ -86,7 +86,7 @@ const Minter = (props) => {
 
   const onMintPressed = async () => {
     const { success, status } = await mintNFT(file, name, description);
-    // setStatus(status);
+    setStatus(status);
     if (success) {
       setName("");
       setDescription("");
@@ -153,8 +153,7 @@ const Minter = (props) => {
         </Grid>
        
         <Grid item xs={2} style={{padding: "0", margin:"0"}}  sx={{ align:"center" , border:'1px solid grey', height:"400px", borderRadius:"10px"}}>
-           {file.name}
-        <img style={{ border:'1px solid grey', borderRadius:"10px"}} width="100%" src = "" alt="Preview Image"/>
+        <img style={{ border:'1px solid grey', borderRadius:"10px"}} width="100%" src = {file.image} alt="Preview"/>
         </Grid>
         </Grid>
     
@@ -163,9 +162,8 @@ const Minter = (props) => {
             Mint NFT
         </Button>
         </Box>
-        {/* <Typography className="MuiTypography-paragraph" variant ="subtitle1" align ="center" paragraph = "true">{status}</Typography> */}
-        {/* </section> */}
-
+        <br/><br/><br/>
+        <Typography className="MuiTypography-paragraph" variant ="subtitle1" align ="center" paragraph = "true" color={"white"}> {status} </Typography>
        </Box>
     </div>
     
