@@ -168,26 +168,30 @@ const Minter = (props) => {
         
         {/* <h2>🖼 Upload Image: </h2> */}
         <Box sx={{ color: 'text.light', margin: 10, ml: 32}}>
-        <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">🖼 Upload Image:  <input align ="center" type="file" className="custom-file-input" id="customFile" encType="multipart/form-data" onChange={onChange}/> </Typography>
+        {/* <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">🖼 Upload Image:  <input align ="center" type="file" className="custom-file-input" id="customFile" encType="multipart/form-data" onChange={onChange}/> </Typography> */}
+        <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">🖼 Upload Image:   <Input disableUnderline="true" type="file" sx ={{color: "white"}}className="MuiInput-formControl"   onChange={onChange}/></Typography>
+        
           {/* <div className="custom-file mb-4"> */}
            
           {/* </div> */}
         </Box>
         <Box sx={{ color: 'text.light', margin: 10, ml: 32}}>
-        <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4"> Name: <input
+        <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4"> Name: 
+        {/* <input
           type="text"
           placeholder="e.g. My first NFT!"
-          onChange={(event) => setName(event.target.value)}
-        /></Typography>
+          onChange={(event) => setName(event.target.value)} */}
+          <Input sx ={{ml:5, pl:5,color: "white"}}className="MuiInput-formControl"  placeholder="e.g. My first NFT!"  onChange={(event) => setName(event.target.value)}/>
+        </Typography>
         </Box>
         {/* <Input inputComponent='input' inputProps = {<input type="text", placeholder="e.g. My first NFT!">}/></Input> */}
         <Box sx={{ color: 'text.light', margin: 10, ml: 32}}>
-         <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">Description of your NFT: <input
-          type="text"
-          placeholder="e.g. Even cooler than cryptokitties ;)"
-          onChange={(event) => setDescription(event.target.value)}
-        /></Typography>
-        </Box>
+         <Typography className="MuiTypography-subtitle1" variant ="subtitle1" align ="left" variant ="h4">Description of your NFT: <Input sx ={{ml:2, pl:2 ,color: "white", width: 500}}className="MuiInput-formControl"  placeholder="e.g. Even cooler than cryptokitties" onChange={(event) => setDescription(event.target.value)}/></Typography></Box>
+        {/* //   type="text"
+        //   placeholder="e.g. Even cooler than cryptokitties ;)"
+        //   onChange={(event) => setDescription(event.target.value)}
+        // */}
+        
       </form>
       <Box component="span" sx={{ p: 10 ,ml:100}} align ="center">
         <Button align ="center" role="button" color="secondary" className={classes.button} variant="contained" size="large" onClick={onMintPressed}>
