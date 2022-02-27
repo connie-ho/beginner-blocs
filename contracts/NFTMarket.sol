@@ -54,6 +54,7 @@ contract NFTMarket is ReentrancyGuard {
     ) public payable nonReentrant {
         require(price > 0, "Price must be at least 1 wei");
         require(msg.value == listingPrice, "The listing price must be the same as the market place listing price");
+        require(msg.sender == IERC721(nftContract).ownerOf(tokenId));
     
 
         _itemIds.increment();
@@ -64,7 +65,7 @@ contract NFTMarket is ReentrancyGuard {
             nftContract,
             tokenId,
             payable(msg.sender),
-            payable(address(0)),
+            payable(address(this)),
             price,
             false
         );
@@ -76,7 +77,7 @@ contract NFTMarket is ReentrancyGuard {
             nftContract,
             tokenId,
             msg.sender,
-            address(0),
+            address(this),
             price,
             false
         );
@@ -109,7 +110,7 @@ contract NFTMarket is ReentrancyGuard {
 
         MarketItem[] memory items = new MarketItem[](unsoldItemCount);
         for (uint i = 0; i < itemCount; i++) {
-            if (idToMarketItem[i + 1].owner == address(0)) {
+            if (idToMarketItem[i + 1].owner == address(this)) {
                 uint currentId = i + 1;
                 MarketItem storage currentItem = idToMarketItem[currentId];
                 items[currentIndex] = currentItem;
@@ -117,6 +118,16 @@ contract NFTMarket is ReentrancyGuard {
             }
         }
         return items;
+    }
+
+    function fetchItemByContractAddAndTokenID(address contractAddr, uint256 tokenId) public view returns (MarketItem memory) {
+        uint totalItemCount = _itemIds.current();
+        for (uint i = 0; i < totalItemCount; i++) {
+            if (idToMarketItem[i+1].nftContract == contractAddr && idToMarketItem[i+1].tokenId == tokenId) {
+                return idToMarketItem[i+1];
+            }
+        }
+        revert("Not found");
     }
 
     /* Returns only items that a user owns tenatively if we cant get alchemy to work */

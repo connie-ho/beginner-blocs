@@ -53,7 +53,7 @@ const Profile = () => {
     const fetchNFTs = async (account) => {
       const listedItems = await loadListedNFTs();
       const ownedItems = await loadOwnedNFTs(account);
-
+      
       setNFTs({ listed: listedItems, owned: ownedItems });
     };
 

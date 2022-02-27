@@ -92,4 +92,29 @@ describe('NFTMarket', function () {
       await expect(nftMarket.createMarketSale(nftContractAddress, 1)).to.be.reverted;
     });
   });
+
+  describe('fetchItemByContractAddAndTokenID', () => {
+    beforeEach(async () => {
+      const listingPrice = await nftMarket.getListingPrice();
+      const [_firstAddress] = await ethers.getSigners();
+      await nft.createToken('https://www.mytokenlocation.com');
+      const auctionPrice = ethers.utils.parseUnits('2', 'ether');
+      await nftMarket.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice });
+    });
+
+    it('Get item by contract address and token id', async () => {
+      const auctionPrice = ethers.utils.parseUnits('2', 'ether').toString();
+
+      const marketItem = await nftMarket.fetchItemByContractAddAndTokenID(nftContractAddress, 1);
+
+      expect(marketItem.nftContract).to.equal(nftContractAddress);
+      expect(marketItem.tokenId).to.equal(1);
+      expect(marketItem.price).to.equal(auctionPrice);
+      expect(marketItem.sold).to.equal(false);
+    });
+
+    it('throws error if item with given contract address and tokenId does not exist', async () => {
+      await expect(nftMarket.fetchItemByContractAddAndTokenID(nftContractAddress, 5)).to.be.reverted;
+    });
+  });
 });
