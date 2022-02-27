@@ -47,6 +47,9 @@ const Home = () => {
           <Button role="button" href="/get-started" color="secondary" className={classes.button} variant="outlined" size="large">
             Get Started
           </Button>
+          <Button role="button" href="/faq" color="secondary" className={classes.button} variant="outlined" size="large">
+            FAQ
+          </Button>
         </div>
       </section>
       <section>

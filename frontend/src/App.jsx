@@ -5,13 +5,14 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import Minter from './components/Minters';
+import FAQ from './components/faq';
 
 function App() {
   return (
     <>
       <Nav />
       <Routes>
-        <Route path="/FAQ" />
+        <Route path="/faq" element={<FAQ />} />
         <Route path="get-started" />
         <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Home />} />
