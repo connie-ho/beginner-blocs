@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { ethers } from 'ethers';
 import axios from "axios"
@@ -57,8 +57,6 @@ function Nft(props) {
     const query = useQuery();
     const [contractAddress, tokenId, ownerAddress] = [query.get("contractAddress"), query.get("tokenId"), query.get("ownerAddress")];
 
-    const navigate = useNavigate();
-
     const { tokenContract, marketContract } = useContext(EthersContext)
     const { account, setAccount } = useContext(UserContext);
 
@@ -75,7 +73,7 @@ function Nft(props) {
         const fetchNFTMeta = async () => {
 
             if (contractAddress == null || tokenId == null || ownerAddress == null) {
-                navigate("/404");
+                // TODO: Redirect to 404
                 return;
             }
 
@@ -90,11 +88,6 @@ function Nft(props) {
             };
 
             const resp = await axios(config)
-
-            if (resp.status < 200 || resp.status > 299) {
-                navigate("/404");
-                return;
-            }
 
             if (ownerAddress === nftmarketaddress) {
                 const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId)
