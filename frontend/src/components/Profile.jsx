@@ -32,7 +32,7 @@ const Profile = () => {
     initialNFTs
   );
 
-  const handleTabChange = useCallback((event, newValue) => {
+  const handleTabChange = useCallback((_event, newValue) => {
     setTabValue(newValue);
   }, []);
 
@@ -75,10 +75,9 @@ const Profile = () => {
   }
 
   return (
-    <>
       <Grid container style={{ minHeight: '50rem' }}>
         <Grid item xs={1} />
-        <Grid item xs={10} container direction="column">
+        <Grid container item xs={10} direction="column">
           <ProfileBanner nfts={NFTs.owned} />
           <AccountInfo account={account} balance={balance} style={{ marginBottom: '2rem' }} />
           <div>
@@ -97,7 +96,6 @@ const Profile = () => {
         </Grid>
         <Grid item xs={1} />
       </Grid>
-    </>
   );
 };
 

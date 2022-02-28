@@ -38,7 +38,7 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
       })
     );
     return items;
-  }, [tokenContract, marketContract]);
+  }, [marketContract]);
 
   const loadListedNFTs = useCallback(async () => {
     const data = await marketContract.fetchMyListedNFTs();
@@ -73,11 +73,12 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
       })
     );
     return items;
-  }, [tokenContract, marketContract]);
+  }, [marketContract]);
 
   const loadOwnedNFTs = useCallback(async (owner) => {
     const ownerAddr = `${owner}`;
 
+    require('dotenv').config();
     const apiKey = `${process.env.REACT_APP_ALCHEMY_KEY}`;
     const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTs/`;
     const url = `${baseURL}?owner=${ownerAddr}&withMetadata=true`;
@@ -95,7 +96,7 @@ const useGetNFTs = ({ tokenContract, marketContract }) => {
 
         let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
 
-        let item = {
+        const item = {
           address: NFT.contract.address,
           tokenId: NFT.id.tokenId,
           owner: owner,

@@ -12,7 +12,7 @@ describe('MarketNftList', () => {
 
         return {
             ...view,
-            $findMarketItems: async () => screen.findAllByTestId(/^market-item-/),
+            $findMarketItems: async () => screen.findAllByTestId(/market-item-/),
         }
     } 
 
