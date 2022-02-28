@@ -59,8 +59,8 @@ function Nft(props) {
 
     const navigate = useNavigate();
 
-    const { tokenContract, marketContract } = useContext(EthersContext)
-    const { account, setAccount } = useContext(UserContext);
+    const {  marketContract } = useContext(EthersContext)
+    const { account } = useContext(UserContext);
 
     const [nftMetadata, setNftMetadata] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -107,7 +107,7 @@ function Nft(props) {
         };
 
         fetchNFTMeta()
-    }, []);
+    }, [contractAddress, marketContract, navigate, ownerAddress, tokenId]);
 
     const buy = async () => {
         try {
