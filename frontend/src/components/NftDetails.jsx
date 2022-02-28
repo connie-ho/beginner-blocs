@@ -51,7 +51,7 @@ const useQuery = () => {
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-function Nft(props) {
+function NftDetails(props) {
     const classes = useStyles()
 
     const query = useQuery();
@@ -63,15 +63,14 @@ function Nft(props) {
     const { account } = useContext(UserContext);
 
     const [nftMetadata, setNftMetadata] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [loadingMsg, setLoadingMsg] = useState("");
+    const [loading, setLoading] = useState({isLoading:true, loadingMsg:""});
     const [priceValid, setPriceValid] = useState(true);
     const [sellingPrice, setSellingPrice] = useState("0.1")
     const [alert, setAlert] = useState(null);
     const [transactionProcessed, setTransactionProcessed] = useState(false);
 
     useEffect(() => {
-        setIsLoading(true)
+        setLoading({isLoading:true, loadingMsg:""})
         const fetchNFTMeta = async () => {
 
             if (contractAddress == null || tokenId == null || ownerAddress == null) {
@@ -79,7 +78,7 @@ function Nft(props) {
                 return;
             }
 
-            const apiKey = "-Xk_48swP3XQLraIbOIMuHxBt5bXtuJw";
+            const apiKey = `${process.env.REACT_APP_ALCHEMY_KEY}`;
             const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
             const tokenType = "erc721";
 
@@ -103,7 +102,7 @@ function Nft(props) {
                 resp.data.seller = marketItem.seller
             }
             setNftMetadata(resp.data)
-            setIsLoading(false)
+            setLoading({isLoading:false, loadingMsg:""})
         };
 
         fetchNFTMeta()
@@ -112,13 +111,14 @@ function Nft(props) {
     const buy = async () => {
         try {
             const tx = await marketContract.createMarketSale(contractAddress, nftMetadata.itemId, { value: nftMetadata.price })
-            setLoadingMsg("Processing sale...Please wait. This usually takes 30 seconds.");
+            setLoading({isLoading:true, loadingMsg: "Processing sale...Please wait. This usually takes 30 seconds."});
             await tx.wait();
-            setLoadingMsg("");
+            setLoading({isLoading:false, loadingMsg: ""});
             setAlert("Item purchased successfully")
             setTransactionProcessed(true)
         }
         catch (err) {
+            setLoading({isLoading:false, loadingMsg: ""});
             setAlert(`Purchase Failed due to ${err.reason}`)
         }
     };
@@ -134,9 +134,9 @@ function Nft(props) {
             let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
             let tx = await minterContract.approve(nftmarketaddress, tokenId)
 
-            setLoadingMsg("Authorizing the listing...Please wait. This usually takes 30 seconds.");
+            setLoading({isLoading:false, loadingMsg: "Authorizing the listing...Please wait. This usually takes 30 seconds."});
             await tx.wait()
-            setLoadingMsg("");
+            setLoading({isLoading: false, loadingMsg:""});
 
 
             tx = await marketContract.createMarketItem(contractAddress,
@@ -144,15 +144,16 @@ function Nft(props) {
                 price,
                 { value: listingPrice });
 
-            setLoadingMsg("Listing the item...Please wait. This usually takes 30 seconds.");
-            await tx.wait()
-            setLoadingMsg("");
+            setLoading({isLoading:true, loadingMsg:"Listing the item...Please wait. This usually takes 30 seconds."});
+            await tx.wait();
+            setLoading({isLoading:false, loadingMsg: ""});
             
             setAlert("Item put on sale!!");
             setTransactionProcessed(true);
         }
         catch (err) {
             console.log(err)
+            setLoading({isLoading:false, loadingMsg: ""});
             setAlert(`Operation Failed due to ${err.reason}`)
         }
     };
@@ -193,9 +194,9 @@ function Nft(props) {
         </React.Fragment>
     );
 
-    if (isLoading || loadingMsg !=="") {
+    if (loading.isLoading) {
         return (
-            <Loading loadingMsg={loadingMsg}/>
+            <Loading loadingMsg={loading.loadingMsg}/>
         );
     }
 
@@ -275,4 +276,4 @@ function Nft(props) {
     );
 };
 
-export default Nft
+export default NftDetails
