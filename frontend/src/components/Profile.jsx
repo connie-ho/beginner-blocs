@@ -19,7 +19,7 @@ const Profile = () => {
     listed: [],
   };
   const { account } = useContext(UserContext);
-  const { tokenContract, marketContract } = useContext(EthersContext);
+  const { tokenContract, marketContract, provider } = useContext(EthersContext);
 
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,6 @@ const Profile = () => {
   useEffect(() => {
     const grabAccountBalanceInformation = async (account) => {
       if (account) {
-        const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
         let wei = await provider.getBalance(`${account}`);
         let eth = ethers.utils.formatEther(wei);
         let ethBalance = parseFloat(eth).toFixed(3);

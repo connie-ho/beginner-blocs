@@ -103,7 +103,7 @@ const Nav = () => {
                       onClose={handleCloseUserMenu}
                     >
                       {settings.map((setting) => (
-                        <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                        <MenuItem key={`nav-${setting.name}`} onClick={handleCloseUserMenu}>
                             <Typography onClick={() => handleProfileClick(setting)} textAlign="center">{setting.name}</Typography>
                         </MenuItem>
                       ))}
