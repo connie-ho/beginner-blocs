@@ -7,13 +7,14 @@ import Profile from './components/Profile';
 import Minter from './components/Minters';
 import Nft from "./components/Nft";
 import NotFound from './components/common/NotFound'
+import FAQ from './components/FAQ'
 
 function App() {
   return (
     <>
       <Nav />
       <Routes>
-        <Route path="/FAQ" />
+        <Route path="/FAQ" element={<FAQ />} />
         <Route path="get-started" />
         <Route path="/profile" element={<Profile />} />
         <Route path="/nft" element={<Nft/>}/>
