@@ -75,9 +75,8 @@ describe('NFTMarket', function () {
       })
     );
 
-    expect(listedNfts.length).to.equal(2);
-    expect(listedNfts[0].tokenId).to.equal('1');
-    expect(listedNfts[1].tokenId).to.equal('2');
+    expect(listedNfts.length).to.equal(1);
+    expect(listedNfts[0].tokenId).to.equal('2');
 
     // /* query for and return the unsold items */
     const marketItems = await market.fetchMarketItems();
