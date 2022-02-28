@@ -1,7 +1,7 @@
 import React from "react";
 
 import { makeStyles } from '@mui/styles';
-import { Button } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 
 import MarketNFTList from './market-nfts/MarketNFTList'
 
@@ -49,9 +49,9 @@ const Home = () => {
           </Button>
         </div>
       </section>
-      <section>
+      <Grid container sx={{width: '100%' }}>
         <MarketNFTList data-testid="market-list" />
-      </section>
+      </Grid>
     </>
   );
 };
