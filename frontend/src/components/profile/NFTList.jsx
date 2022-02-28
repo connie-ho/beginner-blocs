@@ -47,6 +47,7 @@ const NFTList = (props) => {
       xs={12}
       spacing={2}
       alignItems="center"
+      justifyContent="center"
       style={{ paddingTop: '3rem' }}
     >
       {NFTs}
