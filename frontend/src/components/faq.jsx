@@ -142,7 +142,7 @@ const FAQ = () => {
                                 <span>What are Non-Fungible Token(NFT) and web3?</span>
                             </a>
                             <div className={classes.itemcontext}>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae quidem blanditiis delectus corporis, possimus officia sint sequi ex tenetur id impedit est pariatur iure animi non a ratione reiciendis nihil sed consequatur atque repellendus fugit perspiciatis rerum et. Dolorum consequuntur fugit deleniti, soluta fuga nobis. Ducimus blanditiis velit sit iste delectus obcaecati debitis omnis, assumenda accusamus cumque perferendis eos aut quidem! Aut, totam rerum, cupiditate quae aperiam voluptas rem inventore quas, ex maxime culpa nam soluta labore at amet nihil laborum? Explicabo numquam, sit fugit, voluptatem autem atque quis quam voluptate fugiat earum rem hic, reprehenderit quaerat tempore at. Aperiam.</p>
+                                <p>NFT stands for "non-fungible token." At a basic level, an NFT is a digital asset that links ownership to unique physical or digital items, such as works of art, real estate, music, or videos. NFTs can be considered modern-day collectibles. Web3 is all about decentralisation—from platforms Meta, Alphabet (Google), and Amazon; governments; and the traditional financial system. By placing power in the hands of individuals instead, Web3 promises to deepen the democratisation of the internet.</p>
                             </div>
                         </li>
                         <li className={classes.gitem}>
@@ -150,7 +150,7 @@ const FAQ = () => {
                                 <span>What is a crypto wallet and how does it work in Marketplace?</span>
                             </a>
                             <div className={classes.itemcontext}>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae quidem blanditiis delectus corporis, possimus officia sint sequi ex tenetur id impedit est pariatur iure animi non a ratione reiciendis nihil sed consequatur atque repellendus fugit perspiciatis rerum et. Dolorum consequuntur fugit deleniti, soluta fuga nobis. Ducimus blanditiis velit sit iste delectus obcaecati debitis omnis, assumenda accusamus cumque perferendis eos aut quidem! Aut, totam rerum, cupiditate quae aperiam voluptas rem inventore quas, ex maxime culpa nam soluta labore at amet nihil laborum? Explicabo numquam, sit fugit, voluptatem autem atque quis quam voluptate fugiat earum rem hic, reprehenderit quaerat tempore at. Aperiam.</p>
+                                <p>The coins exist on a blockchain and the wallet software allows you to interact with the balances held on that blockchain. The wallet itself stores addresses and allows their owners to move coins elsewhere while also letting others see the balance held at any given address.</p>
                             </div>
                         </li>
                         <li className={classes.gitem}>
@@ -158,7 +158,7 @@ const FAQ = () => {
                                 <span>Which currencies and blockchains does Marketplace support?</span>
                             </a>
                             <div className={classes.itemcontext}>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae quidem blanditiis delectus corporis, possimus officia sint sequi ex tenetur id impedit est pariatur iure animi non a ratione reiciendis nihil sed consequatur atque repellendus fugit perspiciatis rerum et. Dolorum consequuntur fugit deleniti, soluta fuga nobis. Ducimus blanditiis velit sit iste delectus obcaecati debitis omnis, assumenda accusamus cumque perferendis eos aut quidem! Aut, totam rerum, cupiditate quae aperiam voluptas rem inventore quas, ex maxime culpa nam soluta labore at amet nihil laborum? Explicabo numquam, sit fugit, voluptatem autem atque quis quam voluptate fugiat earum rem hic, reprehenderit quaerat tempore at. Aperiam.</p>
+                                <p>NFT, ETH.</p>
                             </div>
                         </li>
                         <li className={classes.gitem}>
