@@ -29,6 +29,7 @@ const NFTList = (props) => {
   }
 
   const NFTs = items.map((item, index) => {
+    console.log(item)
     return (
       <Grid
         item
