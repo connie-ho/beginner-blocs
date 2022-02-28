@@ -16,7 +16,7 @@ const theme = createTheme({
       main: 'rgb(109,177,244)',
     },
     text: {
-      primary: 'rgb(5,24,52)',
+      primary: 'rgb(11,37,70)',
       secondary: 'rgb(109,177,244)',
       light: '#fff',
     },

@@ -1,10 +1,10 @@
 import React from "react";
 
 import { makeStyles } from '@mui/styles';
-import { Button, Grid } from "@mui/material";
+import { Button} from "@mui/material";
+import { styled } from "@mui/system";
 
 import MarketNFTList from './market-nfts/MarketNFTList'
-
 import home from '../assets/home.jpeg'
 
 const useStyles = makeStyles((theme)=> ({
@@ -34,6 +34,11 @@ const useStyles = makeStyles((theme)=> ({
   },
 }))
 
+const ExploreSection = styled('div')(({theme})=>({
+  marginTop: '1rem',
+  padding: theme.spacing(0,3)
+}))
+
 const Home = () => {
 
   const classes = useStyles()
@@ -49,9 +54,10 @@ const Home = () => {
           </Button>
         </div>
       </section>
-      <Grid container sx={{width: '100%' }}>
+      <ExploreSection>
+        <h1>Explore</h1>
         <MarketNFTList data-testid="market-list" />
-      </Grid>
+      </ExploreSection>
     </>
   );
 };

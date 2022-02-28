@@ -5,8 +5,8 @@ import { Grid } from '@mui/material';
 import { useGetNFTs } from '../../hooks/use-get-nfts';
 import { EthersContext } from '../../contexts/ethers-provider-context'; 
 
-import CardItem from '../common/CardItem';
 import Loading from '../common/Loading';
+import NFTCard from '../common/cards/NftCard';
 
 const MarketNFTList = (props) => {
   const { tokenContract, marketContract } = useContext(EthersContext);
@@ -40,17 +40,33 @@ const MarketNFTList = (props) => {
     return <Loading data-testid="loading"/>;
   }
 
-  const NftCards = marketNFTs?.map((nft) => (
-    <Grid item xs={4}>
-      <CardItem onClick={() => handleClick(nft)} key={nft.tokenId} data-testid={`market-item-${nft.tokenId}`}>
-        <img src={nft.image} alt={nft.name} />
-        <h2>{nft.name}</h2>
-        <p>{nft.price}</p>
-      </CardItem>
+  const NftCards = marketNFTs?.map((nft, index) => (
+    <Grid 
+      item xs={3} 
+      key={`market-item-${index}`}
+    >
+      <NFTCard 
+        onClick={() => handleClick(nft)}
+        image={nft.image}
+        name={nft.name}
+        price={nft.price}
+        data-testid={`market-item-${nft.tokenId}`}
+      />
     </Grid>
   ));
 
-  return <Grid {...props}>{NftCards}</Grid>;
+  return (
+    <Grid 
+      container 
+      spacing={2} 
+      sx={{
+        marginTop:'0rem'
+      }}
+      {...props}
+    >
+      {NftCards}
+    </Grid>
+  );
 };
 
 export default MarketNFTList;
