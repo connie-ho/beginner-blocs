@@ -1,9 +1,11 @@
 import { useEffect, useContext } from 'react';
-import { ethers } from 'ethers';
 import { UserContext } from '../contexts/user-context';
+import { EthersContext } from '../contexts/ethers-provider-context';
 
 function useWalletConnection() {
   const { setAccount } = useContext(UserContext);
+  const { provider } = useContext(EthersContext);
+
   let loggedIn = localStorage.getItem('loggedIn') || null;
 
   const connectWallet = async () => {
@@ -13,7 +15,7 @@ function useWalletConnection() {
         alert('Metamask not installed, please install metamask!');
         return;
       }
-      const provider = new ethers.providers.Web3Provider(ethereum, 'any');
+
       await provider.send('wallet_requestPermissions', [
         {
           eth_accounts: {},
@@ -45,9 +47,6 @@ function useWalletConnection() {
       //check if user has already logged in, then set account state
       if (!loggedIn) return;
 
-      //grab provider to get account
-      const provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
-
       const accounts = await provider.send('eth_accounts', []);
       if (accounts.length !== 0) {
         const account = accounts[0];
@@ -57,7 +56,7 @@ function useWalletConnection() {
     };
 
     checkWalletConnection(setAccount);
-  }, [loggedIn, setAccount]);
+  }, [loggedIn, setAccount, provider]);
 
   return {
     connectWallet,
