@@ -67,7 +67,7 @@ const Profile = () => {
     };
 
     getProfileDetails(account);
-  }, [account, balance, loadListedNFTs, loadOwnedNFTs]);
+  }, [account, balance, loadListedNFTs, loadOwnedNFTs, provider]);
 
   if (loading) {
     return <Loading />;
