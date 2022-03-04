@@ -6,7 +6,7 @@ import img from '../assets/not_found.png';
 
 import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
 
-const useGetNFTs = ({ tokenContract, marketContract }) => {
+const useGetNFTs = ({ marketContract }) => {
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 

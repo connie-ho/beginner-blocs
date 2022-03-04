@@ -31,7 +31,7 @@ jobs:
       - name: Format check
         run: yarn format
       - name: Lint
-        run: yarn lint
+        run: yarn lint:all
       - name: Test Client
         run: yarn test:client
       - name: Test Server

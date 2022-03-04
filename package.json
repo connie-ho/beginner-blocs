@@ -6,8 +6,11 @@
     "prepare": "husky install",
     "test": "npx hardhat test && npm run test:client",
     "test:client": "cd ./packages/client && npm test",
-    "test:server": "cd ./packages/client && npm test",
-    "lint": "eslint --cache --fix \"**/*.{jsx,js}\"",
+    "test:server": "cd ./packages/server && npm test",
+    "lint": "eslint --cache --fix \"**/*.js\"",
+    "lint:client": "cd ./packages/client && npm run lint",
+    "lint:server": "cd ./packages/server && npm run lint",
+    "lint:all": "npm run lint && npm run lint:client && npm run lint:server",
     "format": "prettier --write \"**/*.{js,json,yaml,yml,md}\"",
     "format:check": "prettier --check \"**/*.{js,json,yaml,yml,md}\"",
     "install:client": "cd ./packages/client && npm i",
@@ -23,11 +26,11 @@
     "deploy:ropsten": "npx hardhat run scripts/deploy.js --network ropsten"
   },
   "lint-staged": {
-    "*.{js, jsx, json}": [
+    "*.{js, json}": [
       "npm run format",
-      "npm run lint"
+      "npm run lint:all"
     ],
-    "*.{js,json,yaml,yml,md}": "prettier --write"
+    "*.{js,jsx,json,yaml,yml,md}": "prettier --write"
   },
   "husky": {
     "hooks": {
@@ -57,8 +60,6 @@
     "@nomiclabs/eslint-plugin-hardhat-internal-rules": "^1.0.0",
     "chai": "^4.3.4",
     "eslint": "^7.11.0",
-    "eslint-plugin-chai-expect": "^3.0.0",
-    "eslint-plugin-react": "^7.28.0",
     "eth-testing": "^1.0.2-alpha",
     "ethereum-waffle": "^3.4.0",
     "husky": "^7.0.0",
