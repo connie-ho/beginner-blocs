@@ -33,6 +33,6 @@ jobs:
       - name: Lint
         run: yarn lint
       - name: Test Client
-        run: yarn test:frontend
+        run: yarn test:client
       - name: Test Server
         run: yarn test

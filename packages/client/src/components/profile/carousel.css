@@ -1,0 +1,12 @@
+.carousel {
+  width: 75rem;
+  height: 50%;
+}
+
+.item {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}

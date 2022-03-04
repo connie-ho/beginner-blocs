@@ -23,7 +23,7 @@ async function main() {
   `;
 
   let data = JSON.stringify(config);
-  fs.writeFileSync('./frontend/src/config.js', JSON.parse(data));
+  fs.writeFileSync('./packages/client/src/config.js', JSON.parse(data));
 }
 
 main()
