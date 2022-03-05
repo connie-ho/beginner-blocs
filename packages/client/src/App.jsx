@@ -5,7 +5,7 @@ import Nav from './components/Nav';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import Minter from './components/Minters';
-import Nft from "./components/Nft";
+import NftDetails from "./components/NftDetails";
 import NotFound from './components/common/NotFound'
 import FAQ from './components/FAQ'
 
@@ -17,7 +17,7 @@ function App() {
         <Route path="/FAQ" element={<FAQ />} />
         <Route path="get-started" />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/nft" element={<Nft/>}/>
+        <Route path="/nft" element={<NftDetails/>}/>
         <Route path="/404" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/create" element={<Minter />} />
