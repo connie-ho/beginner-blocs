@@ -51,7 +51,7 @@ const useQuery = () => {
     return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-function Nft(props) {
+function NftDetails(props) {
     const classes = useStyles()
 
     const query = useQuery();
@@ -275,4 +275,4 @@ function Nft(props) {
     );
 };
 
-export default Nft
+export default NftDetails
