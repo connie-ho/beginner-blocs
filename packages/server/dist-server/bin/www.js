@@ -20,7 +20,7 @@ var debug = (0, _debug['default'])('server:server');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3001');
 
 _app['default'].set('port', port);
 /**

@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) {
 var router = _express['default'].Router();
 /* GET home page. */
 
-router.get('/', function (req, res, _next) {
+router.get('/', function (_req, res, _next) {
   res.render('index', {
     title: 'Express',
   });

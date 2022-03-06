@@ -10,33 +10,37 @@ const useGetNFTs = ({ marketContract }) => {
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
-    const items = await Promise.all(
-      data.map(async (i) => {
-        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
-        const tokenUri = await minterContract.tokenURI(i.tokenId);
-        const meta = await axios({
-          method: 'get',
-          url: tokenUri,
-          withCredentials: false,
+    const items = await data.map(async (i) => {
+      let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
+      const tokenURI = await minterContract.tokenURI(i.tokenId);
+      console.log(tokenURI);
+      let meta = null;
+
+      try {
+        meta = await axios.post('/api/nft-meta-data', {
+          tokenURI,
           headers: {
-            'Content-Type': 'application/json',
+            'Retry-After': 60,
           },
         });
-        const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        let item = {
-          price,
-          contractAddress: i.nftContract,
-          tokenId: i.tokenId,
-          itemId: i.itemId.toNumber(),
-          seller: i.seller,
-          owner: i.owner,
-          image: meta.data.image,
-          name: meta.data.name,
-          description: meta.data.description,
-        };
-        return item;
-      })
-    );
+      } catch (err) {
+        console.log(err.message);
+      }
+
+      const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+
+      return {
+        price,
+        contractAddress: i.nftContract,
+        tokenId: i.tokenId,
+        itemId: i.itemId.toNumber(),
+        seller: i.seller,
+        owner: i.owner,
+        image: meta?.data.image ?? img,
+        name: meta?.data.name ?? 'N/A',
+        description: meta?.data.description ?? 'N/A',
+      };
+    });
     return items;
   }, [marketContract]);
 

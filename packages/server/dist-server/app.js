@@ -15,11 +15,12 @@ var _morgan = _interopRequireDefault(require('morgan'));
 
 var _index = _interopRequireDefault(require('./routes/index'));
 
+var _nftMetaData = _interopRequireDefault(require('./routes/nft-meta-data'));
+
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
-// app.js
 var app = (0, _express['default'])();
 app.use((0, _morgan['default'])('dev'));
 app.use(_express['default'].json());
@@ -30,6 +31,7 @@ app.use(
 );
 app.use((0, _cookieParser['default'])());
 app.use(_express['default']['static'](_path['default'].join(__dirname, '../public')));
+app.use('/api/nft-meta-data', _nftMetaData['default']);
 app.use('/', _index['default']);
 var _default = app;
 exports['default'] = _default;
