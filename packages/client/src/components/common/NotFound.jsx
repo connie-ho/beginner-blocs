@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFaceFrown } from "@fortawesome/free-regular-svg-icons";
+import { faFaceFrown } from '@fortawesome/free-regular-svg-icons';
 import { Button, Typography } from '@mui/material';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,13 +24,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NotFound = ({ successMsg }) => {
+const NotFound = () => {
   const classes = useStyles();
   return (
     <div className={classes.loader}>
-      <Typography sx={{mb:2}} variant="h4">Page Not Found</Typography>
-      <FontAwesomeIcon icon={faFaceFrown} size="10x"/>
-      <Button role="button" href="/" color="secondary" className={classes.button} variant="outlined" size="large" sx={{ mt: 2 }}>
+      <Typography sx={{ mb: 2 }} variant="h4">
+        Page Not Found
+      </Typography>
+      <FontAwesomeIcon icon={faFaceFrown} size="10x" />
+      <Button
+        role="button"
+        href="/"
+        color="secondary"
+        className={classes.button}
+        variant="outlined"
+        size="large"
+        sx={{ mt: 2 }}
+      >
         Go to Home Page
       </Button>
     </div>
