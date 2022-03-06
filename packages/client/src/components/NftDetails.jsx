@@ -61,60 +61,63 @@ const useQuery = () => {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 };
 
-function NftDetails(props) {
-    const classes = useStyles()
+function NftDetails() {
+  const classes = useStyles();
 
-    const query = useQuery();
-    const [contractAddress, tokenId, ownerAddress] = [query.get("contractAddress"), query.get("tokenId"), query.get("ownerAddress")];
+  const query = useQuery();
+  const [contractAddress, tokenId, ownerAddress] = [
+    query.get('contractAddress'),
+    query.get('tokenId'),
+    query.get('ownerAddress'),
+  ];
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const {  marketContract } = useContext(EthersContext)
-    const { account } = useContext(UserContext);
+  const { marketContract } = useContext(EthersContext);
+  const { account } = useContext(UserContext);
 
-    const [nftMetadata, setNftMetadata] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
-    const [loadingMsg, setLoadingMsg] = useState("");
-    const [priceValid, setPriceValid] = useState(true);
-    const [sellingPrice, setSellingPrice] = useState("0.1")
-    const [alert, setAlert] = useState(null);
-    const [transactionProcessed, setTransactionProcessed] = useState(false);
+  const [nftMetadata, setNftMetadata] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingMsg, setLoadingMsg] = useState('');
+  const [priceValid, setPriceValid] = useState(true);
+  const [sellingPrice, setSellingPrice] = useState('0.1');
+  const [alert, setAlert] = useState(null);
+  const [transactionProcessed, setTransactionProcessed] = useState(false);
 
-    useEffect(() => {
-        setIsLoading(true)
-        const fetchNFTMeta = async () => {
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchNFTMeta = async () => {
+      if (contractAddress == null || tokenId == null || ownerAddress == null) {
+        navigate('/404');
+        return;
+      }
 
-            if (contractAddress == null || tokenId == null || ownerAddress == null) {
-                navigate("/404");
-                return;
-            }
+      const apiKey = '-Xk_48swP3XQLraIbOIMuHxBt5bXtuJw';
+      const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
+      const tokenType = 'erc721';
 
-            const apiKey = "-Xk_48swP3XQLraIbOIMuHxBt5bXtuJw";
-            const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
-            const tokenType = "erc721";
+      var config = {
+        method: 'get',
+        url: `${baseURL}?contractAddress=${contractAddress}&tokenId=${tokenId}&tokenType=${tokenType}`,
+        headers: {},
+      };
 
-            var config = {
-                method: 'get',
-                url: `${baseURL}?contractAddress=${contractAddress}&tokenId=${tokenId}&tokenType=${tokenType}`,
-                headers: {}
-            };
+      const resp = await axios(config);
 
-            const resp = await axios(config)
+      if (resp.status < 200 || resp.status > 299) {
+        navigate('/404');
+        return;
+      }
 
-            if (resp.status < 200 || resp.status > 299) {
-                navigate("/404");
-                return;
-            }
-
-            if (ownerAddress === nftmarketaddress) {
-                const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId)
-                resp.data.price = marketItem.price
-                resp.data.itemId = marketItem.itemId
-                resp.data.seller = marketItem.seller
-            }
-            setNftMetadata(resp.data)
-            setIsLoading(false)
-        };
+      if (ownerAddress === nftmarketaddress) {
+        const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId);
+        resp.data.price = marketItem.price;
+        resp.data.itemId = marketItem.itemId;
+        resp.data.seller = marketItem.seller;
+      }
+      setNftMetadata(resp.data);
+      setIsLoading(false);
+    };
 
     fetchNFTMeta();
   }, [contractAddress, marketContract, navigate, ownerAddress, tokenId]);
@@ -290,4 +293,4 @@ function NftDetails(props) {
   );
 }
 
-export default NftDetails
+export default NftDetails;
