@@ -28,29 +28,6 @@ router.post('/', async function (req, res, _next) {
     console.log(err.message);
     return res.status(err.response?.status || 500).json({ error: err.message });
   }
-
-  // const meta = await axios
-  //   .get(tokenURI, {
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.PINATA_JWT_TOKEN}`,
-  //       "Content-Type": "application/json",
-  //       "Retry-After": 1
-  //     },
-  //   })
-  //   .then((data) => data.data)
-  //   .catch((err) => {
-  //     console.log(tokenURI);
-  //     console.log(err.message);
-  //     console.log(err.response?.status || 500)
-
-  //     return {
-  //       image: '',
-  //       name: '',
-  //       description: ''
-  //     }
-  //   });
-
-  //   return res.send(meta)
 });
 
 export default router;

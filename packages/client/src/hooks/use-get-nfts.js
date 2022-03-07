@@ -7,24 +7,35 @@ import img from '../assets/not_found.png';
 import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
 
 const useGetNFTs = ({ marketContract }) => {
+  const getMetaData = useCallback(async (tokenURI) => {
+    let meta = {};
+
+    try {
+      const data = await axios.post('/api/nft-meta-data', {
+        tokenURI,
+      });
+      meta = data.data;
+    } catch (err) {
+      meta = {
+        image: img,
+        name: 'N/A',
+        description: 'N/A',
+      };
+      console.log(err.message);
+    }
+
+    return meta;
+  }, []);
+
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
-    const items = await Promise.allSettled(
-      data.reduce(async (_prev, i) => {
-        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
+    const items = await Promise.all(
+      data.map(async (i) => {
+        const minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
         const tokenURI = await minterContract.tokenURI(i.tokenId);
-        console.log(tokenURI);
-        let meta = null;
 
-        try {
-          meta = await axios.post('/api/nft-meta-data', {
-            tokenURI,
-          });
-        } catch (err) {
-          console.log(err.message);
-        }
-
+        const meta = await getMetaData(tokenURI);
         const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
 
         return {
@@ -34,9 +45,9 @@ const useGetNFTs = ({ marketContract }) => {
           itemId: i.itemId.toNumber(),
           seller: i.seller,
           owner: i.owner,
-          image: meta?.data.image ?? img,
-          name: meta?.data.name ?? 'N/A',
-          description: meta?.data.description ?? 'N/A',
+          image: meta.image,
+          name: meta.name,
+          description: meta.description,
         };
       })
     );
@@ -49,30 +60,24 @@ const useGetNFTs = ({ marketContract }) => {
     const items = await Promise.all(
       data.map(async (i) => {
         // allow token from the NFT contract to be listed on the markeplace
-        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
-        const tokenUri = await minterContract.tokenURI(i.tokenId);
-        const meta = await axios({
-          method: 'get',
-          url: tokenUri.startsWith('ipfs') ? `https://ipfs.io/ipfs/${tokenUri.substring(12)}` : tokenUri,
-          withCredentials: false,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+        const minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
+        const tokenURI = await minterContract.tokenURI(i.tokenId);
 
-        let price = ethers.utils.formatUnits(i.price.toString(), 'ether');
-        let item = {
+        const meta = await getMetaData(tokenURI);
+        const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+        console.log(tokenURI);
+
+        return {
           price,
           itemId: i.itemId.toNumber(),
           tokenId: i.tokenId,
           address: i.nftContract,
           seller: i.seller,
           owner: i.owner,
-          image: meta.data.image,
-          name: meta.data.name,
-          description: meta.data.description,
+          image: meta.image,
+          name: meta.name,
+          description: meta.description,
         };
-        return item;
       })
     );
     return items;
@@ -113,7 +118,7 @@ const useGetNFTs = ({ marketContract }) => {
     return items;
   }, []);
 
-  return { loadNFTs: loadMarketNFTs, loadListedNFTs, loadOwnedNFTs };
+  return { loadMarketNFTs, loadListedNFTs, loadOwnedNFTs };
 };
 
 export { useGetNFTs };

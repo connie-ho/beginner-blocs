@@ -67,7 +67,6 @@ var fetchMetaData = /*#__PURE__*/ (function () {
                     console.log('Retry attempt #'.concat(cfg.currentRetryAttempt, ' for ').concat(tokenURI)); // track current trial
                   },
                 },
-                timeout: 60, // don't forget this one
               };
               _context.next = 3;
               return _axios['default'].get(tokenURI, retryConfig);

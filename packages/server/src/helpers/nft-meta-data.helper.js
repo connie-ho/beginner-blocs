@@ -12,7 +12,6 @@ const fetchMetaData = async (tokenURI) => {
         console.log(`Retry attempt #${cfg.currentRetryAttempt} for ${tokenURI}`); // track current trial
       },
     },
-    timeout: 60, // don't forget this one
   };
 
   const meta = await axios.get(tokenURI, retryConfig);

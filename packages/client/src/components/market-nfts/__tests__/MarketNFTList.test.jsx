@@ -7,34 +7,33 @@ import * as useGetNFTs from '../../../hooks/use-get-nfts';
 import MarketNFTList from '../MarketNFTList';
 
 describe('MarketNftList', () => {
-    const renderMarketNFTList = async (props) => {
-        const view = renderWithProviders(<MarketNFTList {...props} />)
+  const renderMarketNFTList = async (props) => {
+    const view = renderWithProviders(<MarketNFTList {...props} />);
 
-        return {
-            ...view,
-            $findMarketItems: async () => screen.findAllByTestId(/market-item-/),
-        }
-    } 
+    return {
+      ...view,
+      $findMarketItems: async () => screen.findAllByTestId(/market-item-/),
+    };
+  };
 
-    test('it renders', async() => {
-        const { container } = await renderMarketNFTList()
-        expect(container).toBeVisible()
-    })
+  test('it renders', async () => {
+    const { container } = await renderMarketNFTList();
+    expect(container).toBeVisible();
+  });
 
-    test('should display a list of market nfts', async() => {
+  test('should display a list of market nfts', async () => {
+    const nft1 = await createTestNft();
+    const nft2 = await createTestNft({ tokenId: 2 });
+    const nfts = [nft1, nft2];
 
-        const nft1 = await createTestNft()
-        const nft2 = await createTestNft({tokenId: 2})
-        const nfts = [nft1, nft2]
-    
-        const mockLoadNFTs = jest.fn().mockResolvedValue(nfts)
-    
-        jest.spyOn(useGetNFTs, 'useGetNFTs').mockReturnValue({
-            loadNFTs: mockLoadNFTs,
-        });
-        const { $findMarketItems } = await renderMarketNFTList();
-        const marketItems = await $findMarketItems()
+    const mockLoadNFTs = jest.fn().mockResolvedValue(nfts);
 
-        expect(marketItems).toHaveLength(2)
-    })
-})
+    jest.spyOn(useGetNFTs, 'useGetNFTs').mockReturnValue({
+      loadMarketNFTs: mockLoadNFTs,
+    });
+    const { $findMarketItems } = await renderMarketNFTList();
+    const marketItems = await $findMarketItems();
+
+    expect(marketItems).toHaveLength(2);
+  });
+});
