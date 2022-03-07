@@ -5,6 +5,10 @@
  */
 'use strict';
 
+require('core-js/stable');
+
+require('regenerator-runtime/runtime');
+
 var _app = _interopRequireDefault(require('../app'));
 
 var _debug = _interopRequireDefault(require('debug'));

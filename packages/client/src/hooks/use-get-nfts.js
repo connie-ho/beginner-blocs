@@ -10,37 +10,36 @@ const useGetNFTs = ({ marketContract }) => {
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
-    const items = await data.map(async (i) => {
-      let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
-      const tokenURI = await minterContract.tokenURI(i.tokenId);
-      console.log(tokenURI);
-      let meta = null;
+    const items = await Promise.allSettled(
+      data.reduce(async (_prev, i) => {
+        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
+        const tokenURI = await minterContract.tokenURI(i.tokenId);
+        console.log(tokenURI);
+        let meta = null;
 
-      try {
-        meta = await axios.post('/api/nft-meta-data', {
-          tokenURI,
-          headers: {
-            'Retry-After': 60,
-          },
-        });
-      } catch (err) {
-        console.log(err.message);
-      }
+        try {
+          meta = await axios.post('/api/nft-meta-data', {
+            tokenURI,
+          });
+        } catch (err) {
+          console.log(err.message);
+        }
 
-      const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+        const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
 
-      return {
-        price,
-        contractAddress: i.nftContract,
-        tokenId: i.tokenId,
-        itemId: i.itemId.toNumber(),
-        seller: i.seller,
-        owner: i.owner,
-        image: meta?.data.image ?? img,
-        name: meta?.data.name ?? 'N/A',
-        description: meta?.data.description ?? 'N/A',
-      };
-    });
+        return {
+          price,
+          contractAddress: i.nftContract,
+          tokenId: i.tokenId,
+          itemId: i.itemId.toNumber(),
+          seller: i.seller,
+          owner: i.owner,
+          image: meta?.data.image ?? img,
+          name: meta?.data.name ?? 'N/A',
+          description: meta?.data.description ?? 'N/A',
+        };
+      })
+    );
     return items;
   }, [marketContract]);
 

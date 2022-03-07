@@ -1,12 +1,12 @@
 import express from 'express';
-import axios from 'axios';
 import dotenv from 'dotenv';
+import { fetchMetaData } from '../helpers/nft-meta-data.helper';
 
 dotenv.config();
 const router = express.Router();
 
-router.post('/', function (req, res, _next) {
-  let { tokenURI } = req.body;
+router.post('/', async function (req, res, _next) {
+  const { tokenURI } = req.body;
 
   if (!tokenURI) {
     return res.status(500).json({ error: 'Path must be specified' });
@@ -20,19 +20,37 @@ router.post('/', function (req, res, _next) {
     });
   }
 
-  return axios
-    .get(tokenURI, {
-      headers: {
-        Authorization: `Bearer ${process.env.PINATA_JWT_TOKEN}`,
-        'Retry-After': 1,
-      },
-    })
-    .then((data) => res.send(data.data))
-    .catch((err) => {
-      console.log(tokenURI);
-      console.log(err.message);
-      res.status(err.response?.status || 500).json({ error: err });
-    });
+  try {
+    const meta = await fetchMetaData(tokenURI);
+    return res.send(meta);
+  } catch (err) {
+    console.log(tokenURI);
+    console.log(err.message);
+    return res.status(err.response?.status || 500).json({ error: err.message });
+  }
+
+  // const meta = await axios
+  //   .get(tokenURI, {
+  //     headers: {
+  //       Authorization: `Bearer ${process.env.PINATA_JWT_TOKEN}`,
+  //       "Content-Type": "application/json",
+  //       "Retry-After": 1
+  //     },
+  //   })
+  //   .then((data) => data.data)
+  //   .catch((err) => {
+  //     console.log(tokenURI);
+  //     console.log(err.message);
+  //     console.log(err.response?.status || 500)
+
+  //     return {
+  //       image: '',
+  //       name: '',
+  //       description: ''
+  //     }
+  //   });
+
+  //   return res.send(meta)
 });
 
 export default router;
