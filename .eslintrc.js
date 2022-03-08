@@ -12,7 +12,7 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': [
-      2,
+      1,
       {
         args: 'after-used',
         argsIgnorePattern: '^_',

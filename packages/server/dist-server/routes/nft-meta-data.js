@@ -56,55 +56,47 @@ router.post(
   /*#__PURE__*/ (function () {
     var _ref = _asyncToGenerator(
       /*#__PURE__*/ regeneratorRuntime.mark(function _callee(req, res, _next) {
-        var tokenURI, meta, _err$response;
+        var _req$body, contractAddress, tokenId, _data$data, data, _err$response;
 
         return regeneratorRuntime.wrap(
           function _callee$(_context) {
             while (1) {
               switch ((_context.prev = _context.next)) {
                 case 0:
-                  tokenURI = req.body.tokenURI;
+                  (_req$body = req.body), (contractAddress = _req$body.contractAddress), (tokenId = _req$body.tokenId); // if (!tokenURI) {
+                  //   return res.status(500).json({ error: 'Path must be specified' });
+                  // }
+                  // if (tokenURI.startsWith('data')) {
+                  //   return res.send({
+                  //     image: tokenURI.image,
+                  //     name: tokenURI.name,
+                  //     description: tokenURI.description,
+                  //   });
+                  // }
 
-                  if (tokenURI) {
-                    _context.next = 3;
-                    break;
-                  }
+                  _context.prev = 1;
+                  _context.next = 4;
+                  return (0, _nftMetaData.fetchMetaDataAlchemy)({
+                    contractAddress: contractAddress,
+                    tokenId: tokenId,
+                  });
 
-                  return _context.abrupt(
-                    'return',
-                    res.status(500).json({
-                      error: 'Path must be specified',
-                    })
-                  );
+                case 4:
+                  data = _context.sent;
 
-                case 3:
-                  if (!tokenURI.startsWith('data')) {
-                    _context.next = 5;
-                    break;
-                  }
-
-                  return _context.abrupt(
-                    'return',
+                  if (!((_data$data = data.data) !== null && _data$data !== void 0 && _data$data.metadata)) {
                     res.send({
-                      image: tokenURI.image,
-                      name: tokenURI.name,
-                      description: tokenURI.description,
-                    })
-                  );
+                      image: '',
+                      name: '',
+                      description: '',
+                    });
+                  }
 
-                case 5:
-                  _context.prev = 5;
-                  _context.next = 8;
-                  return (0, _nftMetaData.fetchMetaData)(tokenURI);
+                  return _context.abrupt('return', res.send(data.data.metadata));
 
-                case 8:
-                  meta = _context.sent;
-                  return _context.abrupt('return', res.send(meta));
-
-                case 12:
-                  _context.prev = 12;
-                  _context.t0 = _context['catch'](5);
-                  console.log(tokenURI);
+                case 9:
+                  _context.prev = 9;
+                  _context.t0 = _context['catch'](1);
                   console.log(_context.t0.message);
                   return _context.abrupt(
                     'return',
@@ -112,14 +104,16 @@ router.post(
                       .status(
                         ((_err$response = _context.t0.response) === null || _err$response === void 0
                           ? void 0
-                          : _err$response.status) || 500
+                          : _err$response.status) ||
+                          _context.t0.status ||
+                          500
                       )
                       .json({
                         error: _context.t0.message,
                       })
                   );
 
-                case 17:
+                case 13:
                 case 'end':
                   return _context.stop();
               }
@@ -127,7 +121,7 @@ router.post(
           },
           _callee,
           null,
-          [[5, 12]]
+          [[1, 9]]
         );
       })
     );

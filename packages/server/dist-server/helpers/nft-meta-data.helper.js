@@ -3,11 +3,13 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports.fetchMetaData = void 0;
+exports.fetchMetaDataAlchemy = exports.fetchMetaData = void 0;
 
 var _axios = _interopRequireDefault(require('axios'));
 
 var _retryAxios = _interopRequireDefault(require('retry-axios'));
+
+var _dotenv = _interopRequireDefault(require('dotenv'));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -44,6 +46,8 @@ function _asyncToGenerator(fn) {
     });
   };
 }
+
+_dotenv['default'].config();
 
 _retryAxios['default'].attach();
 
@@ -90,3 +94,58 @@ var fetchMetaData = /*#__PURE__*/ (function () {
 })();
 
 exports.fetchMetaData = fetchMetaData;
+
+_retryAxios['default'].attach();
+
+var fetchMetaDataAlchemy = /*#__PURE__*/ (function () {
+  var _ref3 = _asyncToGenerator(
+    /*#__PURE__*/ regeneratorRuntime.mark(function _callee2(_ref2) {
+      var tokenId, contractAddress, retryConfig, baseURL, tokenURL, data;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch ((_context2.prev = _context2.next)) {
+            case 0:
+              (tokenId = _ref2.tokenId), (contractAddress = _ref2.contractAddress);
+              retryConfig = {
+                raxConfig: {
+                  retry: 5,
+                  noResponseRetries: 5,
+                  onRetryAttempt: function onRetryAttempt(err) {
+                    var cfg = _retryAxios['default'].getConfig(err);
+
+                    console.log(
+                      'Retry attempt #'
+                        .concat(cfg.currentRetryAttempt, ' for ')
+                        .concat(tokenId, ' on ')
+                        .concat(contractAddress)
+                    );
+                  },
+                },
+              };
+              baseURL = 'https://eth-ropsten.alchemyapi.io/v2/'.concat(process.env.ALCHEMY_API_KEY, '/getNFTMetadata');
+              tokenURL = ''
+                .concat(baseURL, '?contractAddress=')
+                .concat(contractAddress, '&tokenId=')
+                .concat(tokenId, '&tokenType=erc721');
+              _context2.next = 6;
+              return _axios['default'].get(tokenURL);
+
+            case 6:
+              data = _context2.sent;
+              return _context2.abrupt('return', data);
+
+            case 8:
+            case 'end':
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    })
+  );
+
+  return function fetchMetaDataAlchemy(_x2) {
+    return _ref3.apply(this, arguments);
+  };
+})();
+
+exports.fetchMetaDataAlchemy = fetchMetaDataAlchemy;

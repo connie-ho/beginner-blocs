@@ -32,7 +32,7 @@ const NFTCard = ({ onClick, image, name, price, ...props }) => {
     <CardItem onClick={onClick} {...props}>
       <Preview src={image ?? notFound} alt={name} />
       <Details>
-        <h2>{name}</h2>
+        <h2>{name ?? 'N/A'}</h2>
         <Price>
           {price}
           <EthIcon icon={faEthereum} size="lg" swapOpacity />
