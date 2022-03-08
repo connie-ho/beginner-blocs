@@ -8,11 +8,20 @@ import NFTMarket from '../artifacts/contracts/NFTMarket.sol/NFTMarket.json';
 
 export const EthersContext = createContext();
 const EthersContextProvider = ({ children }) => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  // const provider = new ethers.providers.getDefaultProvider(process.env.REACT_APP_PROJECT_URL);
-  const signer = provider.getSigner();
-  const tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer);
-  const marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, signer);
+  let provider = ethers.getDefaultProvider('ropsten');
+  let signer = null;
+  let tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
+  let marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider);
+
+  const { ethereum } = window;
+  console.log('boop', marketContract);
+  if (ethereum) {
+    provider = new ethers.providers.Web3Provider(ethereum);
+    // const provider = new ethers.providers.getDefaultProvider(process.env.REACT_APP_PROJECT_URL);
+    signer = provider.getSigner();
+    tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer);
+    marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, signer);
+  }
 
   return (
     <EthersContext.Provider value={{ tokenContract, marketContract, provider }}>{children}</EthersContext.Provider>

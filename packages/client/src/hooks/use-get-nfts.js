@@ -12,7 +12,7 @@ const useGetNFTs = ({ marketContract }) => {
 
     const items = await Promise.all(
       data.map(async (i) => {
-        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.signer);
+        let minterContract = new ethers.Contract(i.nftContract, ERC721.abi, marketContract.provider);
         const tokenUri = await minterContract.tokenURI(i.tokenId);
         const meta = await axios({
           method: 'get',
