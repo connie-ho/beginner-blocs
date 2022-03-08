@@ -14,7 +14,7 @@ const EthersContextProvider = ({ children }) => {
   let marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, provider);
 
   const { ethereum } = window;
-  console.log('boop', marketContract);
+
   if (ethereum) {
     provider = new ethers.providers.Web3Provider(ethereum);
     // const provider = new ethers.providers.getDefaultProvider(process.env.REACT_APP_PROJECT_URL);
