@@ -5,6 +5,14 @@ import axios from 'axios';
 import img from '../assets/not_found.png';
 
 const useGetNFTs = ({ marketContract }) => {
+  const parseImage = useCallback((imageURL) => {
+    if (imageURL && imageURL.startsWith('ipfs://')) {
+      imageURL = imageURL.replace('ipfs://', 'https://ipfs.io/');
+    }
+
+    return imageURL;
+  });
+
   const getMetaData = useCallback(async ({ contractAddress, tokenId }) => {
     try {
       const data = await axios.post('/api/nft-meta-data', {
@@ -32,7 +40,7 @@ const useGetNFTs = ({ marketContract }) => {
           itemId: i.itemId.toNumber(),
           seller: i.seller,
           owner: i.owner,
-          image: meta.image,
+          image: parseImage(meta.image),
           name: meta.name,
           description: meta.description,
         };
@@ -57,7 +65,7 @@ const useGetNFTs = ({ marketContract }) => {
           address: i.nftContract,
           seller: i.seller,
           owner: i.owner,
-          image: meta.image,
+          image: parseImage(meta.image),
           name: meta.name,
           description: meta.description,
         };
@@ -91,7 +99,7 @@ const useGetNFTs = ({ marketContract }) => {
           address: NFT.contract.address,
           tokenId: NFT.id.tokenId,
           owner: owner,
-          image: meta.image,
+          image: parseImage(meta.image),
           name: meta.name,
           description: meta.description,
         };

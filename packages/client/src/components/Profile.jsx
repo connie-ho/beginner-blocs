@@ -36,7 +36,7 @@ const Profile = () => {
     setTabValue(newValue);
   }, []);
 
-  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({tokenContract, marketContract});
+  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ tokenContract, marketContract });
 
   useEffect(() => {
     const grabAccountBalanceInformation = async (account) => {
@@ -52,7 +52,7 @@ const Profile = () => {
     const fetchNFTs = async (account) => {
       const listedItems = await loadListedNFTs();
       const ownedItems = await loadOwnedNFTs(account);
-      
+
       setNFTs({ listed: listedItems, owned: ownedItems });
     };
 
@@ -63,7 +63,7 @@ const Profile = () => {
         setLoading(false);
       } catch (error) {
         console.log(error.message);
-      } 
+      }
     };
 
     getProfileDetails(account);
@@ -72,29 +72,29 @@ const Profile = () => {
   if (loading) {
     return <Loading />;
   }
-
+  console.log(NFTs);
   return (
-      <Grid container style={{ minHeight: '50rem' }}>
-        <Grid item xs={1} />
-        <Grid container item xs={10} direction="column">
-          <ProfileBanner nfts={NFTs.owned} />
-          <AccountInfo account={account} balance={balance} style={{ marginBottom: '2rem' }} />
-          <div>
-            <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
-            <Divider />
-            <TabPanel value={tabValue} index={1}>
-              <NFTList items={NFTs.owned} type="owned" />
-            </TabPanel>
-            {/* <TabPanel value={tabValue} index={2}>
+    <Grid container style={{ minHeight: '50rem' }}>
+      <Grid item xs={1} />
+      <Grid container item xs={10} direction="column">
+        <ProfileBanner nfts={NFTs.owned} />
+        <AccountInfo account={account} balance={balance} style={{ marginBottom: '2rem' }} />
+        <div>
+          <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
+          <Divider />
+          <TabPanel value={tabValue} index={1}>
+            <NFTList items={NFTs.owned} type="owned" />
+          </TabPanel>
+          {/* <TabPanel value={tabValue} index={2}>
               <NFTList items={NFTs.created} type='created'/>
             </TabPanel> */}
-            <TabPanel value={tabValue} index={3}>
-              <NFTList items={NFTs.listed} type="listed" />
-            </TabPanel>
-          </div>
-        </Grid>
-        <Grid item xs={1} />
+          <TabPanel value={tabValue} index={3}>
+            <NFTList items={NFTs.listed} type="listed" />
+          </TabPanel>
+        </div>
       </Grid>
+      <Grid item xs={1} />
+    </Grid>
   );
 };
 
