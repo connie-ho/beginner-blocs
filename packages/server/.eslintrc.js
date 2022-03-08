@@ -11,7 +11,7 @@ module.exports = {
   },
   rules: {
     'no-unused-vars': [
-      1,
+      2,
       {
         args: 'after-used',
         argsIgnorePattern: '^_',

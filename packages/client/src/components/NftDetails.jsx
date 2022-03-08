@@ -102,9 +102,6 @@ function NftDetails() {
         headers: {},
       };
 
-      console.log(contractAddress);
-      console.log(tokenId);
-
       const resp = await axios(config);
 
       if (resp.status < 200 || resp.status > 299) {

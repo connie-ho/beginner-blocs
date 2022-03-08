@@ -111,7 +111,6 @@ function useInteract() {
     metadata.image = file.image;
     metadata.description = description;
 
-    console.log('here is image metadata:', metadata.image);
     const pinataResponse = await pinJSONToIPFS(metadata);
     if (!pinataResponse.success) {
       return {
@@ -120,10 +119,6 @@ function useInteract() {
       };
     }
     const tokenURI = pinataResponse.pinataUrl;
-    console.log('tokenuri is :' + tokenURI);
-
-    console.log('this is contract addresss: ', contractAddress);
-    console.log('this is contract abi: ', contractABI);
 
     window.contract = await new web3.eth.Contract(contractABI.abi, contractAddress);
 

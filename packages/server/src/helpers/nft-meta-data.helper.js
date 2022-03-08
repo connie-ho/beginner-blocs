@@ -34,7 +34,7 @@ const fetchMetaDataAlchemy = async ({ tokenId, contractAddress }) => {
   };
   const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}/getNFTMetadata`;
   const tokenURL = `${baseURL}?contractAddress=${contractAddress}&tokenId=${tokenId}&tokenType=erc721`;
-  const data = await axios.get(tokenURL);
+  const data = await axios.get(tokenURL, retryConfig);
 
   return data;
 };

@@ -4,10 +4,8 @@ import axios from 'axios';
 
 import img from '../assets/not_found.png';
 
-import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
-
 const useGetNFTs = ({ marketContract }) => {
-  const getMetaData = useCallback(async ({ contractAddress, tokenId, tokenURI }) => {
+  const getMetaData = useCallback(async ({ contractAddress, tokenId }) => {
     let meta = {};
 
     try {
