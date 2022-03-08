@@ -72,7 +72,7 @@ const Profile = () => {
   if (loading) {
     return <Loading />;
   }
-  console.log(NFTs);
+
   return (
     <Grid container style={{ minHeight: '50rem' }}>
       <Grid item xs={1} />
