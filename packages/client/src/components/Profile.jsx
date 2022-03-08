@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useContext, useReducer } from 'react';
 import { ethers } from 'ethers';
 import { Grid, Divider } from '@mui/material';
-
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/user-context';
 import { EthersContext } from '../contexts/ethers-provider-context';
 import { useGetNFTs } from '../hooks/use-get-nfts';
@@ -31,14 +31,20 @@ const Profile = () => {
     }),
     initialNFTs
   );
+  const navigate = useNavigate();
 
   const handleTabChange = useCallback((_event, newValue) => {
     setTabValue(newValue);
   }, []);
 
-  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({tokenContract, marketContract});
+  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ tokenContract, marketContract });
 
   useEffect(() => {
+    if (!account) {
+      navigate('/404');
+      return;
+    }
+
     const grabAccountBalanceInformation = async (account) => {
       if (account) {
         let wei = await provider.getBalance(`${account}`);
@@ -52,7 +58,6 @@ const Profile = () => {
     const fetchNFTs = async (account) => {
       const listedItems = await loadListedNFTs();
       const ownedItems = await loadOwnedNFTs(account);
-      
       setNFTs({ listed: listedItems, owned: ownedItems });
     };
 
@@ -63,7 +68,7 @@ const Profile = () => {
         setLoading(false);
       } catch (error) {
         console.log(error.message);
-      } 
+      }
     };
 
     getProfileDetails(account);
@@ -74,27 +79,27 @@ const Profile = () => {
   }
 
   return (
-      <Grid container style={{ minHeight: '50rem' }}>
-        <Grid item xs={1} />
-        <Grid container item xs={10} direction="column">
-          <ProfileBanner nfts={NFTs.owned} />
-          <AccountInfo account={account} balance={balance} style={{ marginBottom: '2rem' }} />
-          <div>
-            <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
-            <Divider />
-            <TabPanel value={tabValue} index={1}>
-              <NFTList items={NFTs.owned} type="owned" />
-            </TabPanel>
-            {/* <TabPanel value={tabValue} index={2}>
+    <Grid container style={{ minHeight: '50rem' }}>
+      <Grid item xs={1} />
+      <Grid container item xs={10} direction="column">
+        <ProfileBanner nfts={NFTs.owned} />
+        <AccountInfo account={account} balance={balance} style={{ marginBottom: '2rem' }} />
+        <div>
+          <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
+          <Divider />
+          <TabPanel value={tabValue} index={1}>
+            <NFTList items={NFTs.owned} type="owned" />
+          </TabPanel>
+          {/* <TabPanel value={tabValue} index={2}>
               <NFTList items={NFTs.created} type='created'/>
             </TabPanel> */}
-            <TabPanel value={tabValue} index={3}>
-              <NFTList items={NFTs.listed} type="listed" />
-            </TabPanel>
-          </div>
-        </Grid>
-        <Grid item xs={1} />
+          <TabPanel value={tabValue} index={3}>
+            <NFTList items={NFTs.listed} type="listed" />
+          </TabPanel>
+        </div>
       </Grid>
+      <Grid item xs={1} />
+    </Grid>
   );
 };
 
