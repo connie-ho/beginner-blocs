@@ -128,7 +128,7 @@ var fetchMetaDataAlchemy = /*#__PURE__*/ (function () {
                 .concat(contractAddress, '&tokenId=')
                 .concat(tokenId, '&tokenType=erc721');
               _context2.next = 6;
-              return _axios['default'].get(tokenURL);
+              return _axios['default'].get(tokenURL, retryConfig);
 
             case 6:
               data = _context2.sent;
