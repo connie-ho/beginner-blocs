@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
 
-import indexRouter from './routes/index';
-import nftMetaDataRouter from './routes/nft-meta-data';
+import indexRouter from './routes/index/index';
+import nftMetaDataRouter from './routes/nft-meta-data/nft-meta-data';
 
 const app = express();
 

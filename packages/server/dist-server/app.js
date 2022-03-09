@@ -15,9 +15,9 @@ var _morgan = _interopRequireDefault(require('morgan'));
 
 var _cors = _interopRequireDefault(require('cors'));
 
-var _index = _interopRequireDefault(require('./routes/index'));
+var _index = _interopRequireDefault(require('./routes/index/index'));
 
-var _nftMetaData = _interopRequireDefault(require('./routes/nft-meta-data'));
+var _nftMetaData = _interopRequireDefault(require('./routes/nft-meta-data/nft-meta-data'));
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };

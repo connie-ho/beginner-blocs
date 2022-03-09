@@ -6,29 +6,25 @@ import img from '../assets/not_found.png';
 
 const useGetNFTs = ({ marketContract }) => {
   const getMetaData = useCallback(async ({ contractAddress, tokenId }) => {
-    let meta = {};
-
     try {
       const data = await axios.post('/api/nft-meta-data', {
         contractAddress,
         tokenId,
       });
-      meta = data.data;
+      return data.data;
     } catch (err) {
-      meta = {
+      return {
         image: img,
         name: 'N/A',
         description: 'N/A',
       };
-      console.log(err.message);
     }
-    return meta;
   }, []);
 
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
-    const items = await Promise.all(
+    const items = await Promise.allSettled(
       data.map(async (i) => {
         const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
         const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
@@ -52,7 +48,7 @@ const useGetNFTs = ({ marketContract }) => {
   const loadListedNFTs = useCallback(async () => {
     const data = await marketContract.fetchMyListedNFTs();
 
-    const items = await Promise.all(
+    const items = await Promise.allSettled(
       data.map(async (i) => {
         const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
         const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
@@ -81,18 +77,18 @@ const useGetNFTs = ({ marketContract }) => {
     const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTs/`;
     const url = `${baseURL}?owner=${ownerAddr}&withMetadata=true`;
 
-    let resp = await axios.get(url);
-    let ownedNFTs = resp.data.ownedNfts;
+    const resp = await axios.get(url);
+    const ownedNFTs = resp.data.ownedNfts;
 
-    const items = await Promise.all(
+    const items = await Promise.allSettled(
       ownedNFTs.map(async (NFT) => {
-        let emptyMeta = {
+        const emptyMeta = {
           name: 'N/A',
           description: 'N/A',
           image: img,
         };
 
-        let meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
+        const meta = Object.keys(NFT.metadata).length > 2 ? NFT.metadata : emptyMeta;
 
         const item = {
           address: NFT.contract.address,

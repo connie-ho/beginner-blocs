@@ -1,12 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { fetchMetaDataAlchemy } from '../helpers/nft-meta-data.helper';
+import { fetchMetaDataAlchemy } from './helpers/nft-meta-data.helper';
 
 dotenv.config();
 const router = express.Router();
 
 router.post('/', async function (req, res, _next) {
   const { contractAddress, tokenId } = req.body;
+
+  if (!contractAddress || !tokenId) {
+    return res.status(500).json({ error: 'Contract address and tokenId must be specified' });
+  }
 
   // if (!tokenURI) {
   //   return res.status(500).json({ error: 'Path must be specified' });
