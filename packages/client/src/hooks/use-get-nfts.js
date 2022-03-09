@@ -13,18 +13,14 @@ const useGetNFTs = ({ marketContract }) => {
       });
       return data.data;
     } catch (err) {
-      return {
-        image: img,
-        name: 'N/A',
-        description: 'N/A',
-      };
+      console.log(err.message);
     }
   }, []);
 
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
-    const items = await Promise.allSettled(
+    const items = await Promise.all(
       data.map(async (i) => {
         const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
         const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
@@ -42,6 +38,7 @@ const useGetNFTs = ({ marketContract }) => {
         };
       })
     );
+
     return items;
   }, [marketContract]);
 
