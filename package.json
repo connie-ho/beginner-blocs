@@ -4,7 +4,8 @@
   "description": "An NFT Marketplace designed by beginners for beginners",
   "scripts": {
     "prepare": "husky install",
-    "test": "npx hardhat test && npm run test:client",
+    "test": "npx hardhat test",
+    "test:all": "npm test && npm run test:client && npm run test:server",
     "test:client": "cd ./packages/client && npm test",
     "test:server": "cd ./packages/server && npm test",
     "lint": "eslint --cache --fix \"**/*.js\"",
@@ -16,7 +17,6 @@
     "install:client": "cd ./packages/client && npm i",
     "install:server": "cd ./packages/server && npm i",
     "install:all": "npm install && npm run install:client && npm run install:server",
-    "test:all": "npx hardhat test && cd ./client && npm run test",
     "start": "npx hardhat node",
     "start:all": "npm run start:client && npm run start:server",
     "start:client": "cd ./packages/client && npm start",

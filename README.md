@@ -4,31 +4,26 @@ An NFT Marketplace designed by beginners for beginners
 
 # Getting Started
 
-- Make sure to put your meta mask account PRIVATE KEY in your own .env file and do not share this with anyone else
+- Each package including the root has its own `.env` file. Follow `env.example` to ensure you have the right keys (TB listed here...)
 
-# Server
+## Blockchain (root)
 
+- Install packages with `npm i`
 - Once a smart contract is written, compile an ABI with `npx hardhat compile`
-- In one terminal, run the local test node with `npx hardhat node`
-- In another terminal, deploy the contract to the block chain with `npx hardhat run scripts/deploy.js --network ropsten`
+- Run the local test node with `npx hardhat node`
+- Deploy a contract with `npm run deploy:ropsten`
+- Run the test suite with `npm test`
 
-## Hardhat development examples
+## Server
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+- Enter the server in `packages/server`
+- Install packages with `npm i`
+- Start the server in dev mode with `npm run watch:dev` or regular mode with `npm start`. The server is hosted at `http://localhost:3001/`
+- Run the test suite with `npm test`
 
 ## Frontend
 
-1. Enter the `/client/` folder and type npm i to install dependencies
-2. run `npm start` to launch the application, and visit `http://localhost:3000/` to see the application
+- Enter the client in `packages/client/`
+- Install packages with `npm i`
+- Run `npm start` to launch the application, and visit `http://localhost:3000/` to see the application
+- Run the test suite with `npm test`
