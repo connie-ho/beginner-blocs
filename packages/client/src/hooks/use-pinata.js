@@ -21,7 +21,6 @@ export const pinJSONToIPFS = async (JSONbody) => {
   // });
   // data.append('pinataMetadata', metadata);
 
-  // console.log("data is here: ", data);
   return axios
     .post(url, JSONbody, {
       headers: {
