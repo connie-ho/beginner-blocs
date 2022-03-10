@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEthereum } from '@fortawesome/free-brands-svg-icons';
 
 import CardItem from './CardItem';
+import notFound from '../../../assets/not_found.png';
 
 const Preview = styled('img')(({ theme }) => ({
   height: theme.typography.pxToRem(300),
@@ -29,9 +30,9 @@ const EthIcon = styled(FontAwesomeIcon)(({ theme }) => ({
 const NFTCard = ({ onClick, image, name, price, ...props }) => {
   return (
     <CardItem onClick={onClick} {...props}>
-      <Preview src={image} alt={name} />
+      <Preview src={image ?? notFound} alt={name} />
       <Details>
-        <h2>{name}</h2>
+        <h2>{name ?? 'N/A'}</h2>
         <Price>
           {price}
           <EthIcon icon={faEthereum} size="lg" swapOpacity />
