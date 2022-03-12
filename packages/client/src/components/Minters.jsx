@@ -128,13 +128,7 @@ const Minter = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sx={{ color: 'text.dark' }}>
-            <Typography
-              paragraph="true"
-              className="MuiTypography-subtitle1"
-              variant="subtitle1"
-              align="center"
-              variant="h4"
-            >
+            <Typography paragraph="true" className="MuiTypography-subtitle1" align="center" variant="h4">
               {' '}
               Simply upload your Asset's Image, add a Name, and a Description for your Asset
               <br />
@@ -144,7 +138,7 @@ const Minter = () => {
           <Grid item xs={2}></Grid>
           <Grid item xs={6}>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
-              <Typography className="MuiTypography-subtitle1" variant="subtitle1" align="left" variant="h4">
+              <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 🖼 Upload Image:{' '}
                 <Input
                   disableUnderline="true"
@@ -156,7 +150,7 @@ const Minter = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
-              <Typography className="MuiTypography-subtitle1" variant="subtitle1" align="left" variant="h4">
+              <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 {' '}
                 Name:
                 <Input
@@ -171,7 +165,7 @@ const Minter = () => {
               <br></br>
             </Grid>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
-              <Typography className="MuiTypography-subtitle1" variant="subtitle1" align="left" variant="h4">
+              <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 Description of your NFT:{' '}
                 <Input
                   sx={{ ml: 2, pl: 2, color: 'black', width: 300 }}
