@@ -32,7 +32,9 @@ jobs:
         run: yarn format
       - name: Lint
         run: yarn lint:all
+      - name: Test Contracts
+        run: yarn test
       - name: Test Client
         run: yarn test:client
       - name: Test Server
-        run: yarn test
+        run: yarn test:server
