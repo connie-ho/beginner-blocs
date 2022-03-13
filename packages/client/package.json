@@ -33,13 +33,19 @@
     "build": "react-scripts build",
     "lint": "eslint --cache --fix \"**/*.{jsx,js}\"",
     "test:verbose": "react-scripts test --detectOpenHandles",
-    "test": "react-scripts test --silent",
+    "test": "react-scripts test a --silent --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!<rootDir>/node_modules/"
     ]
   },
   "browserslist": {

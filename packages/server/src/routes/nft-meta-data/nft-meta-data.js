@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { fetchMetaDataAlchemy } from './helpers/nft-meta-data.helper';
+import { fetchMetaDataAlchemy } from './providers/nft-meta-data.provider';
 
 dotenv.config();
 const router = express.Router();
