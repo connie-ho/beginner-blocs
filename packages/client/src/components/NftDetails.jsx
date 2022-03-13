@@ -26,6 +26,7 @@ import { EthersContext } from '../contexts/ethers-provider-context';
 import { UserContext } from '../contexts/user-context';
 
 import { nftmarketaddress } from '../config';
+import { nftaddress as minterContractAddress } from '../config';
 import Loading from './common/Loading';
 import Success from './common/Success';
 
@@ -137,6 +138,16 @@ function NftDetails() {
     }
   };
 
+  const approveListing = async () => {
+    // allow token from the NFT contract to be listed on the markeplace
+    let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
+    let tx = await minterContract.approve(nftmarketaddress, tokenId);
+
+    setLoadingMsg('Authorizing the listing...Please wait. This usually takes 30 seconds.');
+    await tx.wait();
+    setLoadingMsg('');
+  };
+
   const list = async () => {
     try {
       const price = ethers.utils.parseUnits(sellingPrice, 'ether');
@@ -144,15 +155,11 @@ function NftDetails() {
       let listingPrice = await marketContract.getListingPrice();
       listingPrice = listingPrice.toString();
 
-      // allow token from the NFT contract to be listed on the markeplace
-      let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
-      let tx = await minterContract.approve(nftmarketaddress, tokenId);
+      if (contractAddress.toLowerCase() !== minterContractAddress.toLowerCase()) {
+        await approveListing();
+      }
 
-      setLoadingMsg('Authorizing the listing...Please wait. This usually takes 30 seconds.');
-      await tx.wait();
-      setLoadingMsg('');
-
-      tx = await marketContract.createMarketItem(contractAddress, tokenId, price, { value: listingPrice });
+      let tx = await marketContract.createMarketItem(contractAddress, tokenId, price, { value: listingPrice });
 
       setLoadingMsg('Listing the item...Please wait. This usually takes 30 seconds.');
       await tx.wait();
