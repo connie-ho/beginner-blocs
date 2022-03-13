@@ -27,7 +27,14 @@ function App() {
         <Route path="/nft" element={<NftDetails />} />
         <Route path="/404" element={<NotFound />} />
         <Route path="/" element={<Home />} />
-        <Route path="/create" element={<Minter />} />
+        <Route
+          path="/create"
+          element={
+            <RequireAuth>
+              <Minter />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </>
   );
