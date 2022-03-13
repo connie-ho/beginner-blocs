@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import { useEffect, useState } from 'react';
-// import useWalletConnection from "../hooks/use-wallet-connection";
 import useInteract from '../hooks/use-interact';
 import { makeStyles } from '@mui/styles';
 import { Link, Grid, Input, Typography, Button, Box } from '@mui/material';
@@ -33,8 +32,6 @@ const Minter = () => {
   const [description, setDescription] = useState('');
   //const [_url, setURL] = useState("");
   const [file, setFile] = useState('');
-
-  //   const {connectWallet,} = useWalletConnection();
   const { getCurrentWalletConnected, mintNFT } = useInteract();
 
   //styling class
