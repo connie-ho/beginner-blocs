@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import useInteract from '../hooks/use-interact';
 import { makeStyles } from '@mui/styles';
 import { Link, Grid, Input, Typography, Button, Box } from '@mui/material';
+import default_image from '../assets/default_preview_image.png';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -45,8 +46,19 @@ const Minter = () => {
 
     setWallet(address);
     // setStatus(status);
-
     addWalletListener();
+
+    // const setimage = async () => {
+
+    //   if(file.image != null){
+    //     console.log("file image is :", file.image);
+    //     document.getElementById("img").src=file.image;
+    //   }
+    //   else{
+    //     console.log("file.image is probably null:", file.image);
+    //   }
+    // };
+    // setimage(file);
   }, []);
 
   function addWalletListener() {
@@ -81,14 +93,14 @@ const Minter = () => {
   //   };
 
   const onMintPressed = async () => {
-    const { success, status } = await mintNFT(file, name, description);
+    const { status } = await mintNFT(file, name, description);
     setStatus(status);
-    if (success) {
-      setName('');
-      setDescription('');
-      setFile('');
-      //setURL("");
-    }
+    // if (success) {
+    //   setName('');
+    //   setDescription('');
+    //   setFile('');
+    //   //setURL("");
+    // }
   };
 
   const onChange = (e) => {
@@ -100,14 +112,16 @@ const Minter = () => {
       });
     };
     reader.readAsDataURL(file);
-    console.log(file.name);
   };
 
-  // const onChange = (e) => {
-  // let files = e.target.files;
-  // setFile({ files: files[0] }, () => { console.log(this.state.files) });
-  // console.log("here",files[0]);
-  // }
+  // function changeImage() {
+  //   readeronChange();
+  //   console.log(file.name);
+  //   // changeImage(file);
+  //   document.getElementById("img").src=reader.result;
+  //   console.log(reader);
+  //   console.log(reader.result);
+  //   }
 
   return (
     <div className="Minter">
@@ -128,13 +142,7 @@ const Minter = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sx={{ color: 'text.dark' }}>
-            <Typography
-              paragraph="true"
-              className="MuiTypography-subtitle1"
-              variant="subtitle1"
-              align="center"
-              variant="h4"
-            >
+            <Typography paragraph="true" className="MuiTypography-subtitle1" align="center" variant="h4">
               {' '}
               Simply upload your Asset's Image, add a Name, and a Description for your Asset
               <br />
@@ -144,7 +152,7 @@ const Minter = () => {
           <Grid item xs={2}></Grid>
           <Grid item xs={6}>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
-              <Typography className="MuiTypography-subtitle1" variant="subtitle1" align="left" variant="h4">
+              <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 🖼 Upload Image:{' '}
                 <Input
                   disableUnderline="true"
@@ -156,7 +164,7 @@ const Minter = () => {
               </Typography>
             </Grid>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
-              <Typography className="MuiTypography-subtitle1" variant="subtitle1" align="left" variant="h4">
+              <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 {' '}
                 Name:
                 <Input
@@ -171,7 +179,7 @@ const Minter = () => {
               <br></br>
             </Grid>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
-              <Typography className="MuiTypography-subtitle1" variant="subtitle1" align="left" variant="h4">
+              <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 Description of your NFT:{' '}
                 <Input
                   sx={{ ml: 2, pl: 2, color: 'black', width: 300 }}
@@ -196,10 +204,10 @@ const Minter = () => {
             }}
           >
             <img
+              id="img"
               style={{ border: '1px solid grey', borderRadius: '10px', objectFit: 'cover', height: '100%' }}
               width="100%"
-              src={file.image}
-              alt="Preview"
+              src={file.image ? file.image : default_image}
             />
           </Grid>
         </Grid>
