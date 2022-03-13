@@ -30,6 +30,7 @@ const useGetNFTs = ({ marketContract }) => {
 
     const items = await Promise.all(
       data.map(async (i) => {
+
         const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
         const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
 
