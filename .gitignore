@@ -4,3 +4,5 @@
 .eslintcache
 /cache
 /dist-server
+**/coverage
+coverage.json
