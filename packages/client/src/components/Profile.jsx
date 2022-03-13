@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback, useContext, useReducer } from 'react';
 import { ethers } from 'ethers';
 import { Grid, Divider } from '@mui/material';
-
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../contexts/user-context';
 import { EthersContext } from '../contexts/ethers-provider-context';
 import { useGetNFTs } from '../hooks/use-get-nfts';
@@ -31,6 +31,7 @@ const Profile = () => {
     }),
     initialNFTs
   );
+  const navigate = useNavigate();
 
   const handleTabChange = useCallback((_event, newValue) => {
     setTabValue(newValue);
@@ -39,6 +40,11 @@ const Profile = () => {
   const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ tokenContract, marketContract });
 
   useEffect(() => {
+    if (!account) {
+      navigate('/404');
+      return;
+    }
+
     const grabAccountBalanceInformation = async (account) => {
       if (account) {
         let wei = await provider.getBalance(`${account}`);
@@ -52,7 +58,6 @@ const Profile = () => {
     const fetchNFTs = async (account) => {
       const listedItems = await loadListedNFTs();
       const ownedItems = await loadOwnedNFTs(account);
-
       setNFTs({ listed: listedItems, owned: ownedItems });
     };
 
