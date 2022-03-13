@@ -1,9 +1,12 @@
-const createNFTMetaData = (data) => {
+const createNFTMetaData = () => {
   return {
-    image: 'image.png',
-    name: 'Test',
-    description: 'I am a test NFT',
-    ...data,
+    data: {
+      metadata: {
+        image: 'image.png',
+        name: 'Test',
+        description: 'I am a test NFT',
+      },
+    },
   };
 };
 
