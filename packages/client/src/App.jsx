@@ -16,7 +16,6 @@ function App() {
       <Routes>
         <Route path="/FAQ" element={<FAQ />} />
         <Route path="get-started" />
-
         <Route
           path="/profile"
           element={

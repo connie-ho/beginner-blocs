@@ -75,9 +75,11 @@ const Nav = () => {
           <NavLink className={classes.logoContainer} to="/FAQ">
             <h2 className={classes.link}>FAQ</h2>
           </NavLink>
-          <NavLink className={classes.logoContainer} to="/create">
-            <h2 className={classes.link}>Create</h2>
-          </NavLink>
+          {account ? (
+            <NavLink className={classes.logoContainer} to="/create">
+              <h2 className={classes.link}>Create</h2>
+            </NavLink>
+          ) : null}
         </div>
         {account ? (
           <Box sx={{ flexGrow: 0 }}>
