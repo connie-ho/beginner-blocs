@@ -1,4 +1,4 @@
-import * as nftMetaDataHelpers from '../../../src/routes/nft-meta-data/helpers/nft-meta-data.helper';
+import * as nftMetaDataProviders from '../../../src/routes/nft-meta-data/providers/nft-meta-data.provider';
 
 import { createNFTMetaData } from '../../helpers';
 import request from 'supertest';
@@ -14,7 +14,7 @@ describe('nft-meta-data', () => {
 
   test.skip('POST / should return the meta data', async () => {
     const nftMeta = createNFTMetaData();
-    jest.spyOn(nftMetaDataHelpers, 'fetchMetaDataAlchemy').mockResolvedValue(nftMeta);
+    jest.spyOn(nftMetaDataProviders, 'fetchMetaDataAlchemy').mockResolvedValue(nftMeta);
     const res = await request(app).post('/').send({ contractAddress: 'abc', tokenId: '123' });
 
     expect(res.statusCode).toBe(200);
@@ -22,7 +22,7 @@ describe('nft-meta-data', () => {
 
   test.skip('POST / should return 500 if the contractAddress and tokenId are not specified', async () => {
     const nftMeta = createNFTMetaData();
-    jest.spyOn(nftMetaDataHelpers, 'fetchMetaDataAlchemy').mockResolvedValue(nftMeta);
+    jest.spyOn(nftMetaDataProviders, 'fetchMetaDataAlchemy').mockResolvedValue(nftMeta);
     const res = await request(app).post('/');
 
     expect(res.statusCode).toBe(500);

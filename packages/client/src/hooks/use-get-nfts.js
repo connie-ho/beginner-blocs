@@ -83,9 +83,10 @@ const useGetNFTs = ({ marketContract }) => {
     const url = `${baseURL}?owner=${ownerAddr}&withMetadata=true`;
 
     const resp = await axios.get(url);
+    console.log(resp);
     const ownedNFTs = resp.data.ownedNfts;
 
-    const items = await Promise.allSettled(
+    const items = await Promise.all(
       ownedNFTs.map(async (NFT) => {
         const emptyMeta = {
           name: 'N/A',
