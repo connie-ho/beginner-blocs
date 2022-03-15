@@ -6,3 +6,5 @@
 /dist-server
 **/coverage
 coverage.json
+packages/client/.env
+.idea

@@ -117,4 +117,24 @@ describe('NFTMarket', function () {
       await expect(nftMarket.fetchItemByContractAddAndTokenID(nftContractAddress, 5)).to.be.reverted;
     });
   });
+
+  // describe('fetchUserListedNFTs', () => {
+  //   beforeEach(async () => {
+  //     const listingPrice = await nftMarket.getListingPrice();
+  //     const [_firstAddress] = await ethers.getSigners();
+  //     await nft.createToken('https://www.mytokenlocation.com');
+  //     const auctionPrice = ethers.utils.parseUnits('2', 'ether');
+  //     await nftMarket.createMarketItem(nftContractAddress, 1, auctionPrice, { value: listingPrice });
+  //   });
+  //
+  //   it('should return the NFT items listed by address', async () => {
+  //     let listNFTs = await nftMarket.fetchUserListedNFTs('0xc925ccbc8d4b07c6e0010f3cc26f1a815fdfe696');
+  //     listNFTs = listNFTs.toString();
+  //     it(listNFTs);
+  //     // expect(listNFTs[0].tokenId).to.equal(1);
+  //     document.write(listNFTs);
+  //
+  //     // expect(listNFTs[0].nftContract).to.equal('0x692b0b67550fd6a87de4dc5c8fd5acb1540257c3');
+  //   });
+  // });
 });
