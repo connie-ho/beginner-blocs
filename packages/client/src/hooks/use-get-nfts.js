@@ -114,9 +114,9 @@ const useGetNFTs = ({ marketContract }) => {
     async (userAddress) => {
       const testaddress = new marketContract.testaddress(userAddress);
       console.log({ test: testaddress });
-      // const data = await marketContract.fetchUserListedNFTs(userAddress);
+      const data = await marketContract.fetchUserListedNFTs(userAddress);
       // const data = await marketContract.fetchMyListedNFTs();
-      const data = await marketContract.fetchMarketItems();
+      // const data = await marketContract.fetchMarketItems();
       console.log(data);
       const items = await Promise.allSettled(
         data.map(async (i) => {
