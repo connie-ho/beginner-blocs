@@ -190,6 +190,7 @@ function NftDetails() {
       await tx.wait();
       setLoadingMsg('');
 
+      setAlert('Item Transferred!!');
       navigate(`/nft/?contractAddress=${contractAddress}&ownerAddress=${recipientAddress}&tokenId=${tokenId}`);
     } catch (err) {
       console.log(err);
