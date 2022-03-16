@@ -4,17 +4,8 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ethers } from 'ethers';
 import axios from 'axios';
 
-import {
-  Grid,
-  Button,
-  Box,
-  Typography,
-  Snackbar,
-  IconButton,
-  TextField,
-  InputAdornment,
-  InputLabel,
-} from '@mui/material';
+import { Grid, Button, Box, Typography, Snackbar, IconButton, InputLabel, Tab, Tabs } from '@mui/material';
+import TabPanel from './common/TabPanel';
 import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from '@mui/styles';
 import styled from '@emotion/styled';
@@ -31,6 +22,8 @@ import Loading from './common/Loading';
 import Success from './common/Success';
 
 import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
+import List from './details/List';
+import Transfer from './details/Transfer';
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -44,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: theme.spacing(5),
+  },
+  tabPanel: {
+    marginTop: theme.typography.pxToRem(500),
   },
 }));
 
@@ -62,6 +58,14 @@ const useQuery = () => {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 };
 
+function parseImageURL(imageURL) {
+  if (imageURL && imageURL.startsWith('ipfs://')) {
+    imageURL = imageURL.replace('ipfs://', 'https://ipfs.io/');
+  }
+
+  return imageURL;
+}
+
 function NftDetails() {
   const classes = useStyles();
 
@@ -78,12 +82,12 @@ function NftDetails() {
   const { account } = useContext(UserContext);
 
   const [nftMetadata, setNftMetadata] = useState(null);
+
   const [isLoading, setIsLoading] = useState(true);
   const [loadingMsg, setLoadingMsg] = useState('');
-  const [priceValid, setPriceValid] = useState(true);
-  const [sellingPrice, setSellingPrice] = useState('0.1');
   const [alert, setAlert] = useState(null);
   const [transactionProcessed, setTransactionProcessed] = useState(false);
+  const [tabValue, setTabValue] = useState(1);
 
   useEffect(() => {
     setIsLoading(true);
@@ -148,7 +152,7 @@ function NftDetails() {
     setLoadingMsg('');
   };
 
-  const list = async () => {
+  const list = async (sellingPrice) => {
     try {
       const price = ethers.utils.parseUnits(sellingPrice, 'ether');
 
@@ -173,6 +177,26 @@ function NftDetails() {
     }
   };
 
+  const transfer = async (recipientAddress) => {
+    try {
+      let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
+      let tx = await minterContract.transferFrom(account, recipientAddress, tokenId);
+
+      if (contractAddress.toLowerCase() !== minterContractAddress.toLowerCase()) {
+        await approveListing();
+      }
+
+      setLoadingMsg('Transferring the item...Please wait. This usually takes 30 seconds.');
+      await tx.wait();
+      setLoadingMsg('');
+
+      navigate(`/nft/?contractAddress=${contractAddress}&ownerAddress=${recipientAddress}&tokenId=${tokenId}`);
+    } catch (err) {
+      console.log(err);
+      setAlert(`Operation Failed due to ${err.reason}`);
+    }
+  };
+
   const allowBuying = () => {
     if (ownerAddress == null || account == null || nftMetadata == null) return false;
     return (
@@ -181,14 +205,13 @@ function NftDetails() {
     );
   };
 
-  const allowListing = () => {
+  const allowListingOrTransfer = () => {
     if (ownerAddress == null || account == null) return false;
     return ownerAddress.toLowerCase() === account.toLowerCase();
   };
 
-  const handlePriceChange = (e) => {
-    setSellingPrice(e.target.value);
-    setPriceValid(!isNaN(e.target.value) && !isNaN(parseFloat(e.target.value)) && parseFloat(e.target.value) > 0);
+  const handleTabChange = (e, newValue) => {
+    setTabValue(newValue);
   };
 
   const handleClose = (event, reason) => {
@@ -219,7 +242,11 @@ function NftDetails() {
       <Grid container rowSpacing={2} columnSpacing={3}>
         <Grid item xs={8}>
           <Box sx={{ p: 10, textAlign: 'center' }}>
-            <img src={nftMetadata.metadata.image} alt={nftMetadata.description} className={classes.img} />
+            <img
+              src={parseImageURL(nftMetadata.metadata.image)}
+              alt={nftMetadata.description}
+              className={classes.img}
+            />
           </Box>
         </Grid>
         <Grid item xs={4}>
@@ -227,13 +254,16 @@ function NftDetails() {
             <Typography variant="h3" component="div">
               {nftMetadata.title}
             </Typography>
+
             <Typography sx={{ mt: 2 }} variant="body1">
               {nftMetadata.description}
             </Typography>
+
             <InputLabel sx={{ mt: 2 }} color="error">
               Owned By:
             </InputLabel>
             <AccountButton>{ownerAddress}</AccountButton>
+
             <Box sx={{ mt: 2 }}>
               {allowBuying() ? (
                 <Button
@@ -249,37 +279,27 @@ function NftDetails() {
               ) : (
                 ''
               )}
-              {allowListing() ? (
+              {allowListingOrTransfer() ? (
                 <>
-                  <TextField
-                    required
-                    error={!priceValid}
-                    id="price"
-                    label="Price"
-                    type="number"
-                    variant="standard"
-                    helperText={priceValid ? '' : 'Enter a valid price'}
-                    value={sellingPrice}
-                    onChange={handlePriceChange}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <FontAwesomeIcon icon={faEthereum} color={'#146fbe'} size="lg" />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                  <Button
-                    onClick={list}
-                    color="secondary"
-                    sx={{ ml: 2 }}
-                    className={classes.button}
-                    variant="outlined"
-                    size="large"
-                    disabled={!priceValid}
+                  <Tabs
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    textColor="primary"
+                    indicatorColor="primary"
+                    variant="fullWidth"
+                    centered
+                    style={{ fontSize: '50rem' }}
                   >
-                    List
-                  </Button>
+                    <Tab sx={{ fontSize: '1.0rem' }} value={1} label="List" />
+                    <Tab sx={{ fontSize: '1.0rem' }} value={2} label="Transfer" />
+                  </Tabs>
+
+                  <TabPanel value={tabValue} index={1} className={classes.tabPanel}>
+                    <List list={list}></List>
+                  </TabPanel>
+                  <TabPanel value={tabValue} index={2} className={classes.tabPanel}>
+                    <Transfer transfer={transfer}></Transfer>
+                  </TabPanel>
                 </>
               ) : (
                 ''
