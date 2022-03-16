@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import { useEffect, useState } from 'react';
-// import useWalletConnection from "../hooks/use-wallet-connection";
 import useInteract from '../hooks/use-interact';
 import { makeStyles } from '@mui/styles';
 import { Link, Grid, Input, Typography, Button, Box } from '@mui/material';
@@ -47,18 +46,6 @@ const Minter = () => {
     setWallet(address);
     // setStatus(status);
     addWalletListener();
-
-    // const setimage = async () => {
-
-    //   if(file.image != null){
-    //     console.log("file image is :", file.image);
-    //     document.getElementById("img").src=file.image;
-    //   }
-    //   else{
-    //     console.log("file.image is probably null:", file.image);
-    //   }
-    // };
-    // setimage(file);
   }, []);
 
   function addWalletListener() {
@@ -72,35 +59,12 @@ const Minter = () => {
           setStatus('🦊 Connect to Metamask using the top right button.');
         }
       });
-    } else {
-      //   setStatus(
-      //     <p>
-      //       {" "}
-      //       {" "}
-      //       <a target="_blank" href={`https://metamask.io/download.html`} rel="noreferrer">
-      //         You must install Metamask, a virtual Ethereum wallet, in your
-      //         browser.
-      //       </a>
-      //     </p>
-      //   );
     }
   }
-
-  //   const connectWalletPressed = async () => {
-  //     const walletResponse = await connectWallet();
-  //     // setStatus(walletResponse.status);
-  //     setWallet(walletResponse.address);
-  //   };
 
   const onMintPressed = async () => {
     const { status } = await mintNFT(file, name, description);
     setStatus(status);
-    // if (success) {
-    //   setName('');
-    //   setDescription('');
-    //   setFile('');
-    //   //setURL("");
-    // }
   };
 
   const onChange = (e) => {
@@ -113,15 +77,6 @@ const Minter = () => {
     };
     reader.readAsDataURL(file);
   };
-
-  // function changeImage() {
-  //   readeronChange();
-  //   console.log(file.name);
-  //   // changeImage(file);
-  //   document.getElementById("img").src=reader.result;
-  //   console.log(reader);
-  //   console.log(reader.result);
-  //   }
 
   return (
     <div className="Minter">
