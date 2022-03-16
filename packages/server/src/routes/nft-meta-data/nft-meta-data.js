@@ -28,7 +28,7 @@ router.post('/', async function (req, res, _next) {
     // const meta = await fetchMetaData(tokenURI)
     const data = await fetchMetaDataAlchemy({ contractAddress, tokenId });
     if (!data.data?.metadata) {
-      res.send({
+      return res.send({
         image: '',
         name: '',
         description: '',
@@ -37,7 +37,7 @@ router.post('/', async function (req, res, _next) {
     return res.send(data.data.metadata);
   } catch (err) {
     console.log(err.message);
-    return res.status(err.response?.status || err.status || 500).json({ error: err.message });
+    return res.status(err.response?.status || err.status || 500);
   }
 });
 
