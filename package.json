@@ -50,6 +50,7 @@
   "homepage": "https://github.com/connie-ho/beginner-blocs#readme",
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "@nomiclabs/hardhat-etherscan": "^3.0.3",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@openzeppelin/contracts": "^4.4.2",
     "dotenv": "^11.0.0",
