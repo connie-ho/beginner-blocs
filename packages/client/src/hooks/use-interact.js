@@ -92,10 +92,6 @@ function useInteract() {
     }
   };
 
-  // async function loadContract() {
-  //   return new web3.eth.Contract(contractABI, contractAddress);
-  // }
-
   const mintNFT = async (file, name, description) => {
     if (file === '' || name.trim() === '' || description.trim() === '') {
       return {

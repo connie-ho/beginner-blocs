@@ -73,6 +73,7 @@ const Minter = () => {
         image: upload.target.result,
       });
     };
+    console.log('Test file:', file);
     reader.readAsDataURL(file);
   };
 
@@ -107,20 +108,22 @@ const Minter = () => {
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
               <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 🖼 Upload Image:{' '}
-                <Input
-                  disableUnderline="true"
-                  type="file"
-                  sx={{ ml: 5, pb: 2, color: 'black' }}
-                  className="MuiInput-formControl"
-                  onChange={onChange}
-                />
               </Typography>
+              <input
+                data-testid="imageUpload"
+                disableUnderline="true"
+                type="file"
+                sx={{ ml: 5, pb: 2, color: 'black' }}
+                className="MuiInput-formControl"
+                onChange={onChange}
+              />
             </Grid>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
               <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 {' '}
                 Name:
                 <Input
+                  data-testid="nameInput"
                   sx={{ ml: 5, pl: 5, color: 'black' }}
                   className="MuiInput-formControl"
                   placeholder="e.g. My first NFT!"
