@@ -15,7 +15,7 @@ const useGetNFTs = ({ marketContract }) => {
 
   const getMetaData = useCallback(async ({ contractAddress, tokenId }) => {
     try {
-      const data = await axios.post('/api/nft-meta-data', {
+      const data = await axios.post('/api/nfts/meta-data', {
         contractAddress,
         tokenId,
       });
@@ -24,6 +24,16 @@ const useGetNFTs = ({ marketContract }) => {
       console.log(err.message);
     }
   }, []);
+
+  const getOwnedNFTs = useCallback(async (ownerAddress) => {
+    try {
+      const data = await axios.get(`/api/nfts/owned/${ownerAddress}`);
+      console.log(data);
+      return data;
+    } catch (err) {
+      console.log(err.message);
+    }
+  });
 
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
@@ -76,18 +86,10 @@ const useGetNFTs = ({ marketContract }) => {
 
   const loadOwnedNFTs = useCallback(async (owner) => {
     const ownerAddr = `${owner}`;
-
-    require('dotenv').config();
-    const apiKey = `${process.env.REACT_APP_ALCHEMY_KEY}`;
-    const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTs/`;
-    const url = `${baseURL}?owner=${ownerAddr}&withMetadata=true`;
-
-    const resp = await axios.get(url);
-    console.log(resp);
-    const ownedNFTs = resp.data.ownedNfts;
+    const ownedNFTs = await getOwnedNFTs(ownerAddr);
 
     const items = await Promise.all(
-      ownedNFTs.map(async (NFT) => {
+      ownedNFTs.data.map(async (NFT) => {
         const emptyMeta = {
           name: 'N/A',
           description: 'N/A',

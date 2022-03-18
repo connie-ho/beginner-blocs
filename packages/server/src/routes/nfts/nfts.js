@@ -1,11 +1,27 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { fetchMetaDataAlchemy } from './providers/nft-meta-data.provider';
+import { fetchOwnedNFTs } from './providers/nft-provider';
 
 dotenv.config();
 const router = express.Router();
 
-router.post('/', async function (req, res, _next) {
+router.get('/owned/:ownerAddress', async function (req, res, _next) {
+  const { ownerAddress } = req.params;
+
+  if (!ownerAddress) {
+    return res.status(500).json({ error: 'Contract address must be specified in request' });
+  }
+  try {
+    const data = await fetchOwnedNFTs(ownerAddress);
+    return res.send(data.data.ownedNfts);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(err.response?.status || err.status || 500);
+  }
+});
+
+router.post('/meta-data', async function (req, res, _next) {
   const { contractAddress, tokenId } = req.body;
 
   if (!contractAddress || !tokenId) {

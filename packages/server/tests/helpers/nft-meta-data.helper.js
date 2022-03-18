@@ -10,4 +10,9 @@ const createNFTMetaData = () => {
   };
 };
 
+// const createNFTs = () => {
+//   return {
+
+//   }
+// }
 export { createNFTMetaData };
