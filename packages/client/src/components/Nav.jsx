@@ -6,7 +6,6 @@ import { AppBar, Toolbar, Box, Tooltip, IconButton, Avatar, Menu, MenuItem, Typo
 import NavButton from './common/NavButton';
 import logo from '../assets/logo.jpg';
 import img from '../assets/default.png';
-import useWalletConnection from '../hooks/use-wallet-connection';
 import { UserContext } from '../contexts/user-context';
 
 const useStyles = makeStyles((theme) => ({
@@ -45,8 +44,8 @@ const settings = [
 const Nav = () => {
   const classes = useStyles();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { account } = useContext(UserContext);
-  const { connectWallet, disconnectWallet } = useWalletConnection();
+  const { account, connectWallet, disconnectWallet } = useContext(UserContext);
+
   let navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
@@ -77,9 +76,11 @@ const Nav = () => {
           <NavLink className={classes.logoContainer} to="/FAQ">
             <h2 className={classes.link}>FAQ</h2>
           </NavLink>
-          <NavLink className={classes.logoContainer} to="/create">
-            <h2 className={classes.link}>Create</h2>
-          </NavLink>
+          {account ? (
+            <NavLink className={classes.logoContainer} to="/create">
+              <h2 className={classes.link}>Create</h2>
+            </NavLink>
+          ) : null}
         </div>
         {account ? (
           <Box sx={{ flexGrow: 0 }}>
