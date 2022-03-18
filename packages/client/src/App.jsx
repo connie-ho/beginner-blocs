@@ -8,8 +8,6 @@ import NftDetails from './components/NftDetails';
 import NotFound from './components/common/NotFound';
 import FAQ from './components/FAQ';
 
-import UserProfile from './components/UserProfile';
-
 import RequireAuth from './RequireAuth';
 
 function App() {
@@ -19,13 +17,13 @@ function App() {
       <Routes>
         <Route path="/FAQ" element={<FAQ />} />
         <Route path="get-started" />
-        <Route path="/profile/:userAddress" element={<UserProfile />} />
+        <Route path="/user/:userAddress" element={<Profile owner={false} />} />
 
         <Route
           path="/profile"
           element={
             <RequireAuth>
-              <Profile />
+              <Profile owner={true} />
             </RequireAuth>
           }
         />

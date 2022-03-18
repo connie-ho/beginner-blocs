@@ -113,9 +113,9 @@ const useGetNFTs = ({ marketContract }) => {
   const loadUserListedNFTs = useCallback(
     async (userAddress) => {
       console.log(userAddress);
-      const data = await marketContract.fetchUserListedNFTs(userAddress);
+      // const data = await marketContract.fetchUserListedNFTs(userAddress);
       // const data = await marketContract.fetchMyListedNFTs();
-      // const data = await marketContract.fetchMarketItems();
+      const data = await marketContract.fetchMarketItems();
       console.log(data);
       const items = await Promise.allSettled(
         data.map(async (i) => {
