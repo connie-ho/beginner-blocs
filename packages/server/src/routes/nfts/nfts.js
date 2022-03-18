@@ -10,10 +10,14 @@ router.get('/owned/:ownerAddress', async function (req, res, _next) {
   const { ownerAddress } = req.params;
 
   if (!ownerAddress) {
-    return res.status(500).json({ error: 'Contract address must be specified in request' });
+    return res.status(404).json({ error: 'owner address must be specified in url' });
   }
+
   try {
     const data = await fetchOwnedNFTs(ownerAddress);
+    if (!data.data?.ownedNfts) {
+      return res.send({ data: { ownedNfts: [] } });
+    }
     return res.send(data.data.ownedNfts);
   } catch (err) {
     console.log(err.message);
