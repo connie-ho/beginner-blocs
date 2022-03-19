@@ -112,6 +112,7 @@ const useGetNFTs = ({ marketContract }) => {
 
   const loadUserListedNFTs = useCallback(
     async (userAddress) => {
+        console.log(userAddress);
       // const data = await marketContract.fetchUserListedNFTs(userAddress);  // use this when contract that contains fetchUserListedNFTs has been deployed
       const data = await marketContract.fetchMarketItems(); // use this when contract that contains fetchUserListedNFTs has not been deployed
       const items = await Promise.allSettled(
