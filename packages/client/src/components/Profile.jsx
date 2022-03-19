@@ -19,26 +19,10 @@ const Profile = ({ owner }) => {
     owned: [],
     listed: [],
   };
-  // let account1 = '';
   var { account } = useContext(UserContext);
   if (!owner) {
     account = useParams().userAddress;
   }
-  // let account = useContext(userContext);
-  // if ( owner === false){
-  //   account = useParams().userAddress;
-  // }
-  // if ( owner){
-  //   // account = useContext(userContext);
-  //   const {account} = useContext(userContext);
-  //   account = account;
-  // }
-  // else{
-  //   account = useParams().userAddress;
-  // }
-  // const account = owner ? useContext(userContext) : useParams().userAddress;
-  console.log(account);
-  // const { account } = useContext(UserContext);
   const { tokenContract, marketContract, provider } = useContext(EthersContext);
 
   const [balance, setBalance] = useState(0);
