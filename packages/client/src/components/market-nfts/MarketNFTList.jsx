@@ -20,7 +20,6 @@ const MarketNFTList = (props) => {
     const fetchMarketItems = async () => {
       try {
         const items = await loadMarketNFTs();
-        console.log(items);
         setMarketNFTs(items);
       } catch (err) {
         console.log(err.message);
