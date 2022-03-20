@@ -17,7 +17,7 @@ const Profile = () => {
     listed: [],
   };
   const { account } = useContext(UserContext);
-  const { tokenContract, marketContract, provider } = useContext(EthersContext);
+  const { marketContract, provider } = useContext(EthersContext);
 
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const Profile = () => {
     setTabValue(newValue);
   }, []);
 
-  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ tokenContract, marketContract });
+  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ marketContract });
 
   useEffect(() => {
     const grabAccountBalanceInformation = async (account) => {
