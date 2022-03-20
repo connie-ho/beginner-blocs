@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(5),
   },
   tabPanel: {
-    marginTop: theme.typography.pxToRem(500),
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -295,10 +295,10 @@ function NftDetails() {
                     <Tab sx={{ fontSize: '1.0rem' }} value={2} label="Transfer" />
                   </Tabs>
 
-                  <TabPanel value={tabValue} index={1} className={classes.tabPanel}>
+                  <TabPanel value={tabValue} index={1} rootClass={classes.tabPanel}>
                     <List list={list}></List>
                   </TabPanel>
-                  <TabPanel value={tabValue} index={2} className={classes.tabPanel}>
+                  <TabPanel value={tabValue} index={2} rootClass={classes.tabPanel}>
                     <Transfer transfer={transfer}></Transfer>
                   </TabPanel>
                 </>

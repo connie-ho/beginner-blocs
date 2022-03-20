@@ -1,6 +1,7 @@
-import { TextField, Button, InputAdornment } from '@mui/material';
+import { TextField, InputAdornment, IconButton } from '@mui/material';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEthereum } from '@fortawesome/free-brands-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 function List({ list }) {
@@ -11,6 +12,14 @@ function List({ list }) {
     setSellingPrice(e.target.value);
     setPriceValid(!isNaN(e.target.value) && !isNaN(parseFloat(e.target.value)) && parseFloat(e.target.value) > 0);
   };
+
+  const listButton = (
+    <InputAdornment position="end">
+      <IconButton variant="contained" onClick={() => list(sellingPrice)} disabled={!priceValid}>
+        <FontAwesomeIcon icon={faArrowRight} color={priceValid ? '#146fbe' : '#dddddd'} />
+      </IconButton>
+    </InputAdornment>
+  );
 
   return (
     <>
@@ -30,19 +39,9 @@ function List({ list }) {
               <FontAwesomeIcon icon={faEthereum} color={'#146fbe'} size="lg" />
             </InputAdornment>
           ),
+          endAdornment: listButton,
         }}
       />
-      <Button
-        onClick={() => list(sellingPrice)}
-        color="secondary"
-        sx={{ ml: 2 }}
-        // className={theme.button}
-        variant="outlined"
-        size="large"
-        disabled={!priceValid}
-      >
-        List
-      </Button>
     </>
   );
 }

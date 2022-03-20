@@ -1,12 +1,7 @@
 import React from 'react';
 
-const TabPanel = ({ children, value, index}) => {
-
-  return (
-    <div>
-      {value === index ? children : null}
-    </div>
-  );
+const TabPanel = ({ rootClass, children, value, index }) => {
+  return <div className={rootClass}>{value === index ? children : null}</div>;
 };
 
-export default TabPanel
+export default TabPanel;

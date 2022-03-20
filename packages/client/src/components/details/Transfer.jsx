@@ -1,4 +1,6 @@
-import { TextField, Button } from '@mui/material';
+import { TextField, InputAdornment, IconButton } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 
 function Transfer({ transfer }) {
@@ -17,6 +19,14 @@ function Transfer({ transfer }) {
     setRecipientAddress(address);
   };
 
+  const transferButton = (
+    <InputAdornment position="end">
+      <IconButton variant="contained" disabled={!recipientAddressValid} onClick={() => transfer(recipientAddress)}>
+        <FontAwesomeIcon icon={faArrowRight} color={recipientAddressValid ? '#146fbe' : '#dddddd'} />
+      </IconButton>
+    </InputAdornment>
+  );
+
   return (
     <>
       <TextField
@@ -28,21 +38,12 @@ function Transfer({ transfer }) {
         helperText={recipientAddressValid ? '' : 'Enter a valid Recipient Address'}
         value={recipientAddress}
         onChange={handleRecipientAddressChange}
+        style={{ textOverflow: 'ellipsis', overflow: 'hidden', whiteSpace: 'nowrap' }}
         InputProps={{
           startAdornment: '0x',
+          endAdornment: transferButton,
         }}
       />
-      <Button
-        onClick={() => transfer(recipientAddress)}
-        color="secondary"
-        sx={{ ml: 2 }}
-        // className={theme.button}
-        variant="outlined"
-        size="large"
-        disabled={!recipientAddressValid}
-      >
-        Transfer
-      </Button>
     </>
   );
 }
