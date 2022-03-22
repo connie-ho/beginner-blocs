@@ -79,13 +79,13 @@ const Profile = () => {
           <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
           <Divider />
           <TabPanel value={tabValue} index={1}>
-            <NFTList items={NFTs.owned} type="owned" />
+            <NFTList items={NFTs.owned} type="owned" data-testid="owned-items" />
           </TabPanel>
           {/* <TabPanel value={tabValue} index={2}>
               <NFTList items={NFTs.created} type='created'/>
             </TabPanel> */}
           <TabPanel value={tabValue} index={3}>
-            <NFTList items={NFTs.listed} type="listed" />
+            <NFTList items={NFTs.listed} type="listed" data-testid="listed-items" />
           </TabPanel>
         </div>
       </Grid>
