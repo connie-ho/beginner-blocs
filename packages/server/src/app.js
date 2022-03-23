@@ -3,9 +3,9 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import cors from 'cors';
-import indexRouter from './routes/index/index';
-import nftMetaDataRouter from './routes/nft-meta-data/nft-meta-data';
 import bodyParser from 'body-parser';
+import indexRouter from './routes/index/index';
+import nftRouter from './routes/nfts/nfts';
 
 const app = express();
 
@@ -16,8 +16,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
-
-app.use('/api/nft-meta-data', nftMetaDataRouter);
+app.use('/api/nfts', nftRouter);
 app.use('/', indexRouter);
 
 export default app;
