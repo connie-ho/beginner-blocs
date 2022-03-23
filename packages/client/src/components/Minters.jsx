@@ -43,22 +43,22 @@ const Minter = () => {
 
     setWallet(address);
     // setStatus(status);
-    addWalletListener();
+    // addWalletListener();
   }, []);
 
-  function addWalletListener() {
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          setWallet(accounts[0]);
-          //   setStatus("");
-        } else {
-          setWallet('');
-          setStatus('🦊 Connect to Metamask using the top right button.');
-        }
-      });
-    }
-  }
+  // function addWalletListener() {
+  //   if (window.ethereum) {
+  //     window.ethereum.on('accountsChanged', (accounts) => {
+  //       if (accounts.length > 0) {
+  //         setWallet(accounts[0]);
+  //         //   setStatus("");
+  //       } else {
+  //         setWallet('');
+  //         setStatus('🦊 Connect to Metamask using the top right button.');
+  //       }
+  //     });
+  //   }
+  // }
 
   const onMintPressed = async () => {
     const { status } = await mintNFT(file, name, description);
@@ -73,7 +73,7 @@ const Minter = () => {
         image: upload.target.result,
       });
     };
-    console.log('Test file:', file);
+    // console.log('Test file:', file);
     reader.readAsDataURL(file);
   };
 
@@ -122,11 +122,12 @@ const Minter = () => {
               <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 {' '}
                 Name:
-                <Input
-                  data-testid="nameInput"
+                <input
+                  type="text"
+                  data-testid="name"
                   sx={{ ml: 5, pl: 5, color: 'black' }}
                   className="MuiInput-formControl"
-                  placeholder="e.g. My first NFT!"
+                  placeholder="NFT"
                   onChange={(event) => setName(event.target.value)}
                 />
               </Typography>

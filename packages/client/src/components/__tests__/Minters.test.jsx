@@ -1,10 +1,9 @@
-// import userEvent from '@testing-library/user-event';
 import { screen } from '@testing-library/react';
-
 import Minter from '../Minters';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../lib/test-utils';
-import { expect } from 'chai';
+// import toBeVisible from "@testing-library/jest-dom";
+// import { expect } from 'chai';
 
 describe('Minters', () => {
   const renderMinters = async (props) => {
@@ -16,7 +15,7 @@ describe('Minters', () => {
       fakeFile,
       // getStartedButton: screen.queryByRole('button', {name: /get started/i}),
       mintNFTButton: screen.getByRole('button', { name: /mint nft/i }),
-      nftName: screen.queryByTestId('nameInput'),
+      // nftName: screen.queryByTestId(/nameInput/i),
     };
   };
 
@@ -24,8 +23,9 @@ describe('Minters', () => {
     const { container } = await renderMinters();
     expect(container).toBeVisible();
   });
+
   test('User File Upload', async () => {
-    const { fakeFile } = renderMinters();
+    const { fakeFile } = await renderMinters();
     jest.spyOn(global, 'FileReader').mockImplementation(function () {
       this.readAsDataURL = jest.fn();
     });
@@ -33,15 +33,27 @@ describe('Minters', () => {
     const imageField = screen.queryByTestId(/imageUpload/i);
     // console.log(inputFile);
     userEvent.upload(imageField, fakeFile);
+    // console.log(imageField);
     expect(imageField.files).toHaveLength(1);
   });
-  // test('Check Name field', async () => {
-  //     // const { nftName } = await renderMinters();
-  //     userEvent.type(nftName,":Test NFT:");
-  //     expect(nftName).to.not.be.null;
-  //     // expect(await $findMarketList()).toBeVisible()
-  //     // expect(getStartedButton).toBeVisible()
-  // })
+
+  test('Check Name field', async () => {
+    // const { nftName } = renderMinters();
+    await renderMinters();
+    const nftName = screen.queryByPlaceholderText('NFT');
+    userEvent.type(nftName, ':Test NFT:');
+    // console.log(nftName);
+    expect(nftName).not.toBeNull();
+  });
+
+  test('Check Description field', async () => {
+    // const { nftName } = renderMinters();
+    await renderMinters();
+    const nftDesc = screen.queryByPlaceholderText('e.g. Even cooler than cryptokitties');
+    userEvent.type(nftDesc, ':Test description:');
+    // console.log(nftName);
+    expect(nftDesc).not.toBeNull();
+  });
 
   // function clickMintButton() {
   //     user.click(screen.getByRole('button', { name: /mint nft/i }));
