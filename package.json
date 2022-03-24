@@ -60,7 +60,7 @@
     "@ethersproject/testcases": "^5.5.0",
     "@nomiclabs/eslint-plugin-hardhat-internal-rules": "^1.0.0",
     "chai": "^4.3.4",
-    "eslint": "^8.0.0",
+    "eslint": "^7.11.0",
     "eth-testing": "^1.0.0",
     "ethereum-waffle": "^3.4.0",
     "husky": "^7.0.0",
