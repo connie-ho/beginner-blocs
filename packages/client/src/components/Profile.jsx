@@ -17,7 +17,7 @@ const Profile = () => {
     listed: [],
   };
   const { account } = useContext(UserContext);
-  const { tokenContract, marketContract, provider } = useContext(EthersContext);
+  const { marketContract, provider } = useContext(EthersContext);
 
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const Profile = () => {
     setTabValue(newValue);
   }, []);
 
-  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ tokenContract, marketContract });
+  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ marketContract });
 
   useEffect(() => {
     const grabAccountBalanceInformation = async (account) => {
@@ -79,13 +79,13 @@ const Profile = () => {
           <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
           <Divider />
           <TabPanel value={tabValue} index={1}>
-            <NFTList items={NFTs.owned} type="owned" />
+            <NFTList items={NFTs.owned} type="owned" data-testid="owned-items" />
           </TabPanel>
           {/* <TabPanel value={tabValue} index={2}>
               <NFTList items={NFTs.created} type='created'/>
             </TabPanel> */}
           <TabPanel value={tabValue} index={3}>
-            <NFTList items={NFTs.listed} type="listed" />
+            <NFTList items={NFTs.listed} type="listed" data-testid="listed-items" />
           </TabPanel>
         </div>
       </Grid>

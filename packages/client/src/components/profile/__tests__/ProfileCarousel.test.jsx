@@ -5,33 +5,33 @@ import { createTestNft } from '../../../lib/test/helper/nft';
 import ProfileCarousel from '../ProfileCarousel';
 
 describe('ProfileCarousel', () => {
-  const nft1 = createTestNft()
-  const nft2 = createTestNft({tokenId: 2})
-  const nfts = [nft1, nft2]
-  
-  const mockProps = {nfts: nfts}
+  const nft1 = createTestNft();
+  const nft2 = createTestNft({ tokenId: 2 });
+  const nfts = [nft1, nft2];
 
-    const renderProfileCarousel = async (props) => {
-        const view = renderWithProviders(<ProfileCarousel {...props} />)
+  const mockProps = { nfts: nfts };
 
-        return {
-            ...view,
-            $findCarouselItems: async () => screen.findAllByTestId(/^carousel-item/),
-        }
-    } 
+  const renderProfileCarousel = async (props) => {
+    const view = renderWithProviders(<ProfileCarousel {...props} />);
 
-    test('it renders correctly', async() => {
-        const { container } = await renderProfileCarousel(mockProps)
-        expect(container).toBeVisible()
-    })
+    return {
+      ...view,
+      $findCarouselItems: async () => screen.findAllByTestId(/^carousel-item/),
+    };
+  };
 
-    test('should show nothing if no valid NFTs are found', async() => {
-      const nft1 = createTestNft({description: "N/A", name: "N/A"})
-      const noValidNFTS = {
-        nfts:[nft1]
-      }
+  test('it renders correctly', async () => {
+    const { container } = await renderProfileCarousel(mockProps);
+    expect(container).toBeVisible();
+  });
 
-      const { container } = await renderProfileCarousel(noValidNFTS);
-      expect(container).toBeEmptyDOMElement()
-  })
-})
+  test('should show nothing if no valid NFTs are found', async () => {
+    const nft1 = createTestNft({ description: 'N/A', name: 'N/A' });
+    const noValidNFTS = {
+      nfts: [nft1],
+    };
+
+    const { container } = await renderProfileCarousel(noValidNFTS);
+    expect(container).toBeEmptyDOMElement();
+  });
+});
