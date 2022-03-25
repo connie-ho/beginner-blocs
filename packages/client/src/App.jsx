@@ -16,11 +16,12 @@ function App() {
       <Routes>
         <Route path="/FAQ" element={<FAQ />} />
         <Route path="get-started" />
+        <Route path="/user/:userAddress" element={<Profile owner={false} />} />
         <Route
           path="/profile"
           element={
             <RequireAuth>
-              <Profile />
+              <Profile owner={true} />
             </RequireAuth>
           }
         />
