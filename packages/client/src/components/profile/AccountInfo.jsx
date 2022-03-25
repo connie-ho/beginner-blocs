@@ -67,7 +67,7 @@ const AccountInfo = (props) => {
       <AccountButton id="account-button" data-testid="acc-button" onClick={copyText}>
         {account}
       </AccountButton>
-      <p style={{ fontSize: '1.5rem' }}>Credits: {balance} Eth</p>
+      {balance ? <p style={{ fontSize: '1.5rem' }}>Credits: {balance} Eth</p> : null}
       <Snackbar
         style={{ backgroundColor: 'white' }}
         open={alert}

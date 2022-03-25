@@ -10,14 +10,18 @@ import AccountInfo from './profile/AccountInfo';
 import TabOptions from './profile/TabOptions';
 import NFTList from './profile/NFTList';
 import Loading from './common/Loading';
+import { useParams } from 'react-router-dom';
 
-const Profile = () => {
+const Profile = ({ owner }) => {
   const initialNFTs = {
     owned: [],
     listed: [],
   };
-  const { account } = useContext(UserContext);
-  const { marketContract, provider } = useContext(EthersContext);
+  let { account } = useContext(UserContext);
+  if (!owner) {
+    account = useParams().userAddress;
+  }
+  const { tokenContract, marketContract, provider } = useContext(EthersContext);
 
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -34,7 +38,7 @@ const Profile = () => {
     setTabValue(newValue);
   }, []);
 
-  const { loadListedNFTs, loadOwnedNFTs } = useGetNFTs({ marketContract });
+  const { loadListedNFTs, loadOwnedNFTs, loadUserListedNFTs } = useGetNFTs({ tokenContract, marketContract });
 
   useEffect(() => {
     const grabAccountBalanceInformation = async (account) => {
@@ -47,14 +51,16 @@ const Profile = () => {
       }
     };
     const fetchNFTs = async (account) => {
-      const listedItems = await loadListedNFTs();
+      const listedItems = owner ? await loadListedNFTs() : await loadUserListedNFTs(account);
       const ownedItems = await loadOwnedNFTs(account);
       setNFTs({ listed: listedItems, owned: ownedItems });
     };
 
     const getProfileDetails = async (account) => {
       try {
-        await grabAccountBalanceInformation(account);
+        if (owner) {
+          await grabAccountBalanceInformation(account);
+        }
         await fetchNFTs(account);
         setLoading(false);
       } catch (error) {
@@ -74,7 +80,7 @@ const Profile = () => {
       <Grid item xs={1} />
       <Grid container item xs={10} direction="column">
         <ProfileBanner nfts={NFTs.owned} />
-        <AccountInfo account={account} balance={balance} style={{ marginBottom: '2rem' }} />
+        <AccountInfo account={account} balance={owner ? balance : null} style={{ marginBottom: '2rem' }} />
         <div>
           <TabOptions tabValue={tabValue} handleTabChange={handleTabChange} />
           <Divider />
