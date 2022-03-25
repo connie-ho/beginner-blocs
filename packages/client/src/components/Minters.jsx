@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import { useEffect, useState } from 'react';
-import useInteract from '../hooks/use-interact';
+import { useInteract } from '../hooks/use-interact';
 import { makeStyles } from '@mui/styles';
 import { Link, Grid, Input, Typography, Button, Box } from '@mui/material';
 import default_image from '../assets/default_preview_image.png';
@@ -43,61 +43,26 @@ const Minter = () => {
 
     setWallet(address);
     // setStatus(status);
-    addWalletListener();
-
-    // const setimage = async () => {
-
-    //   if(file.image != null){
-    //     console.log("file image is :", file.image);
-    //     document.getElementById("img").src=file.image;
-    //   }
-    //   else{
-    //     console.log("file.image is probably null:", file.image);
-    //   }
-    // };
-    // setimage(file);
+    // addWalletListener();
   }, []);
 
-  function addWalletListener() {
-    if (window.ethereum) {
-      window.ethereum.on('accountsChanged', (accounts) => {
-        if (accounts.length > 0) {
-          setWallet(accounts[0]);
-          //   setStatus("");
-        } else {
-          setWallet('');
-          setStatus('🦊 Connect to Metamask using the top right button.');
-        }
-      });
-    } else {
-      //   setStatus(
-      //     <p>
-      //       {" "}
-      //       {" "}
-      //       <a target="_blank" href={`https://metamask.io/download.html`} rel="noreferrer">
-      //         You must install Metamask, a virtual Ethereum wallet, in your
-      //         browser.
-      //       </a>
-      //     </p>
-      //   );
-    }
-  }
-
-  //   const connectWalletPressed = async () => {
-  //     const walletResponse = await connectWallet();
-  //     // setStatus(walletResponse.status);
-  //     setWallet(walletResponse.address);
-  //   };
+  // function addWalletListener() {
+  //   if (window.ethereum) {
+  //     window.ethereum.on('accountsChanged', (accounts) => {
+  //       if (accounts.length > 0) {
+  //         setWallet(accounts[0]);
+  //         //   setStatus("");
+  //       } else {
+  //         setWallet('');
+  //         setStatus('🦊 Connect to Metamask using the top right button.');
+  //       }
+  //     });
+  //   }
+  // }
 
   const onMintPressed = async () => {
     const { status } = await mintNFT(file, name, description);
     setStatus(status);
-    // if (success) {
-    //   setName('');
-    //   setDescription('');
-    //   setFile('');
-    //   //setURL("");
-    // }
   };
 
   const onChange = (e) => {
@@ -108,17 +73,9 @@ const Minter = () => {
         image: upload.target.result,
       });
     };
+    // console.log('Test file:', file);
     reader.readAsDataURL(file);
   };
-
-  // function changeImage() {
-  //   readeronChange();
-  //   console.log(file.name);
-  //   // changeImage(file);
-  //   document.getElementById("img").src=reader.result;
-  //   console.log(reader);
-  //   console.log(reader.result);
-  //   }
 
   return (
     <div className="Minter">
@@ -151,23 +108,26 @@ const Minter = () => {
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
               <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 🖼 Upload Image:{' '}
-                <Input
-                  disableUnderline="true"
-                  type="file"
-                  sx={{ ml: 5, pb: 2, color: 'black' }}
-                  className="MuiInput-formControl"
-                  onChange={onChange}
-                />
               </Typography>
+              <input
+                data-testid="imageUpload"
+                disableUnderline="true"
+                type="file"
+                sx={{ ml: 5, pb: 2, color: 'black' }}
+                className="MuiInput-formControl"
+                onChange={onChange}
+              />
             </Grid>
             <Grid item xs={12} sx={{ color: 'text.dark', mt: 5 }}>
               <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 {' '}
                 Name:
-                <Input
+                <input
+                  type="text"
+                  data-testid="name"
                   sx={{ ml: 5, pl: 5, color: 'black' }}
                   className="MuiInput-formControl"
-                  placeholder="e.g. My first NFT!"
+                  placeholder="NFT"
                   onChange={(event) => setName(event.target.value)}
                 />
               </Typography>
@@ -211,6 +171,7 @@ const Minter = () => {
 
         <Box component="span" sx={{ p: 10, ml: 95 }} align="center">
           <Button
+            data-testid="mintButton"
             align="center"
             role="button"
             color="secondary"

@@ -89,7 +89,35 @@ const useGetNFTs = ({ marketContract }) => {
     return items;
   }, []);
 
-  return { loadMarketNFTs, loadListedNFTs, loadOwnedNFTs };
+  const loadUserListedNFTs = useCallback(
+    async (userAddress) => {
+      console.log(userAddress);
+      // const data = await marketContract.fetchUserListedNFTs(userAddress);  // use this when contract that contains fetchUserListedNFTs has been deployed
+      const data = await marketContract.fetchMarketItems(); // use this when contract that contains fetchUserListedNFTs has not been deployed
+      const items = await Promise.allSettled(
+        data.map(async (i) => {
+          const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
+          const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+          return {
+            price,
+            itemId: i.itemId.toNumber(),
+            tokenId: i.tokenId,
+            address: i.nftContract,
+            seller: i.seller,
+            owner: i.owner,
+            image: parseImage(meta.image),
+            name: meta.name,
+            description: meta.description,
+          };
+        })
+      );
+      return items;
+      // });
+    },
+    [marketContract]
+  );
+
+  return { loadMarketNFTs, loadListedNFTs, loadOwnedNFTs, loadUserListedNFTs };
 };
 
 export { useGetNFTs };
