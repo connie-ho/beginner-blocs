@@ -4,16 +4,16 @@ import ProfileCarousel from './ProfileCarousel';
 
 import img from '../../assets/default.png';
 
-const useStyles = makeStyles((theme)=> ({
+const useStyles = makeStyles((theme) => ({
   banner: {
-    backgroundColor:'rgba(5,24,52,0.1)',
+    backgroundColor: 'rgba(5,24,52,0.1)',
     height: '25rem',
     width: '100%',
     margin: '2rem',
-    position:'relative',
+    position: 'relative',
     alignItems: 'center',
     display: 'flex',
-    borderRadius:'5rem',
+    borderRadius: '5rem',
     flexDirection: 'column',
     justifyContent: 'center',
   },
@@ -22,26 +22,21 @@ const useStyles = makeStyles((theme)=> ({
     marginBottom: theme.spacing(4),
     position: 'absolute',
     bottom: 0,
-    borderColor:'white',
-    transform:'translate(0rem,7rem)',
+    borderColor: 'white',
+    transform: 'translate(0rem,7rem)',
     zIndex: 2,
     borderRadius: theme.typography.pxToRem(150),
-  }
-}))
+  },
+}));
 
 const ProfileBanner = (props) => {
-  const {nfts} = props
+  const { nfts } = props;
   const classes = useStyles();
 
   return (
-    <div className={classes.banner} name='banner'>
-      <ProfileCarousel nfts={nfts}/>
-    <img 
-        className={classes.img}
-        src={img}
-        alt="default"
-        name='avatar'
-    />
+    <div className={classes.banner} name="banner">
+      <ProfileCarousel nfts={nfts} />
+      <img className={classes.img} src={img} alt="default" name="avatar" />
     </div>
   );
 };
