@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-duplicate-props */
 import { useEffect, useState } from 'react';
-import useInteract from '../hooks/use-interact';
+import { useInteract } from '../hooks/use-interact';
 import { makeStyles } from '@mui/styles';
 import { Link, Grid, Input, Typography, Button, Box } from '@mui/material';
 import default_image from '../assets/default_preview_image.png';
@@ -171,6 +171,7 @@ const Minter = () => {
 
         <Box component="span" sx={{ p: 10, ml: 95 }} align="center">
           <Button
+            data-testid="mintButton"
             align="center"
             role="button"
             color="secondary"

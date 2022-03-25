@@ -147,4 +147,4 @@ function useInteract() {
   };
 }
 
-export default useInteract;
+export { useInteract };

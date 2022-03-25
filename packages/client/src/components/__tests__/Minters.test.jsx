@@ -2,8 +2,7 @@ import { screen } from '@testing-library/react';
 import Minter from '../Minters';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../lib/test-utils';
-// import toBeVisible from "@testing-library/jest-dom";
-// import { expect } from 'chai';
+import * as useInteract from '../../hooks/use-interact';
 
 describe('Minters', () => {
   const renderMinters = async (props) => {
@@ -14,7 +13,7 @@ describe('Minters', () => {
       ...view,
       fakeFile,
       // getStartedButton: screen.queryByRole('button', {name: /get started/i}),
-      mintNFTButton: screen.getByRole('button', { name: /mint nft/i }),
+      // mintNFTButton: screen.getByRole('button', { name: /mint nft/i }),
       // nftName: screen.queryByTestId(/nameInput/i),
     };
   };
@@ -51,16 +50,25 @@ describe('Minters', () => {
     await renderMinters();
     const nftDesc = screen.queryByPlaceholderText('e.g. Even cooler than cryptokitties');
     userEvent.type(nftDesc, ':Test description:');
-    // console.log(nftName);
+    // console.log(nftDesc);
     expect(nftDesc).not.toBeNull();
   });
 
-  // function clickMintButton() {
-  //     user.click(screen.getByRole('button', { name: /mint nft/i }));
-  // }
-  // test('should redirect the user when the get started button is clicked', async () => {
-  //     const { getStartedButton } = await renderHome()
-  //     userEvent.click(getStartedButton)
-  //     expect(getStartedButton).toHaveAttribute('href', '/get-started');
-  // })
+  test('Press Mint Button', async () => {
+    // const { nftName } = renderMinters();
+
+    const mintNFTspy = jest.fn().mockResolvedValue({ success: true, status: 'Test Status' });
+    const currentspy = jest.fn().mockResolvedValue({ address: 'testAddress' });
+    //const mintNFTspy = jest.fn().mockResolvedValue({success: true, status: 'Test Status'});
+
+    jest.spyOn(useInteract, 'useInteract').mockReturnValue({
+      mintNFT: mintNFTspy,
+      getCurrentWalletConnected: currentspy,
+    });
+    await renderMinters();
+    const mintButton = screen.queryByTestId('mintButton');
+    userEvent.click(mintButton);
+    console.log(mintButton);
+    expect(await mintNFTspy).toHaveBeenCalled();
+  });
 });
