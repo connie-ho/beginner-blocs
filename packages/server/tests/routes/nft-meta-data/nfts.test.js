@@ -1,5 +1,5 @@
-import * as nftMetaDataProviders from '../../../src/routes/nfts/providers/nft-meta-data.provider';
-import * as nftProviders from '../../../src/routes/nfts/providers/nft-provider';
+import * as nftMetaDataProviders from '../../../src/lib/nft-meta-data.provider';
+import * as nftProviders from '../../../src/lib/nft-provider';
 
 import { createNFTMetaData, createNFTs } from '../../helpers';
 import request from 'supertest';

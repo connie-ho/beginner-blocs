@@ -72,9 +72,6 @@ const Nav = () => {
             <img alt="logo" className={classes.logo} src={logo} />
             <h2 className={classes.link}>Beginner Blocs</h2>
           </NavLink>
-          <NavLink className={classes.logoContainer} to="/FAQ">
-            <h2 className={classes.link}>FAQ</h2>
-          </NavLink>
           {account ? (
             <NavLink className={classes.logoContainer} to="/create">
               <h2 className={classes.link}>Create</h2>

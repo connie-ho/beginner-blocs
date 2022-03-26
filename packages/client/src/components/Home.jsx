@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    padding: theme.spacing(0, 3),
+    padding: theme.spacing(0, 5),
   },
   header: {
     color: theme.palette.text.light,
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ExploreSection = styled('div')(({ theme }) => ({
   marginTop: '1rem',
-  padding: theme.spacing(0, 3),
+  padding: theme.spacing(0, 5),
 }));
 
 const Home = () => {
@@ -48,7 +48,7 @@ const Home = () => {
           <h1 className={classes.header}>NFTs made easy.</h1>
           <Button
             role="button"
-            href="/get-started"
+            href="/faq"
             color="secondary"
             className={classes.button}
             variant="outlined"
