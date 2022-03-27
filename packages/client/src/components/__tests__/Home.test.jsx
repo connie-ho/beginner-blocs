@@ -32,6 +32,6 @@ describe('Home', () => {
     const { getStartedButton } = await renderHome();
 
     userEvent.click(getStartedButton);
-    expect(getStartedButton).toHaveAttribute('href', '/get-started');
+    expect(getStartedButton).toHaveAttribute('href', '/faq');
   });
 });

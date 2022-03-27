@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   img: {
-    width: theme.typography.pxToRem(250),    
+    width: theme.typography?.pxToRem(250),
     borderColor: 'white',
     zIndex: 2,
-    borderRadius: theme.typography.pxToRem(300),
+    borderRadius: theme.typography?.pxToRem(300),
   },
 }));
 
-const Loading = ({loadingMsg}) => {
+const Loading = ({ loadingMsg }) => {
   const classes = useStyles();
   return (
     <div className={classes.loader}>

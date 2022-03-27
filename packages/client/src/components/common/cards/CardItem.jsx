@@ -8,33 +8,25 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    // alignItems: 'center',
     textAlign: 'center',
     padding: theme.spacing(2, 2, 2),
     height: theme.typography.pxToRem(350),
     width: theme.typography.pxToRem(300),
     borderRadius: theme.typography.pxToRem(4),
-    transition: "transform 0.15s ease-in-out",
-    "&:hover": {
+    transition: 'transform 0.15s ease-in-out',
+    '&:hover': {
       cursor: 'pointer',
-      transform: "scale3d(1.05, 1.05, 1)",
-      background: "transparent",
+      transform: 'scale3d(1.05, 1.05, 1)',
+      background: 'transparent',
     },
   },
 }));
-
 
 const CardItem = ({ children, onClick, rootClassName, ...props }) => {
   const classes = useStyles();
 
   return (
-    <Card 
-      boxshadow={4}
-      variant="outlined"
-      className={`${classes.root} ${rootClassName}`} 
-      onClick={onClick}
-      {...props} 
-      >
+    <Card boxshadow={4} variant="outlined" className={`${classes.root} ${rootClassName}`} onClick={onClick} {...props}>
       {children}
     </Card>
   );
