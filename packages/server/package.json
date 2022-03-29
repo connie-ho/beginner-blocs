@@ -28,6 +28,9 @@
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./setupTests.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/lib"
     ]
   },
   "babel": {

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Grid } from '@mui/material';
+import { Grid, Skeleton } from '@mui/material';
 
 import { useGetNFTs } from '../../hooks/use-get-nfts';
 import { EthersContext } from '../../contexts/ethers-provider-context';
 
-import Loading from '../common/Loading';
 import NFTCard from '../common/cards/NftCard';
+import CardItem from '../common/cards/CardItem';
 
 const MarketNFTList = (props) => {
   const { tokenContract, marketContract } = useContext(EthersContext);
@@ -40,9 +40,17 @@ const MarketNFTList = (props) => {
     [navigate, marketContract]
   );
 
-  if (loading) {
-    return <Loading data-testid="loading" />;
-  }
+  const CardSkeleton = Array(8)
+    .fill()
+    .map((_num, i) => (
+      <Grid item xs={3} key={`loading-${i}`}>
+        <CardItem>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton variant="rectangular" width={'100%'} height={'50%'} />
+        </CardItem>
+      </Grid>
+    ));
 
   const NftCards = marketNFTs?.map((nft, index) => (
     <Grid item xs={3} key={`market-item-${index}`}>
@@ -65,7 +73,7 @@ const MarketNFTList = (props) => {
       }}
       {...props}
     >
-      {NftCards}
+      {loading ? CardSkeleton : NftCards}
     </Grid>
   );
 };
