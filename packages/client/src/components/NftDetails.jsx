@@ -108,13 +108,15 @@ function NftDetails() {
       };
 
       const resp = await axios(config);
+      const statusCode = Number(resp.status);
 
-      if (resp.status < 200 || resp.status > 299) {
+      if (statusCode < 200 || statusCode > 299) {
         navigate('/404');
         return;
       }
 
       if (ownerAddress === nftmarketaddress) {
+        console.log(`${contractAddress}---${tokenId}---${ownerAddress}`);
         const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId);
         resp.data.price = marketItem.price;
         resp.data.itemId = marketItem.itemId;
