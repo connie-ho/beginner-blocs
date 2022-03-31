@@ -1,7 +1,7 @@
 import { renderWithProviders } from '../../../lib/test-utils';
 import NftDetails from '../../NftDetails';
 import axios from 'axios';
-import { waitFor, screen } from '@testing-library/react';
+import { waitFor, screen, fireEvent } from '@testing-library/react';
 import { randomHexString } from '@ethersproject/testcases';
 import seedrandom from 'seedrandom';
 import { MemoryRouter } from 'react-router-dom';
@@ -112,7 +112,7 @@ function mockAxiosWithSuccessResponse() {
       },
       media: [{ uri: [Object] }],
       metadata: {
-        image: 'https://cryptocoven.s3.amazonaws.com/a7875f5758f85544dcaab79a8a1ca406.png',
+        image: 'ipfs://cryptocoven.s3.amazonaws.com/a7875f5758f85544dcaab79a8a1ca406.png',
         external_url: 'https://www.cryptocoven.xyz/witches/1590',
         background_color: '',
         coven: {
@@ -270,5 +270,31 @@ describe('User logged in - NFT listed', () => {
     renderWithProviders(<NftDetails />);
 
     expect(await screen.findByText(/Buy for/)).toBeInTheDocument();
+  });
+
+  test('it calls buy function when clicked on buy button', async () => {
+    mockAxiosWithSuccessResponse();
+    const url = makeURL(validContractAddress, 1, nftmarketaddress);
+    mockRouter([url]);
+    renderWithProviders(<NftDetails />);
+
+    const buyBtn = await screen.findByText(/Buy for/);
+
+    fireEvent.click(buyBtn);
+
+    expect(mockMarketContract.createMarketSale).toHaveBeenCalled();
+  });
+
+  test('it renders success page when clicked on buy button', async () => {
+    mockAxiosWithSuccessResponse();
+    const url = makeURL(validContractAddress, 1, nftmarketaddress);
+    mockRouter([url]);
+    renderWithProviders(<NftDetails />);
+
+    const buyBtn = await screen.findByText(/Buy for/);
+
+    fireEvent.click(buyBtn);
+
+    expect(await screen.findByText('Transaction Complete.')).toBeInTheDocument();
   });
 });
