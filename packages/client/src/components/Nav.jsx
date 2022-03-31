@@ -70,18 +70,22 @@ const Nav = () => {
         <div className={classes.linkContainer}>
           <NavLink className={classes.logoContainer} to="/">
             <img alt="logo" className={classes.logo} src={logo} />
-            <h2 className={classes.link}>Beginner Blocs</h2>
+            <h2 className={classes.link} data-testid="home">
+              Beginner Blocs
+            </h2>
           </NavLink>
           {account ? (
             <NavLink className={classes.logoContainer} to="/create">
-              <h2 className={classes.link}>Create</h2>
+              <h2 data-testid="create" className={classes.link}>
+                Create
+              </h2>
             </NavLink>
           ) : null}
         </div>
         {account ? (
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <IconButton data-testid="usermenu" onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="profile" src={img} />
               </IconButton>
             </Tooltip>
@@ -111,7 +115,9 @@ const Nav = () => {
             </Menu>
           </Box>
         ) : (
-          <NavButton onClick={connectWallet}>Login</NavButton>
+          <NavButton data-testid="connectwallet" onClick={connectWallet}>
+            Login
+          </NavButton>
         )}
       </Toolbar>
     </AppBar>
