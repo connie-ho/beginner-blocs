@@ -6,8 +6,6 @@ import { randomHexString } from '@ethersproject/testcases';
 import seedrandom from 'seedrandom';
 import UserContextProvider from '../../contexts/user-context';
 
-// const seed = new seedrandom(`BEGINNERBLOCS${Math.random()*100}`);
-
 afterEach(cleanup);
 
 const mockedUseNavigate = jest.fn();
