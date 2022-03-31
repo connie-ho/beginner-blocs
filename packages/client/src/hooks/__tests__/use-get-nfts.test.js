@@ -3,7 +3,12 @@ import { renderHook, act } from '@testing-library/react-hooks';
 import { useGetNFTs } from '../use-get-nfts';
 import * as dataUtils from '../../lib/test/data-utils/axios';
 
-const marketContract = { fetchMarketItems: jest.fn(), fetchMyListedNFTs: jest.fn(), loadOwnedNFTs: jest.fn() };
+const marketContract = {
+  fetchMarketItems: jest.fn(),
+  fetchMyListedNFTs: jest.fn(),
+  loadOwnedNFTs: jest.fn(),
+  fetchUserListedNFTs: jest.fn(),
+};
 
 const nft = [
   { nftContract: 'test', tokenId: '1', price: '1', itemId: '101', seller: 'test-seller', owner: 'test-owner' },
@@ -39,6 +44,24 @@ describe('useGetNFTs', () => {
       const { result } = renderHook(() => useGetNFTs({ marketContract }));
       await act(async () => {
         const res = await result.current.loadListedNFTs();
+        expect(res[0].status).toBe('fulfilled');
+        expect(res[0].value.price).toBe('0.000000000000000001');
+        expect(res[0].value.itemId).toBe(101);
+        expect(res[0].value.image).toBe('https://ipfs.io/test-image');
+      });
+    });
+  });
+
+  describe('loadUserListedNFTs', () => {
+    test(`it should return marketNFTs`, async () => {
+      jest.spyOn(marketContract, 'fetchUserListedNFTs').mockResolvedValue(nft);
+      jest
+        .spyOn(dataUtils, 'getMetaData')
+        .mockResolvedValue({ image: 'ipfs://test-image', description: 'test-description', name: 'test-name' });
+
+      const { result } = renderHook(() => useGetNFTs({ marketContract }));
+      await act(async () => {
+        const res = await result.current.loadUserListedNFTs();
         expect(res[0].status).toBe('fulfilled');
         expect(res[0].value.price).toBe('0.000000000000000001');
         expect(res[0].value.itemId).toBe(101);
