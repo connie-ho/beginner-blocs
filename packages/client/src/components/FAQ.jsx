@@ -337,14 +337,6 @@ const FAQ = () => {
             </li>
             <li className={classes.gitem}>
               <a className={classes.trigger} href="#0">
-                <span>Where can I check the history price of an NFT?</span>
-              </a>
-              <div className={classes.itemcontext}>
-                <p>Emmm. I don't know because this function has not been launched.</p>
-              </div>
-            </li>
-            <li className={classes.gitem}>
-              <a className={classes.trigger} href="#0">
                 <span>How do I sell an NFT in Marketplace?</span>
               </a>
               <div className={classes.itemcontext}>
@@ -352,22 +344,6 @@ const FAQ = () => {
                   Go to your profile page and select the NFT you want to sell. Set the price and list them on the
                   market.
                 </p>
-              </div>
-            </li>
-            <li className={classes.gitem}>
-              <a className={classes.trigger} href="#0">
-                <span>How do I change the price of my NFT?</span>
-              </a>
-              <div className={classes.itemcontext}>
-                <p>Emmm. I don't know because this function has not been launched.</p>
-              </div>
-            </li>
-            <li className={classes.gitem}>
-              <a className={classes.trigger} href="#0">
-                <span>How do I cancel a listing of an NFT?</span>
-              </a>
-              <div className={classes.itemcontext}>
-                <p>Emmm. I don't know because this function has not been launched.</p>
               </div>
             </li>
             <li className={classes.gitem}>
