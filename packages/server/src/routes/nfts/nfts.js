@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import { fetchMetaDataAlchemy } from './providers/nft-meta-data.provider';
-import { fetchOwnedNFTs } from './providers/nft-provider';
+import { fetchMetaDataAlchemy } from '../../lib/nft-meta-data.provider';
+import { fetchOwnedNFTs } from '../../lib/nft-provider';
 
 dotenv.config();
 const router = express.Router();
@@ -32,20 +32,7 @@ router.post('/meta-data', async function (req, res, _next) {
     return res.status(500).json({ error: 'Contract address and tokenId must be specified' });
   }
 
-  // if (!tokenURI) {
-  //   return res.status(500).json({ error: 'Path must be specified' });
-  // }
-
-  // if (tokenURI.startsWith('data')) {
-  //   return res.send({
-  //     image: tokenURI.image,
-  //     name: tokenURI.name,
-  //     description: tokenURI.description,
-  //   });
-  // }
-
   try {
-    // const meta = await fetchMetaData(tokenURI)
     const data = await fetchMetaDataAlchemy({ contractAddress, tokenId });
     if (!data.data?.metadata) {
       return res.send({

@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
@@ -6,15 +6,17 @@ import Grid from '@mui/material/Grid';
 import NoItems from './NoItems';
 import NFTCard from '../common/cards/NftCard';
 
-
 const NFTList = (props) => {
   let { items, type } = props;
 
   const navigate = useNavigate();
 
-  const handleClick = useCallback((item) => {
-    navigate(`/nft?ownerAddress=${item.owner}&contractAddress=${item.address}&tokenId=${item.tokenId}`)
-  },[navigate])
+  const handleClick = useCallback(
+    (item) => {
+      navigate(`/nft?ownerAddress=${item.owner}&contractAddress=${item.address}&tokenId=${item.tokenId}`);
+    },
+    [navigate]
+  );
 
   const NFTs = items.map((item, index) => {
     return (
@@ -26,12 +28,7 @@ const NFTList = (props) => {
         key={`${index}-${item.address}`}
         data-testid={`nft-item-${item.tokenId}`}
       >
-        <NFTCard
-          onClick={() => handleClick(item)}
-          image={item.image}
-          name={item.name}
-          price={item.price}
-        />
+        <NFTCard onClick={() => handleClick(item)} image={item.image} name={item.name} price={item.price} />
       </Grid>
     );
   });
@@ -41,14 +38,7 @@ const NFTList = (props) => {
   }
 
   return (
-    <Grid
-      container
-      item
-      xs={12}
-      spacing={2}
-      alignItems="center"
-      style={{ paddingTop: '3rem' }}
-    >
+    <Grid container item xs={12} spacing={2} alignItems="center" style={{ paddingTop: '3rem' }}>
       {NFTs}
     </Grid>
   );

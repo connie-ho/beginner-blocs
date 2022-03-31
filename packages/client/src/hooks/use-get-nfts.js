@@ -1,7 +1,6 @@
 import { useCallback } from 'react';
 import { ethers } from 'ethers';
-import axios from 'axios';
-
+import { getMetaData, getOwnedNFTs } from '../lib/test/data-utils/axios';
 import img from '../assets/not_found.png';
 
 const useGetNFTs = ({ marketContract }) => {
@@ -13,41 +12,20 @@ const useGetNFTs = ({ marketContract }) => {
     return imageURL;
   });
 
-  const getMetaData = useCallback(async ({ contractAddress, tokenId }) => {
-    try {
-      const data = await axios.post('/api/nfts/meta-data', {
-        contractAddress,
-        tokenId,
-      });
-      return data.data;
-    } catch (err) {
-      console.log(err.message);
-    }
-  }, []);
-
-  const getOwnedNFTs = useCallback(async (ownerAddress) => {
-    try {
-      const data = await axios.get(`/api/nfts/owned/${ownerAddress}`);
-      console.log(data);
-      return data;
-    } catch (err) {
-      console.log(err.message);
-    }
-  });
-
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
 
     const items = await Promise.all(
       data.map(async (i) => {
         const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
+
         const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
 
         return {
           price,
           contractAddress: i.nftContract,
           tokenId: i.tokenId,
-          itemId: i.itemId.toNumber(),
+          itemId: Number(i.itemId),
           seller: i.seller,
           owner: i.owner,
           image: parseImage(meta.image),
@@ -70,7 +48,7 @@ const useGetNFTs = ({ marketContract }) => {
 
         return {
           price,
-          itemId: i.itemId.toNumber(),
+          itemId: Number(i.itemId),
           tokenId: i.tokenId,
           address: i.nftContract,
           seller: i.seller,
@@ -87,7 +65,6 @@ const useGetNFTs = ({ marketContract }) => {
   const loadOwnedNFTs = useCallback(async (owner) => {
     const ownerAddr = `${owner}`;
     const ownedNFTs = await getOwnedNFTs(ownerAddr);
-
     const items = await Promise.all(
       ownedNFTs.data.map(async (NFT) => {
         const emptyMeta = {
@@ -112,7 +89,33 @@ const useGetNFTs = ({ marketContract }) => {
     return items;
   }, []);
 
-  return { loadMarketNFTs, loadListedNFTs, loadOwnedNFTs };
+  const loadUserListedNFTs = useCallback(
+    async (userAddress) => {
+      console.log(userAddress);
+      const data = await marketContract.fetchUserListedNFTs(userAddress);
+      const items = await Promise.allSettled(
+        data.map(async (i) => {
+          const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
+          const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
+          return {
+            price,
+            contractAddress: i.nftContract,
+            tokenId: i.tokenId,
+            itemId: Number(i.itemId),
+            seller: i.seller,
+            owner: i.owner,
+            image: parseImage(meta.image),
+            name: meta.name,
+            description: meta.description,
+          };
+        })
+      );
+      return items;
+    },
+    [marketContract]
+  );
+
+  return { loadMarketNFTs, loadListedNFTs, loadOwnedNFTs, loadUserListedNFTs };
 };
 
 export { useGetNFTs };

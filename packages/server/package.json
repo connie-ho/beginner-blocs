@@ -28,6 +28,9 @@
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
       "./setupTests.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/lib"
     ]
   },
   "babel": {
@@ -55,7 +58,7 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "eslint": "^8.10.0",
+    "eslint": "^7.11.0",
     "jest": "^27.5.1",
     "nodemon": "^2.0.15",
     "supertest": "^6.2.2"

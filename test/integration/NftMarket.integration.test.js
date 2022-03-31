@@ -78,6 +78,23 @@ describe('NFTMarket', function () {
     expect(listedNfts.length).to.equal(1);
     expect(listedNfts[0].tokenId).to.equal('2');
 
+    const userlistedItems = await market.fetchUserListedNFTs(
+      await secondAddress.getAddress().then((value) => {
+        return value;
+      })
+    );
+    expect(userlistedItems.length).to.equal(2);
+    expect(userlistedItems[0].tokenId).to.equal('4');
+    expect(userlistedItems[1].tokenId).to.equal('5');
+
+    const userlistedItems1 = await market.fetchUserListedNFTs(
+      await _myAddress.getAddress().then((value) => {
+        return value;
+      })
+    );
+    expect(userlistedItems1.length).to.equal(1);
+    expect(userlistedItems1[0].tokenId).to.equal('2');
+
     // /* query for and return the unsold items */
     const marketItems = await market.fetchMarketItems();
     const unSoldItems = await Promise.all(

@@ -46,6 +46,10 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx}",
       "!<rootDir>/node_modules/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "src/lib",
+      "src/contexts"
     ]
   },
   "browserslist": {
