@@ -15,9 +15,12 @@ const getMetaData = async ({ contractAddress, tokenId }) => {
 
 const getOwnedNFTs = async (ownerAddress) => {
   try {
-    const data = await axios.get(`/api/nfts/owned/${ownerAddress}`);
-    console.log(data);
-    return data;
+    if (ownerAddress) {
+      const data = await axios.get(`/api/nfts/owned/${ownerAddress}`);
+      console.log(data);
+      return data;
+    }
+    return;
   } catch (err) {
     console.log(err.message);
   }

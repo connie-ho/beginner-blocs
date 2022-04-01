@@ -3,14 +3,16 @@ export default function useMessages() {
     let messages = {
       message: 'Try browsing the marketplace to find something for you!',
       type: 'Marketplace',
+      link: '/',
     };
     if (type === 'created') {
       messages.message = 'Come back soon, or try creating an NFT below!';
       messages.type = 'Create NFT';
       return messages;
     } else if (type === 'listed') {
-      messages.message = 'Come back soon, or try listing an NFT below!';
-      messages.type = 'List NFT';
+      messages.message = 'Come back soon, or try minting an NFT below!';
+      messages.type = 'Create NFT';
+      messages.link = '/create';
       return messages;
     } else {
       return messages;
