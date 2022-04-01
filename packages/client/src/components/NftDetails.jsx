@@ -201,6 +201,14 @@ function NftDetails() {
     }
   };
 
+  const getOriginalOwner = () => {
+    if (ownerAddress == null || account == null || nftMetadata == null) return '';
+    if (nftmarketaddress.toLowerCase() === ownerAddress.toLowerCase()) {
+      return nftMetadata.seller.toLowerCase();
+    }
+    return ownerAddress;
+  };
+
   const allowBuying = () => {
     if (ownerAddress == null || account == null || nftMetadata == null) return false;
     return (
@@ -223,6 +231,10 @@ function NftDetails() {
       return;
     }
     setAlert(null);
+  };
+
+  const redirectToOriginalOwner = () => {
+    navigate(`/user/${getOriginalOwner()}`);
   };
 
   const action = (
@@ -266,7 +278,7 @@ function NftDetails() {
             <InputLabel sx={{ mt: 2 }} color="error">
               Owned By:
             </InputLabel>
-            <AccountButton>{ownerAddress}</AccountButton>
+            <AccountButton onClick={redirectToOriginalOwner}>{getOriginalOwner()}</AccountButton>
 
             <Box sx={{ mt: 2 }}>
               {allowBuying() ? (
