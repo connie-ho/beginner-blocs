@@ -52,6 +52,7 @@ const Profile = ({ owner }) => {
     };
     const fetchNFTs = async (account) => {
       const listedItems = owner ? await loadListedNFTs() : await loadUserListedNFTs(account);
+      console.log('li', listedItems);
       const ownedItems = await loadOwnedNFTs(account);
       setNFTs({ listed: listedItems, owned: ownedItems });
     };
