@@ -7,7 +7,7 @@ import seedrandom from 'seedrandom';
 import { MemoryRouter } from 'react-router-dom';
 import UserContextProvider from '../../../contexts/user-context';
 import EthersContextProvider from '../../../contexts/ethers-provider-context';
-import { nftmarketaddress } from '../../../config';
+import { nftmarketaddress, nftaddress as minterContractAddress } from '../../../config';
 import { ethers } from 'ethers';
 
 const seed = new seedrandom(`BEGINNERBLOCS`);
@@ -42,6 +42,28 @@ jest.mock('../../../contexts/ethers-provider-context', () => {
   };
 });
 
+// const mockedTokenContract = {
+//   transferFrom: jest.fn(),
+// };
+
+// const mockTransferFrom = jest.fn().mockImplementation(() => {
+//   return Promise.resolve({ wait: jest.fn().mockImplementation(() => Promise.resolve()) });
+// });
+
+const mockTransferFrom = jest.fn();
+
+jest.mock('ethers', () => {
+  const originalModule = jest.requireActual('ethers');
+  return {
+    __esModule: true,
+    ...originalModule,
+    // Contract: jest.fn().mockImplementation(() => {
+    //   return {transferFrom: mockTransferFrom};
+    // }),
+    Contract: jest.fn(),
+  };
+});
+
 function mockRouter(mockInitialHistory) {
   const rrd = require('react-router-dom');
   jest
@@ -58,22 +80,18 @@ function mockUserContext(mockAccountAddress) {
   });
 }
 
-const mockTokenContract = {};
-
-const mockProvider = {};
-
 const mockMarketContract = {
   fetchItemByContractAddAndTokenID: jest.fn(),
   createMarketSale: jest.fn(),
-  signer: randomHexString(seed, 40),
+  signer: randomHexString(seed, 20),
   getListingPrice: jest.fn(),
   createMarketItem: jest.fn(),
 };
 
 const mockcontextValue = {
-  tokenContract: mockTokenContract,
+  tokenContract: {},
   marketContract: mockMarketContract,
-  provider: mockProvider,
+  provider: {},
 };
 
 function mockEthersContext() {
@@ -83,7 +101,7 @@ function mockEthersContext() {
   jest.spyOn(mockMarketContract, 'fetchItemByContractAddAndTokenID').mockResolvedValue({
     price: ethers.utils.parseUnits('0.001', 'ether').toString(),
     itemId: 1,
-    seller: randomHexString('seller', 40),
+    seller: randomHexString('seller', 20),
   });
   jest
     .spyOn(mockMarketContract, 'createMarketSale')
@@ -96,6 +114,18 @@ function mockEthersContext() {
   EthersContextProvider.mockImplementation(({ children }) => {
     return <originalContext.Provider value={mockcontextValue}>{children}</originalContext.Provider>;
   });
+}
+
+function mockTokenContract() {
+  // jest.spyOn(mockedTokenContract, "transferFrom").mockResolvedValue({ wait: jest.fn().mockImplementation(() => Promise.resolve()) });
+  mockTransferFrom.mockImplementation(() => {
+    return Promise.resolve({ wait: jest.fn() });
+  });
+  jest.spyOn(ethers, 'Contract').mockImplementation(() => {
+    return { transferFrom: mockTransferFrom };
+  });
+  // jest.spyOn(ethers.Contract, "transferFrom").mockResolvedValue({ wait: jest.fn().mockImplementation(() => Promise.resolve()) });
+  // mock
 }
 
 function mockAxiosWithSuccessResponse() {
@@ -158,12 +188,13 @@ function makeURL(contractAddress, tokenId, ownerAddress) {
 }
 
 describe('NFT Details page - User not logged in', () => {
-  const validContractAddress = randomHexString(seed, 40);
-  const validOwnerAddress = randomHexString(seed, 40);
+  const validContractAddress = randomHexString(seed, 20);
+  const validOwnerAddress = randomHexString(seed, 20);
 
   beforeEach(() => {
     mockUserContext('');
     mockEthersContext();
+    mockTokenContract();
   });
 
   afterEach(() => {
@@ -218,12 +249,13 @@ describe('NFT Details page - User not logged in', () => {
 
 describe('User logged in - Owner', () => {
   const seed = new seedrandom(`BEGINNERBLOCS`);
-  const validContractAddress = randomHexString(seed, 40);
-  const validOwnerAddress = randomHexString(seed, 40);
+  const validContractAddress = randomHexString(seed, 20);
+  const validOwnerAddress = randomHexString(seed, 20);
 
   beforeEach(() => {
     mockUserContext(validOwnerAddress);
     mockEthersContext();
+    mockTokenContract();
   });
 
   afterEach(() => {
@@ -248,15 +280,50 @@ describe('User logged in - Owner', () => {
 
     await expect(async () => await screen.findByText('Buy')).rejects.toThrow();
   });
+
+  test('it calls transfer function when transfer button is clicked', async () => {
+    // const something = new ethers.Contract();
+    // const something2 = new ethers.Contract();
+    // const ret = await something2.transferFrom()
+    // console.log(something2.transferFrom.getMockImplementation())
+    // console.log(mockTransferFrom.getMockImplementation().toString())
+    // expect(mockTransferFrom).toHaveBeenCalled();
+    mockAxiosWithSuccessResponse();
+    const url = makeURL(minterContractAddress, 1, validOwnerAddress);
+    mockRouter([url]);
+    renderWithProviders(<NftDetails />);
+    // // const something = new ethers.Contract();
+    // // console.log(something.transferFrom())
+
+    const transferTabBtn = await screen.findByRole('tab', { selected: false });
+
+    fireEvent.click(transferTabBtn);
+
+    const transferTextField = await screen.findByLabelText('Recipient', { exact: false });
+    const transferBtn = await screen.findByTestId('transferbtn');
+
+    fireEvent.change(transferTextField, {
+      target: { value: '0x408F3B8a148A9541507D444576EC5c1041CEdA1B' },
+    });
+    fireEvent.click(transferBtn);
+
+    // // expect(ethers.Contract.mock.instances[0].transferFrom).toHaveBeenCalled();
+    // // console.log(ethers.Contract.mock.instances)
+    await waitFor(() => {
+      // expect(screen.getByRole('')).toBeInTheDocument()
+      expect(mockTransferFrom).toHaveBeenCalled();
+    });
+  });
 });
 
 describe('User logged in - NFT listed', () => {
-  const validContractAddress = randomHexString(seed, 40);
-  const validOwnerAddress = randomHexString(seed, 40);
+  const validContractAddress = randomHexString(seed, 20);
+  const validOwnerAddress = randomHexString(seed, 20);
 
   beforeEach(() => {
     mockUserContext(validOwnerAddress);
     mockEthersContext();
+    mockTokenContract();
   });
 
   afterEach(() => {

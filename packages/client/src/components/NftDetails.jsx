@@ -182,11 +182,12 @@ function NftDetails() {
   const transfer = async (recipientAddress) => {
     try {
       let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
-      let tx = await minterContract.transferFrom(account, recipientAddress, tokenId);
 
       if (contractAddress.toLowerCase() !== minterContractAddress.toLowerCase()) {
         await approveListing();
       }
+
+      let tx = await minterContract.transferFrom(account, recipientAddress, tokenId);
 
       setLoadingMsg('Transferring the item...Please wait. This usually takes 30 seconds.');
       await tx.wait();

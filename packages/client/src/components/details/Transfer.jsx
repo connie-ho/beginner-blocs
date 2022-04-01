@@ -21,7 +21,12 @@ function Transfer({ transfer }) {
 
   const transferButton = (
     <InputAdornment position="end">
-      <IconButton variant="contained" disabled={!recipientAddressValid} onClick={() => transfer(recipientAddress)}>
+      <IconButton
+        variant="contained"
+        disabled={!recipientAddressValid}
+        onClick={() => transfer(recipientAddress)}
+        data-testid="transferbtn"
+      >
         <FontAwesomeIcon icon={faArrowRight} color={recipientAddressValid ? '#146fbe' : '#dddddd'} />
       </IconButton>
     </InputAdornment>
