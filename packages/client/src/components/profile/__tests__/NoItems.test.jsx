@@ -37,7 +37,7 @@ describe('AccountInfo', () => {
 
   test('it displays the correct messages for the listed type', async () => {
     await renderNoItems({ type: 'listed' });
-    expect(screen.getByText('Come back soon, or try listing an NFT below!', { exact: false })).toBeInTheDocument();
-    expect(screen.getByText('List NFT')).toBeInTheDocument();
+    expect(screen.getByText('Come back soon, or try minting an NFT below!', { exact: false })).toBeInTheDocument();
+    expect(screen.getByText('Create NFT')).toBeInTheDocument();
   });
 });

@@ -3,12 +3,13 @@ import { generateTestingUtils } from 'eth-testing';
 import { useInteract } from '../use-interact';
 import { expect } from 'chai';
 
+jest.setTimeout(10000);
+
 describe('useInteract Test', () => {
   const name_0 = '';
   const image_0 = '';
   const description_0 = '';
   const mintNFT = jest.fn();
-  const getCurrentWalletConnected = jest.fn();
 
   const testingUtils = generateTestingUtils({ providerType: 'MetaMask' });
   beforeAll(() => {
@@ -50,15 +51,6 @@ describe('useInteract Test', () => {
       console.log(res);
       expect(res.success).equals(mock_result.success);
       expect(res.status).equals(mock_result.status);
-    });
-  });
-
-  test(`currentwalletconnected test`, async () => {
-    const { result } = renderHook(() => useInteract({ getCurrentWalletConnected }));
-    await act(async () => {
-      const res = await result.current.getCurrentWalletConnected();
-      expect(res.address).equals('0xf61B443A155b07D2b2cAeA2d99715dC84E839EEf');
-      expect(res.status);
     });
   });
 });
