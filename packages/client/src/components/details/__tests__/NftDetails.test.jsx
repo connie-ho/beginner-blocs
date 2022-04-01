@@ -42,14 +42,6 @@ jest.mock('../../../contexts/ethers-provider-context', () => {
   };
 });
 
-// const mockedTokenContract = {
-//   transferFrom: jest.fn(),
-// };
-
-// const mockTransferFrom = jest.fn().mockImplementation(() => {
-//   return Promise.resolve({ wait: jest.fn().mockImplementation(() => Promise.resolve()) });
-// });
-
 const mockTransferFrom = jest.fn();
 
 jest.mock('ethers', () => {
@@ -57,9 +49,6 @@ jest.mock('ethers', () => {
   return {
     __esModule: true,
     ...originalModule,
-    // Contract: jest.fn().mockImplementation(() => {
-    //   return {transferFrom: mockTransferFrom};
-    // }),
     Contract: jest.fn(),
   };
 });
@@ -117,15 +106,12 @@ function mockEthersContext() {
 }
 
 function mockTokenContract() {
-  // jest.spyOn(mockedTokenContract, "transferFrom").mockResolvedValue({ wait: jest.fn().mockImplementation(() => Promise.resolve()) });
   mockTransferFrom.mockImplementation(() => {
     return Promise.resolve({ wait: jest.fn() });
   });
   jest.spyOn(ethers, 'Contract').mockImplementation(() => {
     return { transferFrom: mockTransferFrom };
   });
-  // jest.spyOn(ethers.Contract, "transferFrom").mockResolvedValue({ wait: jest.fn().mockImplementation(() => Promise.resolve()) });
-  // mock
 }
 
 function mockAxiosWithSuccessResponse() {
@@ -282,18 +268,10 @@ describe('User logged in - Owner', () => {
   });
 
   test('it calls transfer function when transfer button is clicked', async () => {
-    // const something = new ethers.Contract();
-    // const something2 = new ethers.Contract();
-    // const ret = await something2.transferFrom()
-    // console.log(something2.transferFrom.getMockImplementation())
-    // console.log(mockTransferFrom.getMockImplementation().toString())
-    // expect(mockTransferFrom).toHaveBeenCalled();
     mockAxiosWithSuccessResponse();
     const url = makeURL(minterContractAddress, 1, validOwnerAddress);
     mockRouter([url]);
     renderWithProviders(<NftDetails />);
-    // // const something = new ethers.Contract();
-    // // console.log(something.transferFrom())
 
     const transferTabBtn = await screen.findByRole('tab', { selected: false });
 
@@ -307,10 +285,7 @@ describe('User logged in - Owner', () => {
     });
     fireEvent.click(transferBtn);
 
-    // // expect(ethers.Contract.mock.instances[0].transferFrom).toHaveBeenCalled();
-    // // console.log(ethers.Contract.mock.instances)
     await waitFor(() => {
-      // expect(screen.getByRole('')).toBeInTheDocument()
       expect(mockTransferFrom).toHaveBeenCalled();
     });
   });
