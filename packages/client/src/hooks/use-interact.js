@@ -1,7 +1,5 @@
 import { pinJSONToIPFS } from './use-pinata';
 import { nftaddress } from '../config';
-// import {Link} from "@mui/material";
-// import { use } from 'chai';
 
 require('dotenv').config();
 const alchemyKey = process.env.REACT_APP_ALCHEMY_URL;

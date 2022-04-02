@@ -1,7 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 import { generateTestingUtils } from 'eth-testing';
 import { useInteract } from '../use-interact';
-import { expect } from 'chai';
 
 jest.setTimeout(10000);
 
