@@ -4,9 +4,9 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
-import { setupEthTesting } from 'eth-testing';
+import { generateTestingUtils } from 'eth-testing';
 
-const { provider } = setupEthTesting({ providerType: 'MetaMask' });
+const { provider } = generateTestingUtils({ providerType: 'MetaMask' });
 
 global.beforeAll(() => {
   global.window.ethereum = provider;
