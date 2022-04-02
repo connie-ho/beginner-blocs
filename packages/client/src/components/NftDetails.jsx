@@ -94,14 +94,12 @@ function NftDetails() {
       let resp = null;
       try {
         resp = await getMetaData({ contractAddress, tokenId });
-        console.log(resp);
       } catch (e) {
         navigate('/404');
         return;
       }
 
       if (ownerAddress === nftmarketaddress) {
-        console.log(`${contractAddress}---${tokenId}---${ownerAddress}`);
         const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId);
         resp.price = marketItem.price;
         resp.itemId = marketItem.itemId;
