@@ -13,6 +13,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', router);
 
 describe('get-nfts', () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('GET /owned/ should return a successful response', async () => {
     const ownedNFTs = createNFTs();
     jest.spyOn(nftProviders, 'fetchOwnedNFTs').mockResolvedValue(ownedNFTs);
@@ -23,7 +27,7 @@ describe('get-nfts', () => {
   test('GET /owned/ should return status code 404 with an undefined owner address', async () => {
     const ownedNFTs = createNFTs();
     jest.spyOn(nftProviders, 'fetchOwnedNFTs').mockResolvedValue(ownedNFTs);
-    const res = await request(app).get('/owned').type('json');
+    const res = await request(app).get('/owned/undefined').type('json');
     expect(res.statusCode).toBe(404);
   });
 
@@ -32,6 +36,12 @@ describe('get-nfts', () => {
     const res = await request(app).get('/owned/123').type('json');
     expect(res.statusCode).toBe(200);
     expect(res.body.data.ownedNfts).toStrictEqual([]);
+  });
+
+  test('Returns status 500 with rejected promise', async () => {
+    jest.spyOn(nftProviders, 'fetchOwnedNFTs').mockRejectedValueOnce(new Error('Error'));
+    const res = await request(app).get('/owned/123').type('json');
+    expect(res.statusCode).toBe(500);
   });
 });
 
@@ -57,5 +67,11 @@ describe('nft-meta-data', () => {
     expect(res.body.image).toBe('');
     expect(res.body.name).toBe('');
     expect(res.body.name).toBe('');
+  });
+
+  test('Returns status 500 with rejected promise', async () => {
+    jest.spyOn(nftMetaDataProviders, 'fetchMetaDataAlchemy').mockRejectedValue(new Error('Error'));
+    const res = await request(app).post('/meta-data').type('json').send({ contractAddress: 'abc', tokenId: '123' });
+    expect(res.statusCode).toBe(500);
   });
 });

@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/owned/:ownerAddress', async function (req, res, _next) {
   const { ownerAddress } = req.params;
 
-  if (!ownerAddress) {
+  if (!ownerAddress || ownerAddress == 'undefined') {
     return res.status(404).json({ error: 'owner address must be specified in url' });
   }
 
@@ -21,7 +21,7 @@ router.get('/owned/:ownerAddress', async function (req, res, _next) {
     return res.send(data.data.ownedNfts);
   } catch (err) {
     console.log(err.message);
-    return res.status(err.response?.status || err.status || 500);
+    return res.status(500).json({ error: err.message });
   }
 });
 
@@ -43,8 +43,7 @@ router.post('/meta-data', async function (req, res, _next) {
     }
     return res.send(data.data.metadata);
   } catch (err) {
-    console.log(err.message);
-    return res.status(err.response?.status || err.status || 500);
+    return res.status(500).json({ error: err.message });
   }
 });
 
