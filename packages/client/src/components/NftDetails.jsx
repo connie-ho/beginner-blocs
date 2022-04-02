@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { ethers } from 'ethers';
-import axios from 'axios';
 
 import { Grid, Button, Box, Typography, Snackbar, IconButton, InputLabel, Tab, Tabs } from '@mui/material';
 import TabPanel from './common/TabPanel';
@@ -24,6 +23,8 @@ import Success from './common/Success';
 import ERC721 from '../artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json';
 import List from './details/List';
 import Transfer from './details/Transfer';
+
+import { getMetaData } from '../lib/test/data-utils/axios';
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -97,20 +98,11 @@ function NftDetails() {
         return;
       }
 
-      const apiKey = '-Xk_48swP3XQLraIbOIMuHxBt5bXtuJw';
-      const baseURL = `https://eth-ropsten.alchemyapi.io/v2/${apiKey}/getNFTMetadata`;
-      const tokenType = 'erc721';
-
-      var config = {
-        method: 'get',
-        url: `${baseURL}?contractAddress=${contractAddress}&tokenId=${tokenId}&tokenType=${tokenType}`,
-        headers: {},
-      };
-
-      const resp = await axios(config);
-      const statusCode = Number(resp.status);
-
-      if (statusCode < 200 || statusCode > 299) {
+      let resp = null;
+      try {
+        resp = await getMetaData({ contractAddress, tokenId });
+        console.log(resp);
+      } catch (e) {
         navigate('/404');
         return;
       }
@@ -118,11 +110,11 @@ function NftDetails() {
       if (ownerAddress === nftmarketaddress) {
         console.log(`${contractAddress}---${tokenId}---${ownerAddress}`);
         const marketItem = await marketContract.fetchItemByContractAddAndTokenID(contractAddress, tokenId);
-        resp.data.price = marketItem.price;
-        resp.data.itemId = marketItem.itemId;
-        resp.data.seller = marketItem.seller;
+        resp.price = marketItem.price;
+        resp.itemId = marketItem.itemId;
+        resp.seller = marketItem.seller;
       }
-      setNftMetadata(resp.data);
+      setNftMetadata(resp);
       setIsLoading(false);
     };
 
@@ -258,11 +250,7 @@ function NftDetails() {
       <Grid container rowSpacing={2} columnSpacing={3}>
         <Grid item xs={8}>
           <Box sx={{ p: 10, textAlign: 'center' }}>
-            <img
-              src={parseImageURL(nftMetadata.metadata.image)}
-              alt={nftMetadata.description}
-              className={classes.img}
-            />
+            <img src={parseImageURL(nftMetadata.image)} alt={nftMetadata.description} className={classes.img} />
           </Box>
         </Grid>
         <Grid item xs={4}>

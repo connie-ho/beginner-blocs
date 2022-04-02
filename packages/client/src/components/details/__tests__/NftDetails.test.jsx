@@ -1,6 +1,5 @@
 import { renderWithProviders } from '../../../lib/test-utils';
 import NftDetails from '../../NftDetails';
-import axios from 'axios';
 import { waitFor, screen, fireEvent } from '@testing-library/react';
 import { randomHexString } from '@ethersproject/testcases';
 import seedrandom from 'seedrandom';
@@ -9,6 +8,7 @@ import UserContextProvider from '../../../contexts/user-context';
 import EthersContextProvider from '../../../contexts/ethers-provider-context';
 import { nftmarketaddress, nftaddress as minterContractAddress } from '../../../config';
 import { ethers } from 'ethers';
+import { getMetaData } from '../../../lib/test/data-utils/axios';
 
 const seed = new seedrandom(`BEGINNERBLOCS`);
 
@@ -22,7 +22,7 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-jest.mock('axios');
+jest.mock('../../../lib/test/data-utils/axios');
 jest.mock('../../../contexts/user-context', () => {
   const originalModule = jest.requireActual('../../../contexts/user-context');
   return {
@@ -116,47 +116,37 @@ function mockTokenContract() {
 
 function mockAxiosWithSuccessResponse() {
   const mockResponse = {
-    status: 200,
-    data: {
-      contract: { address: '0x5180db8f5c931aae63c74266b211f580155ecac8' },
-      id: { tokenId: '1', tokenMetadata: { tokenType: 'ERC721' } },
-      title: 'title',
-      description: 'description',
-      tokenUri: {
-        raw: 'ipfs://QmZHKZDavkvNfA9gSAg7HALv8jF7BJaKjUc9U2LSuvUySB/1590.json',
-        gateway: 'https://ipfs.io/ipfs/QmZHKZDavkvNfA9gSAg7HALv8jF7BJaKjUc9U2LSuvUySB/1590.json',
-      },
-      media: [{ uri: [Object] }],
-      metadata: {
-        image: 'ipfs://cryptocoven.s3.amazonaws.com/a7875f5758f85544dcaab79a8a1ca406.png',
-        external_url: 'https://www.cryptocoven.xyz/witches/1590',
-        background_color: '',
-        coven: {
-          skills: [Object],
-          name: 'balsa vault',
-          description: [Object],
-          styles: [Array],
-          id: 1590,
-          type: 'necromancer',
-          hash: 'a7875f5758f85544dcaab79a8a1ca406',
-          birthChart: [Object],
-        },
-        name: 'title',
-        description: 'description',
-        attributes: [],
-      },
-      timeLastUpdated: '2022-01-25T07:41:32.003Z',
+    contract: { address: '0x5180db8f5c931aae63c74266b211f580155ecac8' },
+    id: { tokenId: '1', tokenMetadata: { tokenType: 'ERC721' } },
+    title: 'title',
+    description: 'description',
+    tokenUri: {
+      raw: 'ipfs://QmZHKZDavkvNfA9gSAg7HALv8jF7BJaKjUc9U2LSuvUySB/1590.json',
+      gateway: 'https://ipfs.io/ipfs/QmZHKZDavkvNfA9gSAg7HALv8jF7BJaKjUc9U2LSuvUySB/1590.json',
     },
+    media: [{ uri: [Object] }],
+    metadata: {
+      image: 'ipfs://cryptocoven.s3.amazonaws.com/a7875f5758f85544dcaab79a8a1ca406.png',
+      external_url: 'https://www.cryptocoven.xyz/witches/1590',
+      background_color: '',
+      coven: {
+        skills: [Object],
+        name: 'balsa vault',
+        description: [Object],
+        styles: [Array],
+        id: 1590,
+        type: 'necromancer',
+        hash: 'a7875f5758f85544dcaab79a8a1ca406',
+        birthChart: [Object],
+      },
+      name: 'title',
+      description: 'description',
+      attributes: [],
+    },
+    timeLastUpdated: '2022-01-25T07:41:32.003Z',
   };
 
-  axios.mockResolvedValue(Promise.resolve(mockResponse));
-}
-
-function mockAxiosWithErrorResponse() {
-  const mockResponse = {
-    status: 400,
-  };
-  axios.mockResolvedValue(Promise.resolve(mockResponse));
+  getMetaData.mockResolvedValue(mockResponse);
 }
 
 function makeURL(contractAddress, tokenId, ownerAddress) {
@@ -208,14 +198,6 @@ describe('NFT Details page - User not logged in', () => {
 
   test('it renders 404 page if owner address is null', async () => {
     const url = makeURL(validContractAddress, 1, null);
-    mockRouter([url]);
-    renderWithProviders(<NftDetails />);
-    await waitFor(() => expect(mockedUseNavigate).toHaveBeenCalledWith('/404'));
-  });
-
-  test('it renders 404 page if contract address or token id is invalid', async () => {
-    mockAxiosWithErrorResponse();
-    const url = makeURL(validContractAddress, 1, validOwnerAddress);
     mockRouter([url]);
     renderWithProviders(<NftDetails />);
     await waitFor(() => expect(mockedUseNavigate).toHaveBeenCalledWith('/404'));
