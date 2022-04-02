@@ -25,6 +25,7 @@ import List from './details/List';
 import Transfer from './details/Transfer';
 
 import { getMetaData } from '../lib/test/data-utils/axios';
+import { parseImageURL } from '../lib/utils';
 
 const useStyles = makeStyles((theme) => ({
   img: {
@@ -58,14 +59,6 @@ const useQuery = () => {
   const { search } = useLocation();
   return React.useMemo(() => new URLSearchParams(search), [search]);
 };
-
-function parseImageURL(imageURL) {
-  if (imageURL && imageURL.startsWith('ipfs://')) {
-    imageURL = imageURL.replace('ipfs://', 'https://ipfs.io/');
-  }
-
-  return imageURL;
-}
 
 function NftDetails() {
   const classes = useStyles();

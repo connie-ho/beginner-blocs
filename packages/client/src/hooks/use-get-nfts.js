@@ -2,15 +2,10 @@ import { useCallback } from 'react';
 import { ethers } from 'ethers';
 import { getMetaData, getOwnedNFTs } from '../lib/test/data-utils/axios';
 import img from '../assets/not_found.png';
+import { parseImageURL } from '../lib/utils';
 
 const useGetNFTs = ({ marketContract }) => {
-  const parseImage = useCallback((imageURL) => {
-    if (imageURL && imageURL.startsWith('ipfs://')) {
-      imageURL = imageURL.replace('ipfs://', 'https://ipfs.io/');
-    }
-
-    return imageURL;
-  });
+  const parseImage = useCallback(parseImageURL);
 
   const loadMarketNFTs = useCallback(async () => {
     const data = await marketContract.fetchMarketItems();
