@@ -17,7 +17,6 @@ const EthersContextProvider = ({ children }) => {
 
   if (ethereum) {
     provider = new ethers.providers.Web3Provider(ethereum);
-    // const provider = new ethers.providers.getDefaultProvider(process.env.REACT_APP_PROJECT_URL);
     signer = provider.getSigner();
     tokenContract = new ethers.Contract(nftaddress, NFT.abi, signer);
     marketContract = new ethers.Contract(nftmarketaddress, NFTMarket.abi, signer);

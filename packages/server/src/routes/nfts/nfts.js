@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import { fetchMetaDataAlchemy } from '../../lib/nft-meta-data.provider';
 import { fetchOwnedNFTs } from '../../lib/nft-provider';
+import axios from 'axios';
 
 dotenv.config();
 const router = express.Router();
@@ -34,15 +35,21 @@ router.post('/meta-data', async function (req, res, _next) {
 
   try {
     const data = await fetchMetaDataAlchemy({ contractAddress, tokenId });
-    if (!data.data?.metadata) {
+
+    if (!data.data) {
       return res.send({
         image: '',
         name: '',
         description: '',
       });
     }
+    if (data?.data?.metadata?.metadata?.length == 0) {
+      const metadata = await axios.get(data?.data?.tokenUri?.gateway);
+      return res.send(metadata.data);
+    }
     return res.send(data.data.metadata);
   } catch (err) {
+    console.log(err);
     return res.status(500).json({ error: err.message });
   }
 });

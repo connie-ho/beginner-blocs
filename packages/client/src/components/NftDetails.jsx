@@ -247,7 +247,7 @@ function NftDetails() {
         <Grid item xs={4}>
           <Box sx={{ p: 10 }}>
             <Typography variant="h3" component="div">
-              {nftMetadata.title}
+              {nftMetadata.name}
             </Typography>
 
             <Typography sx={{ mt: 2 }} variant="body1">

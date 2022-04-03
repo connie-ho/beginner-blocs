@@ -12,9 +12,6 @@ describe('Minters', () => {
     return {
       ...view,
       fakeFile,
-      // getStartedButton: screen.queryByRole('button', {name: /get started/i}),
-      // mintNFTButton: screen.getByRole('button', { name: /mint nft/i }),
-      // nftName: screen.queryByTestId(/nameInput/i),
     };
   };
 
@@ -28,29 +25,22 @@ describe('Minters', () => {
     jest.spyOn(global, 'FileReader').mockImplementation(function () {
       this.readAsDataURL = jest.fn();
     });
-    // const inputFile = screen.getByTestId(/imageUpload/i);
     const imageField = screen.queryByTestId(/imageUpload/i);
-    // console.log(inputFile);
     userEvent.upload(imageField, fakeFile);
-    // console.log(imageField);
     expect(imageField.files).toHaveLength(1);
   });
 
   test('Check Name field', async () => {
-    // const { nftName } = renderMinters();
     await renderMinters();
     const nftName = screen.queryByPlaceholderText('e.g. the Coolest NFT Ever!!');
     userEvent.type(nftName, ':Test NFT:');
-    // console.log(nftName);
     expect(nftName).not.toBeNull();
   });
 
   test('Check Description field', async () => {
-    // const { nftName } = renderMinters();
     await renderMinters();
     const nftDesc = screen.queryByPlaceholderText('e.g. Even cooler than cryptokitties');
     userEvent.type(nftDesc, ':Test description:');
-    // console.log(nftDesc);
     expect(nftDesc).not.toBeNull();
   });
 

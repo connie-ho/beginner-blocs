@@ -116,6 +116,9 @@ describe('useGetNFTs', () => {
               },
             },
             metadata: {},
+            tokenUri: {
+              gateway: 'http://www.lma12312312o.com',
+            },
           },
         ],
       };

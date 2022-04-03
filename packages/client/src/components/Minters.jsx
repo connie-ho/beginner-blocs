@@ -55,7 +55,7 @@ const Minter = () => {
         image: upload.target.result,
       });
     };
-    // console.log('Test file:', file);
+
     reader.readAsDataURL(file);
   };
 

@@ -27,7 +27,6 @@ jest.mock('../../../contexts/user-context', () => {
   const originalModule = jest.requireActual('../../../contexts/user-context');
   return {
     __esModule: true,
-    // ...originalModule,
     UserContext: originalModule.UserContext,
     default: jest.fn(),
   };
@@ -116,34 +115,9 @@ function mockTokenContract() {
 
 function mockAxiosWithSuccessResponse() {
   const mockResponse = {
-    contract: { address: '0x5180db8f5c931aae63c74266b211f580155ecac8' },
-    id: { tokenId: '1', tokenMetadata: { tokenType: 'ERC721' } },
-    title: 'title',
+    name: 'title',
     description: 'description',
-    tokenUri: {
-      raw: 'ipfs://QmZHKZDavkvNfA9gSAg7HALv8jF7BJaKjUc9U2LSuvUySB/1590.json',
-      gateway: 'https://ipfs.io/ipfs/QmZHKZDavkvNfA9gSAg7HALv8jF7BJaKjUc9U2LSuvUySB/1590.json',
-    },
-    media: [{ uri: [Object] }],
-    metadata: {
-      image: 'ipfs://cryptocoven.s3.amazonaws.com/a7875f5758f85544dcaab79a8a1ca406.png',
-      external_url: 'https://www.cryptocoven.xyz/witches/1590',
-      background_color: '',
-      coven: {
-        skills: [Object],
-        name: 'balsa vault',
-        description: [Object],
-        styles: [Array],
-        id: 1590,
-        type: 'necromancer',
-        hash: 'a7875f5758f85544dcaab79a8a1ca406',
-        birthChart: [Object],
-      },
-      name: 'title',
-      description: 'description',
-      attributes: [],
-    },
-    timeLastUpdated: '2022-01-25T07:41:32.003Z',
+    image: 'ipfs://cryptocoven.s3.amazonaws.com/a7875f5758f85544dcaab79a8a1ca406.png',
   };
 
   getMetaData.mockResolvedValue(mockResponse);

@@ -2,9 +2,14 @@ const createNFTMetaData = () => {
   return {
     data: {
       metadata: {
-        image: 'image.png',
-        name: 'Test',
-        description: 'I am a test NFT',
+        metadata: {
+          image: 'image.png',
+          name: 'Test',
+          description: 'I am a test NFT',
+        },
+      },
+      tokenUrl: {
+        gateway: 'https://boop23918.com',
       },
     },
   };

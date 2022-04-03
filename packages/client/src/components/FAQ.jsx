@@ -5,7 +5,6 @@ const useStyles = makeStyles((theme) => ({
   header: {
     height: '2px',
     color: theme.palette.text.primary,
-    // backgroundColor: "hsl(242, 25%, 50%)",
     paddingBottom: theme.spacing(1),
   },
   h1text: {
@@ -14,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
   cdfaq: {
     content: 'mobile',
     boxShadow: '0px 1px 2px rgba(0, 0, 0, .085)',
-    // "0 1px 8px rgba(0, 0, 0, .1)",
     position: 'relative',
     display: 'flex',
   },
@@ -30,25 +28,16 @@ const useStyles = makeStyles((theme) => ({
     widths: '20%',
     boxShadow: '0px 1px 2px rgba(0, 0, 0, .085)',
     marginTop: '1.25em',
-    // boxShadow: '0px 1px 2px rgba(0, 0, 0, .085)', '0px 1px 8px rgba(0, 0, 0, .1)',
   },
   category: {
-    // position: "-webkit-sticky",
     position: 'sticky',
     display: 'block',
     height: '50px',
     lineHeight: '50px',
     padding: '0 2em 0 1.05em',
-    // color: 'hsl(0, 0%, 100%)',
     color: theme.palette.secondary,
-    // backgroundColor: 'hsl(242, 25%, 50%)',
     fontSmooth: 'antialiased',
-    // borderColor: 'hsl(242, 25%, 55%)',
-    // borderBottom: '1px solid hsl(213, 7%, 36.3%)',
   },
-  // categoryselected: {
-  //     backgroundColor: "hsl(242, 25%, 50%)",
-  // },
   truncate: {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -85,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
   itemcontext: {
     fontSize: '0.95em',
     color: theme.palette.text,
-    // color: 'hsl(60, 0%, 38%)',
     padding: '0 0.75em',
     paddingBottom: '1.25em',
     overflow: 'hidden',
@@ -95,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
     positional: 'relative',
     margin: '1.25em 0 0.5em',
     color: theme.palette.secondary,
-    // color: 'hsl(0, 0%, 0%)',
   },
   container: {
     width: '75%',
@@ -109,9 +96,7 @@ const useStyles = makeStyles((theme) => ({
 
 const FAQ = () => {
   const classes = useStyles();
-  // const faq = React.createClass({
 
-  // render: function(onClick) {
   return (
     <div>
       <meta charSet="UTF-8" />
@@ -119,7 +104,6 @@ const FAQ = () => {
       <link rel="stylesheet" href="../assets/faqcss/style.css" />
       <title>FAQ</title>
       <header className={classes.header}>
-        {/*"cd-header flex flex-column flex-center">*/}
         <div className={classes.h1text}>
           <h1>Help Centre FAQ</h1>
         </div>
