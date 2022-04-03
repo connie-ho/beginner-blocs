@@ -23,7 +23,6 @@ describe('useInteract Test', () => {
     const { result } = renderHook(() => useInteract({ mintNFT }));
     await act(async () => {
       const res = await result.current.mintNFT(name_0, image_0, description_0);
-      // console.log(res)
       expect(res.success).toBe(mock_result.success);
       expect(res.status).toBe(mock_result.status);
     });
@@ -47,7 +46,6 @@ describe('useInteract Test', () => {
     const { result } = renderHook(() => useInteract({ mintNFT }));
     await act(async () => {
       const res = await result.current.mintNFT(name_1, image_1, description_1);
-      console.log(res);
       expect(res.success).toBe(mock_result.success);
       expect(res.status).toBe(mock_result.status);
     });

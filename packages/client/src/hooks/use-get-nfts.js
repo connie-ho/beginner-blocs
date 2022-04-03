@@ -27,7 +27,6 @@ const useGetNFTs = ({ marketContract }) => {
     const items = await Promise.all(
       data.map(async (i) => {
         const meta = await getMetaData({ contractAddress: i.nftContract, tokenId: i.tokenId.toString() });
-        console.log(meta);
         const price = ethers.utils.formatUnits(i.price.toString(), 'ether');
 
         return {
@@ -92,7 +91,6 @@ const useGetNFTs = ({ marketContract }) => {
 
   const loadUserListedNFTs = useCallback(
     async (userAddress) => {
-      console.log(userAddress);
       const data = await marketContract.fetchUserListedNFTs(userAddress);
       const items = await Promise.all(
         data.map(async (i) => {
