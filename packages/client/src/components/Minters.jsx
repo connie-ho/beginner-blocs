@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-duplicate-props */
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useInteract } from '../hooks/use-interact';
+import { UserContext } from '../contexts/user-context';
 import { makeStyles } from '@mui/styles';
 import { Link, Grid, Input, Typography, Button, Box } from '@mui/material';
 import default_image from '../assets/default_preview_image.png';
@@ -31,34 +32,15 @@ const Minter = () => {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  //const [_url, setURL] = useState("");
   const [file, setFile] = useState('');
-  const { getCurrentWalletConnected, mintNFT } = useInteract();
+  const { mintNFT } = useInteract();
 
   //styling class
   const classes = useStyles();
-
+  const { address } = useContext(UserContext);
   useEffect(async () => {
-    const { address } = await getCurrentWalletConnected();
-
     setWallet(address);
-    // setStatus(status);
-    // addWalletListener();
   }, []);
-
-  // function addWalletListener() {
-  //   if (window.ethereum) {
-  //     window.ethereum.on('accountsChanged', (accounts) => {
-  //       if (accounts.length > 0) {
-  //         setWallet(accounts[0]);
-  //         //   setStatus("");
-  //       } else {
-  //         setWallet('');
-  //         setStatus('🦊 Connect to Metamask using the top right button.');
-  //       }
-  //     });
-  //   }
-  // }
 
   const onMintPressed = async () => {
     const { status } = await mintNFT(file, name, description);
@@ -122,12 +104,12 @@ const Minter = () => {
               <Typography className="MuiTypography-subtitle1" align="left" variant="h4">
                 {' '}
                 Name:
-                <input
+                <Input
                   type="text"
                   data-testid="name"
                   sx={{ ml: 5, pl: 5, color: 'black' }}
                   className="MuiInput-formControl"
-                  placeholder="NFT"
+                  placeholder="e.g. the Coolest NFT Ever!!"
                   onChange={(event) => setName(event.target.value)}
                 />
               </Typography>

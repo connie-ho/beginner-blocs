@@ -1,6 +1,7 @@
 import React from 'react';
 import { Grid, Typography, Button } from '@mui/material';
 import useMessages from '../../hooks/use-messages';
+import { Link } from 'react-router-dom';
 
 const NoItems = (props) => {
   const { type } = props;
@@ -26,6 +27,8 @@ const NoItems = (props) => {
         {messages.message}
       </Typography>
       <Button
+        component={Link}
+        to={messages.link}
         size="large"
         sx={{ fontSize: '1rem', borderRadius: '2rem', marginTop: '1rem' }}
         variant="contained"

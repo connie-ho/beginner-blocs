@@ -44,10 +44,9 @@ describe('useGetNFTs', () => {
       const { result } = renderHook(() => useGetNFTs({ marketContract }));
       await act(async () => {
         const res = await result.current.loadListedNFTs();
-        expect(res[0].status).toBe('fulfilled');
-        expect(res[0].value.price).toBe('0.000000000000000001');
-        expect(res[0].value.itemId).toBe(101);
-        expect(res[0].value.image).toBe('https://ipfs.io/test-image');
+        expect(res[0].price).toBe('0.000000000000000001');
+        expect(res[0].itemId).toBe(101);
+        expect(res[0].image).toBe('https://ipfs.io/test-image');
       });
     });
   });
@@ -62,10 +61,9 @@ describe('useGetNFTs', () => {
       const { result } = renderHook(() => useGetNFTs({ marketContract }));
       await act(async () => {
         const res = await result.current.loadUserListedNFTs();
-        expect(res[0].status).toBe('fulfilled');
-        expect(res[0].value.price).toBe('0.000000000000000001');
-        expect(res[0].value.itemId).toBe(101);
-        expect(res[0].value.image).toBe('https://ipfs.io/test-image');
+        expect(res[0].price).toBe('0.000000000000000001');
+        expect(res[0].itemId).toBe(101);
+        expect(res[0].image).toBe('https://ipfs.io/test-image');
       });
     });
   });

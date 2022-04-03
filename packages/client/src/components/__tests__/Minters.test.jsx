@@ -39,7 +39,7 @@ describe('Minters', () => {
   test('Check Name field', async () => {
     // const { nftName } = renderMinters();
     await renderMinters();
-    const nftName = screen.queryByPlaceholderText('NFT');
+    const nftName = screen.queryByPlaceholderText('e.g. the Coolest NFT Ever!!');
     userEvent.type(nftName, ':Test NFT:');
     // console.log(nftName);
     expect(nftName).not.toBeNull();
@@ -55,20 +55,14 @@ describe('Minters', () => {
   });
 
   test('Press Mint Button', async () => {
-    // const { nftName } = renderMinters();
-
     const mintNFTspy = jest.fn().mockResolvedValue({ success: true, status: 'Test Status' });
-    const currentspy = jest.fn().mockResolvedValue({ address: 'testAddress' });
-    //const mintNFTspy = jest.fn().mockResolvedValue({success: true, status: 'Test Status'});
 
     jest.spyOn(useInteract, 'useInteract').mockReturnValue({
       mintNFT: mintNFTspy,
-      getCurrentWalletConnected: currentspy,
     });
     await renderMinters();
     const mintButton = screen.queryByTestId('mintButton');
     userEvent.click(mintButton);
-    console.log(mintButton);
     expect(await mintNFTspy).toHaveBeenCalled();
   });
 });
