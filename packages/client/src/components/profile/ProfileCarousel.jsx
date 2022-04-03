@@ -35,7 +35,7 @@ const ProfileCarousel = (props) => {
   let nfts = props.nfts;
 
   const carouselNFTs = nfts.filter((nft) => {
-    return nft.name !== 'N/A' && nft.description !== 'N/A';
+    return nft.name !== 'N/A' || (undefined && nft.description !== 'N/A') || undefined;
   });
 
   const classes = useStyles();

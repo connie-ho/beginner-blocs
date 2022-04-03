@@ -7,6 +7,7 @@ const getMetaData = async ({ contractAddress, tokenId }) => {
       contractAddress,
       tokenId,
     });
+    console.log(data);
     return data.data;
   } catch (err) {
     console.log(err.message);
