@@ -12,9 +12,6 @@ describe('Minters', () => {
     return {
       ...view,
       fakeFile,
-      // getStartedButton: screen.queryByRole('button', {name: /get started/i}),
-      // mintNFTButton: screen.getByRole('button', { name: /mint nft/i }),
-      // nftName: screen.queryByTestId(/nameInput/i),
     };
   };
 
@@ -28,38 +25,28 @@ describe('Minters', () => {
     jest.spyOn(global, 'FileReader').mockImplementation(function () {
       this.readAsDataURL = jest.fn();
     });
-    // const inputFile = screen.getByTestId(/imageUpload/i);
     const imageField = screen.queryByTestId(/imageUpload/i);
-    // console.log(inputFile);
     userEvent.upload(imageField, fakeFile);
-    // console.log(imageField);
     expect(imageField.files).toHaveLength(1);
   });
 
   test('Check Name field', async () => {
-    // const { nftName } = renderMinters();
     await renderMinters();
     const nftName = screen.queryByPlaceholderText('NFT');
     userEvent.type(nftName, ':Test NFT:');
-    // console.log(nftName);
     expect(nftName).not.toBeNull();
   });
 
   test('Check Description field', async () => {
-    // const { nftName } = renderMinters();
     await renderMinters();
     const nftDesc = screen.queryByPlaceholderText('e.g. Even cooler than cryptokitties');
     userEvent.type(nftDesc, ':Test description:');
-    // console.log(nftDesc);
     expect(nftDesc).not.toBeNull();
   });
 
   test('Press Mint Button', async () => {
-    // const { nftName } = renderMinters();
-
     const mintNFTspy = jest.fn().mockResolvedValue({ success: true, status: 'Test Status' });
     const currentspy = jest.fn().mockResolvedValue({ address: 'testAddress' });
-    //const mintNFTspy = jest.fn().mockResolvedValue({success: true, status: 'Test Status'});
 
     jest.spyOn(useInteract, 'useInteract').mockReturnValue({
       mintNFT: mintNFTspy,
@@ -68,7 +55,6 @@ describe('Minters', () => {
     await renderMinters();
     const mintButton = screen.queryByTestId('mintButton');
     userEvent.click(mintButton);
-    console.log(mintButton);
     expect(await mintNFTspy).toHaveBeenCalled();
   });
 });

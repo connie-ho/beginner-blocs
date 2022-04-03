@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
 
 const responsive = {
   superLargeDesktop: {
-    // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 1,
   },

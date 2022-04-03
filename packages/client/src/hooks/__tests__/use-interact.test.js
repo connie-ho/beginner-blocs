@@ -12,7 +12,7 @@ describe('useInteract Test', () => {
 
   const testingUtils = generateTestingUtils({ providerType: 'MetaMask' });
   beforeAll(() => {
-    // Manually inject the mocked provider in the window as MetaMask does
+    // Manually inject the mocked provider in the window as MetaMask
     global.window.ethereum = testingUtils.getProvider();
     testingUtils.mockChainId('0x3');
     testingUtils.mockRequestAccounts(['0xf61B443A155b07D2b2cAeA2d99715dC84E839EEf']);
@@ -23,7 +23,6 @@ describe('useInteract Test', () => {
     const { result } = renderHook(() => useInteract({ mintNFT }));
     await act(async () => {
       const res = await result.current.mintNFT(name_0, image_0, description_0);
-      // console.log(res)
       expect(res.success).equals(mock_result.success);
       expect(res.status).equals(mock_result.status);
     });

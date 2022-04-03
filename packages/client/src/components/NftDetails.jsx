@@ -128,7 +128,6 @@ function NftDetails() {
   };
 
   const approveListing = async () => {
-    // allow token from the NFT contract to be listed on the markeplace
     let minterContract = new ethers.Contract(contractAddress, ERC721.abi, marketContract.signer);
     let tx = await minterContract.approve(nftmarketaddress, tokenId);
 

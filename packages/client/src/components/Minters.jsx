@@ -31,7 +31,6 @@ const Minter = () => {
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  //const [_url, setURL] = useState("");
   const [file, setFile] = useState('');
   const { getCurrentWalletConnected, mintNFT } = useInteract();
 
@@ -42,23 +41,7 @@ const Minter = () => {
     const { address } = await getCurrentWalletConnected();
 
     setWallet(address);
-    // setStatus(status);
-    // addWalletListener();
   }, []);
-
-  // function addWalletListener() {
-  //   if (window.ethereum) {
-  //     window.ethereum.on('accountsChanged', (accounts) => {
-  //       if (accounts.length > 0) {
-  //         setWallet(accounts[0]);
-  //         //   setStatus("");
-  //       } else {
-  //         setWallet('');
-  //         setStatus('🦊 Connect to Metamask using the top right button.');
-  //       }
-  //     });
-  //   }
-  // }
 
   const onMintPressed = async () => {
     const { status } = await mintNFT(file, name, description);
@@ -73,7 +56,6 @@ const Minter = () => {
         image: upload.target.result,
       });
     };
-    // console.log('Test file:', file);
     reader.readAsDataURL(file);
   };
 

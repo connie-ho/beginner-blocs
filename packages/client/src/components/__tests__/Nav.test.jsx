@@ -22,7 +22,6 @@ jest.mock('../../contexts/user-context', () => {
   const originalModule = jest.requireActual('../../contexts/user-context');
   return {
     __esModule: true,
-    // ...originalModule,
     UserContext: originalModule.UserContext,
     default: jest.fn(),
   };
