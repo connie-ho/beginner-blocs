@@ -1,7 +1,7 @@
 # Beginner Blocs
 
-Welcome to NFT Marketplace.
-An NFT is a digital asset that represents real-world arts like pictures. An NFT Marketplace, designed by beginners for beginners, is a platform for people to create, buy, sell, and transfer NFTs around the world. Click on the get started button to learn more details about the NFT world and how to use the marketplace!
+Welcome to Beginner Blocs!
+An NFT is a digital asset that represents real-world art. Beginner Blocs is an NFT Marketplace, designed by beginners for beginners, is a platform for people to create, buy, sell, and transfer NFTs around the world. Click on the get started button to learn more details about the NFT world and how to use the marketplace!
 
 Buy:
 Use Metamask wallet to log in and choose your favorite NFT through our Marketplace homepage. Make sure your wallet has enough ETH to buy the NFT. After the transaction is complete, you can view this NFT on your profile page.
